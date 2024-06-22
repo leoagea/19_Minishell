@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/06/22 20:14:20 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/06/22 21:41:09 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef enum s_type
 
 typedef struct s_tokens
 {
-	int				type;				// C'est le type de token entre 0,1,2,...,6 enumere au dessus
+	t_type			type;				// C'est le type de token entre 0,1,2,...,6 enumere au dessus
 	char			*str;				// C'est la chaine de caractere literale
 	struct s_tokens	*next;
 }					t_tokens;
