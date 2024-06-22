@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/06/22 21:41:09 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/06/22 21:46:00 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ typedef enum s_type
 	APPEND,			// '>>'                             3
 	PIPE,			// '|'                              4
 	CMD,			// 'COMMAND'  (cat, ls, ...)        5
-	OPTION			// 'OPTION'   (-n, -la, ...)        6
+	OPTION,			// 'OPTION'   (-n, -la, ...)        6
+	WORD			// 'MOT' (Ce qu'il y a entre quotes ou apres une commande comme echo par exemple) 7
 }			t_type;
 
 typedef struct s_tokens
