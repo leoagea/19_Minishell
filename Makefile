@@ -37,7 +37,7 @@ $(NAME) : $(OBJ)
 	@echo " 	 ██║ ╚═╝ ██║ ██║ ██║ ╚████║ ██║ ███████║ ██║  ██║ ███████╗ ███████╗ ███████╗ "
 	@echo " 	 ╚═╝     ╚═╝ ╚═╝ ╚═╝  ╚═══╝ ╚═╝ ╚══════╝ ╚═╝  ╚═╝ ╚══════╝ ╚══════╝ ╚══════╝ "
 	@echo "                 					"
-	@$(CC) $(OBJ) $(LIBFT) $(CFLAGS) -g -o $(NAME)
+	@$(CC) $(OBJ) $(LIBFT) $(CFLAGS) -lreadline -g -o $(NAME)
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)
