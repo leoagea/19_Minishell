@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dll_new_node.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:23:41 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/18 14:49:14 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/24 13:00:09 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@ t_node	*dll_new_node(int data)
 		return (NULL);
 	new->value = 0;
 	new->value = data;
-	new->col = 0;
-	new->line = 0;
-	new->color = 0xFFFFFF;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
