@@ -1,3 +1,7 @@
 ""ls"" -l | """""''''cat''''""""" -e
 
-quand un mot est entoure de single quote, le nbre de double quote doit modulo 2 == 0
+quand un mot est entoure de single quote, le nbre de double quote doit modulo 4 == 0
+
+""ls"" -l | """"''$USER''""""
+
+quand un mot $env est entoure de single quote, le nbre de double quote doit modulo 4 == 0 et il est remplace par sa valeur dans env
