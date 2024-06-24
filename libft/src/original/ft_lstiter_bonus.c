@@ -6,11 +6,11 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 22:10:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 13:18:42 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/06/24 15:46:01 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/libft.h"
+#include "../../../inc/libft.h"
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {

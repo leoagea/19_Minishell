@@ -6,13 +6,14 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/06/24 13:20:09 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/06/24 13:43:14 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "libft.h"
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
