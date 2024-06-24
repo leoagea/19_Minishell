@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putunbr_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:03:36 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/18 15:17:58 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/24 13:18:42 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/libft.h"
+#include "../../../includes/libft.h"
 
 static void	print_unb(unsigned int n, int fd)
 {
