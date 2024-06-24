@@ -6,11 +6,11 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:30:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 13:00:22 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/06/24 13:25:40 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/libft.h"
+#include "../../../includes/libft.h"
 
 void	dll_clear(t_dll *dll)
 {

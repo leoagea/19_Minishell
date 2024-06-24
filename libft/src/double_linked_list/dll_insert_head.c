@@ -6,11 +6,11 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:18:21 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/18 14:49:06 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/24 13:01:55 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/libft.h"
+#include "../../../includes/libft.h"
 
 void	dll_insert_head(int data, t_dll *dll)
 {

@@ -6,11 +6,11 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:38:24 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/18 14:49:18 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/24 13:02:07 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/libft.h"
+#include "../../../includes/libft.h"
 
 void	dll_print_backward(t_dll *dll)
 {

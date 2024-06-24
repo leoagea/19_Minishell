@@ -6,11 +6,11 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:23:41 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 13:00:09 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/06/24 13:25:38 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/libft.h"
+#include "../../../includes/libft.h"
 
 t_node	*dll_new_node(int data)
 {
