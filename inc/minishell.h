@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/06/24 15:53:01 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/24 19:05:32 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ typedef enum s_type
 	PIPE,      // '|'                              4
 	CMD,       // 'COMMAND'  (cat, ls, ...)        5
 	OPTION,    // 'OPTION'   (-n, -la, ...)        6
-	ARG       
-		// 'ARGUMENT DE COMMANDE' (Ce qu'il y a apres une commande comme echo par exemple,entre quotes ou non) 7
+	ARG        // 'ARGUMENT DE COMMANDE' (Ce qu'il y a apres une commande comme echo par exemple,entre quotes ou non) 7
 }					t_type;
 
 typedef struct s_tokens
@@ -55,5 +54,9 @@ typedef struct s_command
 	int 			outfile;    	// fd outifile
 	char			**command; 	// complete command : array of string to passs in execve
 }					t_command;
+
+/*--------------------------------LEXER----------------------------------*/
+
+int token_read(char *input, t_tokens *token);
 
 #endif
