@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/06/24 19:05:32 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/24 21:26:42 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,13 @@ typedef struct s_command
 }					t_command;
 
 /*--------------------------------LEXER----------------------------------*/
+/*-------------------------------Tokens----------------------------------*/
 
 int token_read(char *input, t_tokens *token);
+
+/*--------------------------------Utils----------------------------------*/
+
+int	skip_whitespace(char *str, int i);
+int	check_len_token(char *str, int j);
 
 #endif
