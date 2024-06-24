@@ -6,13 +6,8 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:16:09 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 13:16:49 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/24 16:10:30 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
-
-int main(int ac, char **av){
-	
-	
-}
+#include "../../../inc/minishell.h"

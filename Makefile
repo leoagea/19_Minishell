@@ -15,15 +15,18 @@ CFLAGS = -Werror -Wall -Wextra
 
 RM = rm -rf
 
-SRCS = src/builtins/env.c
+SRCS_DIR = src/
+OBJS_DIR = obj/
 
-OBJS = $(SRCS:.c=.o)
+SRCS =	src/minishell.c \
+	src/builtins/env.c \
+	src/lexer/tokens.c \
 
-OBJS_DIR = ./obj
+OBJ = $(SRCS:$(SRCS_DIR)%.c=$(OBJS_DIR)%.o)
 
-all : $(NAME)
+all : $(LIBFT) $(NAME)
 
-$(NAME) : $(OBJS)
+$(NAME) : $(OBJ)
 	@make -C libft
 	@printf "                                               \r"
 	@echo "                 					"
@@ -34,13 +37,18 @@ $(NAME) : $(OBJS)
 	@echo " 	 ██║ ╚═╝ ██║ ██║ ██║ ╚████║ ██║ ███████║ ██║  ██║ ███████╗ ███████╗ ███████╗ "
 	@echo " 	 ╚═╝     ╚═╝ ╚═╝ ╚═╝  ╚═══╝ ╚═╝ ╚══════╝ ╚═╝  ╚═╝ ╚══════╝ ╚══════╝ ╚══════╝ "
 	@echo "                 					"
-	@$(CC) $(OBJS) $(LIBFT) $(CFLAGS) -g -o $(NAME)
+	@$(CC) $(OBJ) $(LIBFT) $(CFLAGS) -g -o $(NAME)
 
-$(OBJ_DIR)%.o : ./src%.c
-	@mkdir -p $(OBJ_DIR)
-	@mkdir -p $(OBJ_DIR)/builtins
-	@mkdir -p $(OBJ_DIR)/signals
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c
+	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR)/builtins
+	@mkdir -p $(OBJS_DIR)/signals
+	@mkdir -p $(OBJS_DIR)/lexer
 	@$(CC) -o $@ -c $<
+
+$(LIBFT):
+	@echo "$(YELLOW)Compiling Libft...$(NC)"
+	@make -C libft/
 
 fclean : clean
 	@make fclean -C libft
