@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/06/24 13:15:47 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/24 13:42:43 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ typedef struct s_tokens
 
 typedef struct s_command
 {
-	int infile;     // fd infile
-	int outfile;    // fd outifile
-	char **command; // complete command : array of string to passs in execve
+	int 			infile;    		// fd infile
+	int 			outfile;    	// fd outifile
+	char			**command; 	// complete command : array of string to passs in execve
 }					t_command;
 
 #endif
