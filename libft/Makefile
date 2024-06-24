@@ -6,7 +6,7 @@
 #    By: lagea <lagea@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/01 16:07:15 by lagea             #+#    #+#              #
-#    Updated: 2024/05/21 13:10:25 by lagea            ###   ########.fr        #
+#    Updated: 2024/06/18 15:32:05 by lagea            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,23 +24,23 @@ INC_DIR = inc/
 LIB_DIR = ../lib/
 LIBNAME = $(LIB_DIR)$(NAME)
 
-SRC = src/ft_atoi.c src/ft_bzero.c src/ft_calloc.c src/ft_isalnum.c src/ft_isalpha.c \
-		src/ft_isascii.c src/ft_isdigit.c src/ft_isprint.c src/ft_memchr.c \
-		src/ft_memcmp.c src/ft_memcpy.c src/ft_memmove.c src/ft_memset.c src/ft_strchr.c \
-		src/ft_strdup.c src/ft_strlcat.c src/ft_strlcpy.c src/ft_strlen.c src/ft_strncmp.c \
-		src/ft_strnstr.c src/ft_strrchr.c src/ft_tolower.c src/ft_toupper.c \
-		src/ft_substr.c src/ft_strjoin.c src/ft_split.c src/ft_itoa.c \
-		src/ft_putchar_fd.c src/ft_putstr_fd.c src/ft_putendl_fd.c \
-		src/ft_putnbr_fd.c src/ft_strtrim.c src/ft_striteri.c src/ft_strmapi.c \
-		src/ft_lstnew_bonus.c src/ft_lstadd_front_bonus.c src/ft_lstadd_back_bonus.c \
-		src/ft_lstlast_bonus.c src/ft_lstclear_bonus.c src/ft_lstdelone_bonus.c \
-		src/ft_lstmap_bonus.c src/ft_lstsize_bonus.c src/ft_lstiter_bonus.c \
-		src/printf.c src/parse.c src/print_elements.c \
-		src/print_elements_2.c src/utils_len.c src/ft_putunbr_fd.c src/ft_atol.c \
-		src/dll_insert_head.c src/dll_insert_tail.c src/dll_new_node.c \
-		src/dll_print_forward.c src/dll_size.c src/dll_clear.c \
-		src/dll_delete_head.c src/dll_delete_tail.c src/dll_print_backward.c \
-		src/get_next_line.c src/get_next_line_utils.c 
+SRC = src/original/ft_atoi.c src/original/ft_bzero.c src/original/ft_calloc.c src/original/ft_isalnum.c src/original/ft_isalpha.c \
+		src/original/ft_isascii.c src/original/ft_isdigit.c src/original/ft_isprint.c src/original/ft_memchr.c \
+		src/original/ft_memcmp.c src/original/ft_memcpy.c src/original/ft_memmove.c src/original/ft_memset.c src/original/ft_strchr.c \
+		src/original/ft_strdup.c src/original/ft_strlcat.c src/original/ft_strlcpy.c src/original/ft_strlen.c src/original/ft_strncmp.c \
+		src/original/ft_strnstr.c src/original/ft_strrchr.c src/original/ft_tolower.c src/original/ft_toupper.c \
+		src/original/ft_substr.c src/original/ft_strjoin.c src/original/ft_split.c src/original/ft_itoa.c \
+		src/original/ft_putchar_fd.c src/original/ft_putstr_fd.c src/original/ft_putendl_fd.c \
+		src/original/ft_putnbr_fd.c src/original/ft_strtrim.c src/original/ft_striteri.c src/original/ft_strmapi.c \
+		src/original/ft_lstnew_bonus.c src/original/ft_lstadd_front_bonus.c src/original/ft_lstadd_back_bonus.c \
+		src/original/ft_lstlast_bonus.c src/original/ft_lstclear_bonus.c src/original/ft_lstdelone_bonus.c \
+		src/original/ft_lstmap_bonus.c src/original/ft_lstsize_bonus.c src/original/ft_lstiter_bonus.c \
+		src/printf/printf.c src/printf/parse.c src/printf/print_elements.c src/printf/print_elements_2.c src/printf/utils_len.c \
+		src/get_next_line/get_next_line.c src/get_next_line/get_next_line_utils.c \
+		src/added_funct/ft_atol.c src/added_funct/ft_atoi_base.c src/added_funct/ft_putunbr_fd.c \
+		src/double_linked_list/dll_insert_head.c src/double_linked_list/dll_insert_tail.c src/double_linked_list/dll_new_node.c \
+		src/double_linked_list/dll_print_forward.c src/double_linked_list/dll_size.c src/double_linked_list/dll_clear.c \
+		src/double_linked_list/dll_delete_head.c src/double_linked_list/dll_delete_tail.c src/double_linked_list/dll_print_backward.c \
 
 OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
@@ -60,6 +60,12 @@ endef
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)/added_funct
+	@mkdir -p $(OBJ_DIR)/double_linked_list
+	@mkdir -p $(OBJ_DIR)/get_next_line
+	@mkdir -p $(OBJ_DIR)/get_next_line_linked_list
+	@mkdir -p $(OBJ_DIR)/original
+	@mkdir -p $(OBJ_DIR)/printf
 	@$(CC) $(CFLAGS) $(INCS) -g -c $< -o $@
 	$(call progress_bar_push_swap)
 
@@ -79,7 +85,6 @@ clean:
 fclean: clean
 	@echo "$(ORANGE)Fully cleaning libft...$(NC)"
 	@$(RM) $(LIBNAME)
-	@rm -rf $(LIB_DIR)
 	@echo "$(BLUE)Fully cleaned libft!$(NC)"
 
 re: fclean all
