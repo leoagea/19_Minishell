@@ -50,12 +50,14 @@ $(LIBFT):
 	@echo "$(YELLOW)Compiling Libft...$(NC)"
 	@make -C libft/
 
-fclean : clean
-	@make fclean -C libft
-	@$(RM) $(NAME)
-
 clean :
 	@make clean -C libft
-	@$(RM) obj/*.o obj/builtins/*.o obj/signals/*.o ./lib ./obj
+	@$(RM) obj/**/*.o
+	@$(RM) obj/minishell.o
+
+fclean : clean
+	@make fclean -C libft
+	@$(RM) lib/
+	@$(RM) $(NAME)
 
 re : fclean all
