@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-t_list	*init_env(char **envp)
+t_list	*init_env(char **envp) // INITIALISE LISTE ENV
 {
 	t_list	*env;
 	t_list	*new_node;
@@ -19,7 +19,7 @@ t_list	*init_env(char **envp)
 	return (env);
 }
 
-void print_env(t_list *env)
+void print_env(t_list *env)     // print/reproduit la commande "env"
 {
 	while (env != NULL)
 	{
