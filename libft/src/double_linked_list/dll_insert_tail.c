@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dll_insert_tail.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:34:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 13:01:59 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/24 15:46:01 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/libft.h"
+#include "../../../inc/libft.h"
 
 void	dll_insert_tail(int data, t_dll *dll)
 {

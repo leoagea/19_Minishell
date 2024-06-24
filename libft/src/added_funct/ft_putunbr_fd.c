@@ -6,11 +6,11 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:03:36 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 13:44:27 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/24 15:53:34 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/libft.h"
+#include "../../../inc/libft.h"
 
 static void	print_unb(unsigned int n, int fd)
 {

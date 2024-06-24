@@ -6,11 +6,11 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 19:07:17 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 13:44:27 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/24 15:53:34 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/libft.h"
+#include "../../../inc/libft.h"
 
 static void	skip_whitespace_and_sign(const char **str, int *sign)
 {

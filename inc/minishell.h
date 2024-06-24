@@ -6,13 +6,14 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/06/24 13:42:43 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/24 15:53:01 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "libft.h"
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>

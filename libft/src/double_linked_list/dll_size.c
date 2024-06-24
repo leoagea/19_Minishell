@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dll_size.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:39:40 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 13:02:17 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/24 15:46:01 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/libft.h"
+#include "../../../inc/libft.h"
 
 int	dll_size(t_dll *dll)
 {
