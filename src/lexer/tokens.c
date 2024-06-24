@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 22:03:53 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 15:53:34 by lagea            ###   ########.fr       */
+/*   Created: 2024/06/24 13:21:14 by lagea             #+#    #+#             */
+/*   Updated: 2024/06/24 16:17:32 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/libft.h"
+#include "../../inc/minishell.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+int test(void)
 {
-	size_t	i;
-
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (*(unsigned char *)(s1) == *(unsigned char *)(s2) && i < n - 1)
-	{
-		s1++;
-		s2++;
-		i++;
-	}
-	if (i < n)
-		return (*(unsigned char *)(s1) - *(unsigned char *)(s2));
-	return (0);
+	printf("test\n\n");
 }
