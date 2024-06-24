@@ -6,11 +6,11 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 22:29:14 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/18 15:17:02 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/24 13:18:45 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/libft.h"
+#include "../../../includes/libft.h"
 #include "get_next_line.h"
 
 

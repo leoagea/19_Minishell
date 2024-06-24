@@ -6,11 +6,11 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 21:45:42 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/18 15:04:04 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/24 13:18:45 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/libft.h"
+#include "../../../includes/libft.h"
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {

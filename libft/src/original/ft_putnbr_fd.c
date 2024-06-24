@@ -6,11 +6,11 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 21:34:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/18 15:04:35 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/24 13:18:45 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/libft.h"
+#include "../../../includes/libft.h"
 
 static void	print_nb(long n, int fd)
 {

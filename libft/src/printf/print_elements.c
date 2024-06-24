@@ -6,11 +6,11 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 17:27:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/18 15:15:08 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/24 13:18:45 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/libft.h"
+#include "../../../includes/libft.h"
 #include "printf.h"
 
 int	ft_print_char(char c)
