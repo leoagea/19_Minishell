@@ -3,16 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:21:14 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 16:17:32 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/25 14:54:27 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-int test(void)
-{
-	printf("test\n\n");
-}

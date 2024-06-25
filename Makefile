@@ -19,7 +19,7 @@ SRCS_DIR = src/
 OBJS_DIR = obj/
 
 SRCS =	src/minishell.c \
-	src/builtins/env.c \
+	src/builtins/env.c src/builtins/export.c \
 	src/lexer/tokens.c \
 
 OBJ = $(SRCS:$(SRCS_DIR)%.c=$(OBJS_DIR)%.o)
@@ -37,7 +37,7 @@ $(NAME) : $(OBJ)
 	@echo "\033[0;34m 	 ██║ ╚═╝ ██║ ██║ ██║ ╚████║ ██║ ███████║ ██║  ██║ ███████╗ ███████╗ ███████╗ "
 	@echo "\033[0;34m 	 ╚═╝     ╚═╝ ╚═╝ ╚═╝  ╚═══╝ ╚═╝ ╚══════╝ ╚═╝  ╚═╝ ╚══════╝ ╚══════╝ ╚══════╝ "
 	@echo "\033[0;34m                 																 "
-	@$(CC) $(OBJ) $(LIBFT) -g -o $(NAME)
+	@$(CC) $(OBJ) $(LIBFT) -g -fsanitize=address -o $(NAME)
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/06/24 15:53:01 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/25 18:44:24 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,18 @@ typedef struct s_command
 {
 	int 			infile;    		// fd infile
 	int 			outfile;    	// fd outifile
-	char			**command; 	// complete command : array of string to passs in execve
+	char			**command; 		// complete command : array of string to passs in execve
 }					t_command;
+
+
+//// BUILTINS ////
+	//ENV//
+int		count_nodes(t_list *list);
+t_list	*init_env(char **envp);
+void	print_env(t_list *env);
+
+   //EXPORT//
+char	*min_node(t_list *env);
+t_list	*init_export(t_list	*env);
 
 #endif
