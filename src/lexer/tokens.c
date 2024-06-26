@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:21:14 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/25 16:34:37 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/26 17:22:54 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,13 @@ int read_without_quote(char *input, t_tokens *token)
 	token = malloc(sizeof(t_tokens));
 	while (input[i])
 	{
-		i = skip_whitespace(input, i);
+		i = check_whitespace(input, i);
 		// printf("i : %d\n",i);
-		j = i;
-		j = check_len_token(input, j);
+		j = 0;
+		j += check_quotes(input, i, (int) 34);
+		j += check_quotes(input, i, (int) 39);
+		if (j == 0)
+			j = check_len_token(input, i);
 		// printf("j : %d\n",j);
 		token->str = ft_substr(input, i, j - i);
 		if (!token->str)
@@ -50,23 +53,31 @@ int read_without_quote(char *input, t_tokens *token)
 		i = j;
 		i++;
 	}
+	return 0;
 }
 
 int	token_read(char *input, t_tokens *token)
 {
-	int i;
-	char **split;
-	t_tokens *head;
+	// int i;
+	// char **split;
+	// t_tokens *head;
 
-	head = token;
-	i = 0;
-	split = ft_split_minishell(input, '|');
-	while (split[i] != NULL)
-	{
-		printf("chaine splite, i : %d , str : %s\n", i, split[i]);
-		// read_without_quote(split[i], token);
-		i++;
-	}
+	// head = token;
+	// i = 0;
+	// // split = ft_split_minishell(input, '|');
+	// while (split[i] != NULL)
+	// {
+	// 	printf("chaine splite, i : %d , str : %s\n", i, split[i]);
+	// 	// read_without_quote(split[i], token);
+	// 	i++;
+	// }
+	
+	// int i = check_quotes(input, 0, (int) 34);
+	// printf("end quotes : %d\n",i);
+	// printf("char next to quote : %c\n", (int) 34);
+	// printf("char next to quote : %c\n", (int) 39);
+	
+	read_without_quote(input, token);
 }
 //echo | cat > infile -e | pwd
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/06/24 21:26:42 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/26 16:56:49 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <sys/types.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 typedef enum s_bool
 {
@@ -62,7 +63,13 @@ int token_read(char *input, t_tokens *token);
 
 /*--------------------------------Utils----------------------------------*/
 
-int	skip_whitespace(char *str, int i);
+int	check_whitespace(char *str, int i);
 int	check_len_token(char *str, int j);
+int check_quotes(char *str, int i, char quote);
+int check_special_char(char *str, int i);
+
+/*---------------------------------Test-----------------------------------*/
+
+int token_read_(char *input, t_tokens *token);
 
 #endif
