@@ -37,6 +37,7 @@ void read_word(char *str)
 	char *word;
 
 	i = 0;
+	// while ()`
 	printf("str read word : %s\n",str);
 	i += check_quotes(str, 0, (int) 34);
 	i += check_quotes(str, 0, (int) 39);
@@ -47,7 +48,7 @@ void read_word(char *str)
 	printf("next char is whitespace char : %d\n", check_whitespace(str, i));
 	printf("i : %d char : %c\n", i, str[i]);
 	word = ft_substr(str, 0, i);
-	str = trim_str(ft_strdup(str), i); //probleme eqund on trim le word de str
+	str = ft_strtrim(str, word);
 	printf("str : %s\n", str);
 	printf("word : %s\n", word);
 }
@@ -55,16 +56,21 @@ void read_word(char *str)
 // segfault quand on envoie ca :        "echo | cat" > infile -e | pwd
 int token_read_(char *input, t_tokens *token){
 	
+	char *str;
 	char *dup;
 	int i;
 
 	i = 0;
 	while (check_whitespace(input, i))
 		i++;
+	printf("i : %d\n", i);
 	if (i != 0){
-		dup = trim_str(input, i);
-		printf("str token read : %s\n", dup);
-		read_word(dup);
+		str = ft_substr(str, 0, i);
+		printf("sub str : '%s'\n", str);
+		input = ft_strtrim(input, str);
+		// dup = trim_str(input, i);
+		// printf("str token read : %s\n", dup);
+		read_word(input);
 	}
 	else if (i == 0){
 		printf("str token read : %s\n", input);
