@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/06/26 16:56:49 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/28 17:56:37 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,11 @@ typedef struct s_command
 /*--------------------------------LEXER----------------------------------*/
 /*-------------------------------Tokens----------------------------------*/
 
-int token_read(char *input, t_tokens *token);
+int lexer(char *input, t_tokens *token);
 
 /*--------------------------------Utils----------------------------------*/
 
 int	check_whitespace(char *str, int i);
-int	check_len_token(char *str, int j);
-int check_quotes(char *str, int i, char quote);
 int check_special_char(char *str, int i);
-
-/*---------------------------------Test-----------------------------------*/
-
-int token_read_(char *input, t_tokens *token);
 
 #endif

@@ -1,86 +1,457 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tokens.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/24 13:21:14 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/26 17:22:54 by lagea            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../inc/minishell.h"
 
-int	add_token(t_tokens *token)
+static int in_quote(char *str, int i)
 {
-	t_tokens	*new;
+	char quote;
 
-	new = malloc(sizeof(t_tokens));
-	if (!new)
-		return (1);
-	new->str = NULL;
-	token->next = new;
-	token = token->next;
-	token->next = NULL;
-	return (0);
+	quote = str[i];
+	i++;
+	while (str[i])
+	{
+		if (str[i] != quote)
+			i++;
+		else if(str[i] == quote)
+		{
+			i++;
+			if ((str[i] == (int)34 || str[i] == (int) 39) && str[i])
+				quote = str[i];
+			while((!check_whitespace(str, i) && !check_special_char(str, i) && str[i]))
+			{	
+				i++;
+				if ((check_whitespace(str, i) || check_special_char(str, i) && str[i]))
+					return i;
+			}
+			i++;
+		}
+	}
+	return i;
+
 }
 
-int read_without_quote(char *input, t_tokens *token)
+int lexer(char *input, t_tokens *token)
 {
-	int	i;
-	int	j;
+	int i = 0;
+	int start;
+	char c;
+	char *word;
 
-	i = 0;
-	token = malloc(sizeof(t_tokens));
 	while (input[i])
 	{
-		i = check_whitespace(input, i);
+		while (check_whitespace(input, i) && input[i])
+			i++;
+		if((input[i] == (int)34 || input[i] == (int) 39) && input[i])
+		{
+			// printf("test \n");
+			start = i;
+			i = in_quote(input, i);
+		}
+		else
+		{
+			if (input[i])
+			{
+				// printf("test 2\n");
+				while (check_whitespace(input, i) && input[i])
+					i++;
+				start = i;
+				// printf("start char : '%c'\n", input[i]);
+				if (check_special_char(input, i))
+					while (check_special_char(input, i))
+						i++;
+				else
+				{
+					while (!check_whitespace(input, i) && input[i])
+					{
+						// printf("c : %c\n", input[i]);
+						if((input[i] == (int)34 || input[i] == (int) 39) && input[i])
+							i = in_quote(input, i);
+						else
+							i++;
+					}
+				}
+			}
+		}
+		word = ft_substr(input, start, i - start);
+		// printf("start : %d\n",start);
 		// printf("i : %d\n",i);
-		j = 0;
-		j += check_quotes(input, i, (int) 34);
-		j += check_quotes(input, i, (int) 39);
-		if (j == 0)
-			j = check_len_token(input, i);
-		// printf("j : %d\n",j);
-		token->str = ft_substr(input, i, j - i);
-		if (!token->str)
-			return (1);
-		if (add_token(token))
-			return (1);
-		printf("str : %s\n", token->str);
-		token = token->next;
-		i = j;
-		i++;
+		printf("word : %s\n\n",word);
+		while (check_whitespace(input, i) && input[i])
+			i++;
 	}
-	return 0;
 }
 
-int	token_read(char *input, t_tokens *token)
-{
-	// int i;
-	// char **split;
-	// t_tokens *head;
 
-	// head = token;
-	// i = 0;
-	// // split = ft_split_minishell(input, '|');
-	// while (split[i] != NULL)
-	// {
-	// 	printf("chaine splite, i : %d , str : %s\n", i, split[i]);
-	// 	// read_without_quote(split[i], token);
-	// 	i++;
-	// }
-	
-	// int i = check_quotes(input, 0, (int) 34);
-	// printf("end quotes : %d\n",i);
-	// printf("char next to quote : %c\n", (int) 34);
-	// printf("char next to quote : %c\n", (int) 39);
-	
-	read_without_quote(input, token);
-}
-//echo | cat > infile -e | pwd
 
-//flag in quot
+// "te""st" "cat" | infile > ls
 
-//tant que tu ne voie pas un | > < >> << un wihtespacec c est le meme token
+// "'''hola'''"'""hello""'
+
+/*
+minishell$ "HOLA"
+test
+start : 0
+i : 6
+word : "HOLA"
+
+start : 7
+i : 8
+word : 
+
+minishell$ "'HOLA'"
+test
+start : 0
+i : 8
+word : "'HOLA'"
+
+minishell$ "''HOLA"
+test
+start : 0
+i : 8
+word : "''HOLA"
+
+minishell$ "'''''HOLA'''''HELOO'''"
+test
+start : 0
+i : 24
+word : "'''''HOLA'''''HELOO'''"
+
+minishell$ Hello ca
+start : 0
+i : 5
+word : Hello
+
+start : 6
+i : 8
+word : ca
+
+start : 9
+i : 14
+word : 
+
+start : 15
+i : 16
+word : 
+
+start : 17
+i : 18
+word : 
+
+minishell$ Hello cat 
+start : 0
+i : 5
+word : Hello
+
+start : 6
+i : 9
+word : cat
+
+minishell$      
+start : 0
+i : 5
+word :      
+
+minishell$            
+start : 0
+i : 11
+word :            
+
+minishell$     
+start : 0
+i : 4
+word :     
+
+minishell$    
+start : 0
+i : 3
+word :    
+
+minishell$     
+start : 0
+i : 4
+word :     
+
+minishell$ "     "
+test
+start : 0
+i : 7
+word : "     "
+
+minishell$ '     '
+test
+start : 0
+i : 7
+word : '     '
+
+minishell$ "Hello"'>''<''|'|"Hello"
+test
+start : 0
+i : 8
+word : "Hello"'
+
+test
+start : 9
+i : 11
+word : ''
+
+test
+start : 12
+i : 14
+word : ''
+
+test
+start : 15
+i : 24
+word : '|"Hello"
+
+start : 25
+i : 30
+word : 
+
+minishell$ "Hello"">""<""|"|"Hello"
+test
+start : 0
+i : 8
+word : "Hello""
+
+test
+start : 9
+i : 11
+word : ""
+
+test
+start : 12
+i : 14
+word : ""
+
+test
+start : 15
+i : 24
+word : "|"Hello"
+
+minishell$ "hello'>"
+test
+start : 0
+i : 7
+word : "hello'
+
+test
+start : 8
+i : 9
+word : "
+*/
+
+
+/*----------------------------------*/
+/*----------------------------------*/
+/*----------------------------------*/
+/*----------------------------------*/
+/*----------------------------------*/
+/*----------------------------------*/
+/*----------------------------------*/
+/*----------------------------------*/
+
+/*
+
+minishell$ echo lol
+start : 0
+i : 4
+word : echo
+
+start : 5
+i : 8
+word : lol
+
+minishell$ echo << test
+start : 0
+i : 4
+word : echo
+
+start : 5
+i : 6
+word : <
+
+start : 6
+i : 7
+word : <
+
+start : 8
+i : 12
+word : test
+
+minishell$ echo >> er
+start : 0
+i : 4
+word : echo
+
+start : 5
+i : 6
+word : >
+
+start : 6
+i : 7
+word : >
+
+start : 8
+i : 10
+word : er
+
+minishell$ echo test || cat lo
+start : 0
+i : 4
+word : echo
+
+start : 5
+i : 9
+word : test
+
+start : 10
+i : 11
+word : |
+
+start : 11
+i : 12
+word : |
+
+start : 13
+i : 16
+word : cat
+
+start : 17
+i : 19
+word : lo
+
+minishell$ echo lol <<< test
+start : 0
+i : 4
+word : echo
+
+start : 5
+i : 8
+word : lol
+
+start : 9
+i : 10
+word : <
+
+start : 10
+i : 11
+word : <
+
+start : 11
+i : 12
+word : <
+
+start : 13
+i : 17
+word : test
+
+minishell$ echo "test de la mort" 
+start : 0
+i : 4
+word : echo
+
+start : 5
+i : 22
+word : "test de la mort"
+
+minishell$ echo test"de la mort"te tete
+start : 0
+i : 4
+word : echo
+
+start : 5
+i : 12
+word : test"de
+
+start : 13
+i : 15
+word : la
+
+start : 16
+i : 23
+word : mort"te
+
+start : 24
+i : 28
+word : tete
+
+minishell$ echo "ere er er e"
+start : 0
+i : 4
+word : echo
+
+start : 5
+i : 18
+word : "ere er er e"
+
+minishell$ echo test'de lamort'erwr
+start : 0
+i : 4
+word : echo
+
+start : 5
+i : 12
+word : test'de
+
+start : 13
+i : 24
+word : lamort'erwr
+
+minishell$ echo "test ' de la" mort '
+start : 0
+i : 4
+word : echo
+
+start : 5
+i : 19
+word : "test ' de la"
+
+start : 20
+i : 24
+word : mort
+
+start : 25
+i : 26
+word : '
+
+minishell$ echo test << test << test << 
+start : 0
+i : 4
+word : echo
+
+start : 5
+i : 9
+word : test
+
+start : 10
+i : 11
+word : <
+
+start : 11
+i : 12
+word : <
+
+start : 13
+i : 17
+word : test
+
+start : 18
+i : 19
+word : <
+
+start : 19
+i : 20
+word : <
+
+start : 21
+i : 25
+word : test
+
+start : 26
+i : 27
+word : <
+
+start : 27
+i : 28
+word : <
+
+minishell$ */

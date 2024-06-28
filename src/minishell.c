@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/26 17:23:47 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/28 17:00:43 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,25 @@ int main(void){
         if (input) {
             // printf("You entered: %s\n", input);
             str = ft_strdup(input);
-            token_read_(str, &token);
+            add_history(str);
+            // printf("%d\n", check_whitespace(str, 0));
+            // printf("old str : '%s'\n",str);
+            
+            // int i = 0;
+            // while (check_whitespace(str, i))
+            //     i++;
+            // char *skip = ft_substr(str, 0 , i);
+            // str = ft_strtrim(str, skip);
+
+            // printf("new str : '%s'\n",str);
+            
+            lexer(str, &token);
+            
             // int j = quote_border(input, 0, '"');
             // printf("j : %d\n", j);
             free(input);
             // if (str){
-            //     free(str);
+            free(str);
             //     str = NULL;   
             // }
         }

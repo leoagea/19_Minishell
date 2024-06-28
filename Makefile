@@ -20,7 +20,8 @@ OBJS_DIR = obj/
 
 SRCS =	src/minishell.c \
 	src/builtins/env.c \
-	src/lexer/tokens.c src/lexer/utils.c src/lexer/test.c \
+	src/lexer/tokens.c src/lexer/utils.c \
+	
 
 OBJ = $(SRCS:$(SRCS_DIR)%.c=$(OBJS_DIR)%.o)
 
