@@ -6,11 +6,13 @@ char	*min_node(t_list *env)
 	t_list	*node_to_flag;
 	char	*str;
 	int		i;
+	int		total;
 
 	i = 0;
+	total = 0;
 	node = env;
 	node_to_flag = node;
-	str = "__CF_USER_TEXT_ENCODING=0x0:0:0";
+	str = "~~~~~~~~~~~";
 	while (i < env->count - 1)
 	{
 		if (ft_strncmp(str, node->next->content, ft_strlen(str)) > 0 && node->next->flag == 0 && ft_strncmp("_=/usr/bin/env", node->next->content, 15) != 0)
@@ -45,21 +47,57 @@ t_list	*init_export(t_list	*env)   // INITIALISE LISTE EXPORT
 	return (export);
 }
 
-int main(int argc, char **argv, char **envp)
+void	print_export(t_list *export)    // command : export
 {
-	t_list *env;
-	t_list *export;
 	t_list *node;
-	int		i = 0;
-	env = init_env(envp);
-	export = init_export(env);
+	int		i;
+
+	i = 0;
 	node = export;
-	while (i < env->count - 1)
+	while (node)
 	{
 		if (ft_strncmp("_=/Users/vdarras/Cursus/minishell/./minishell", node->content, 46) != 0)
-			printf("%s\n", node->content);
+			printf("%s\n", (char *)node->content);
 		node = node->next;
 		i++;
 	}
-	return (0);
 }
+
+void	export_node(t_list **env, t_list **export, char *str)      // export VAR=XXXX
+{
+	t_list *new_node;
+	t_list *new_node2;
+	t_list *node;
+
+	new_node = ft_lstnew(str);
+	new_node2 = ft_lstnew(str);
+	node = *export;
+	ft_lstadd_back(env, new_node);
+	if (ft_strncmp(str, node->content, ft_strlen(str)) <= 0)
+	{
+		ft_lstadd_front(export, new_node2);
+		return ;
+	}
+	while (ft_strncmp(str, node->next->content, ft_strlen(str)) > 0 && node->next != NULL)
+		node = node->next;
+	if (node->next != NULL)
+	{
+		new_node2->next = node->next;
+		node->next = new_node2;
+		return ;
+	}
+	ft_lstadd_back(export, new_node2);
+}
+
+// int main(int argc, char **argv, char **envp)
+// {
+// 	t_list *env;
+// 	t_list *export;
+
+// 	env = init_env(envp);
+// 	export = init_export(env);
+// 	export_node(&env, &export, "a=tets");
+// 	print_export(export);
+
+// 	return (0);
+// }

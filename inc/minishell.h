@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/06/25 18:44:24 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/06/30 21:08:58 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <stdlib.h>
 # include <sys/types.h>
 # include <unistd.h>
+
+# define BUFFER_SIZE 10000
 
 typedef enum s_bool
 {
@@ -66,5 +68,15 @@ void	print_env(t_list *env);
    //EXPORT//
 char	*min_node(t_list *env);
 t_list	*init_export(t_list	*env);
+void	print_export(t_list *export);
+void	export_node(t_list **env, t_list **export, char *str);
+
+   //PWD//
+int		pwd(void);
+
+   //UNSET//
+void    del_node(t_list **node, char *str);
+int     count_to_equal(char *str);
+void    unset(t_list **env, t_list **export, char *var);
 
 #endif

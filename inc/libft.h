@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 01:26:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/25 19:53:30 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/06/30 14:29:49 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,6 @@
 # include <errno.h> //errno
 # include <string.h> //strerror
 # include <math.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000000
-# endif
 
 /*--------------------------------LIBFT----------------------------------*/
 /*Libc functions*/
@@ -80,6 +76,7 @@ typedef struct s_list
 	void			*content;
 	int				flag;
 	int				count;
+	int				total;
 	struct s_list	*next;
 }					t_list;
 
