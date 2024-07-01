@@ -33,16 +33,16 @@ void    unset(t_list **env, t_list **export, char *var)
     del_node(export, var);
 }
 
-int main(int argc, char **argv, char **envp) 
-{
-    t_list *env = init_env(envp);
-    t_list *export = init_export(env);
-    export_node_0equal(&export, "VICENTE");
-    // print_export(export);
-    print_export(export);
-    unset(&env, &export, "VICENTE");
-    sleep(1);
-    printf("\n\n");
-    print_export(export);
-    return (0);
-}
+// int main(int argc, char **argv, char **envp) 
+// {
+//     t_list *env = init_env(envp);
+//     t_list *export = init_export(env);
+//     export_node_0equal(&export, "VICENTE");
+//     // print_export(export);
+//     print_export(export);
+//     unset(&env, &export, "VICENTE");
+//     sleep(1);
+//     printf("\n\n");
+//     print_export(export);
+//     return (0);
+// }

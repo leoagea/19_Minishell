@@ -21,6 +21,7 @@ OBJS_DIR = obj/
 SRCS =	src/minishell.c \
 	src/builtins/env.c src/builtins/export.c src/builtins/pwd.c src/builtins/unset.c \
 	src/lexer/tokens.c \
+	src/signals/signals.c \
 
 OBJ = $(SRCS:$(SRCS_DIR)%.c=$(OBJS_DIR)%.o)
 
@@ -37,7 +38,7 @@ $(NAME) : $(OBJ)
 	@echo "\033[0;34m 	 ██║ ╚═╝ ██║ ██║ ██║ ╚████║ ██║ ███████║ ██║  ██║ ███████╗ ███████╗ ███████╗ "
 	@echo "\033[0;34m 	 ╚═╝     ╚═╝ ╚═╝ ╚═╝  ╚═══╝ ╚═╝ ╚══════╝ ╚═╝  ╚═╝ ╚══════╝ ╚══════╝ ╚══════╝ "
 	@echo "\033[0;34m                 																 "
-	@$(CC) $(OBJ) $(LIBFT) -g -fsanitize=address -o $(NAME)
+	@$(CC) $(OBJ) $(LIBFT) -g -L$(shell brew --prefix readline)/lib -lreadline -I $(shell brew --prefix readline)/include -o $(NAME)
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)

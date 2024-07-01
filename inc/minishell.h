@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/01 15:30:18 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/01 20:00:02 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <sys/types.h>
 # include <unistd.h>
+# include <signal.h>
 
 # define BUFFER_SIZE 10000
 
@@ -58,6 +59,8 @@ typedef struct s_command
 	char			**command; 		// complete command : array of string to passs in execve
 }					t_command;
 
+	//// MAIN ////
+	//MINISHELL//
 
 //// BUILTINS ////
 	//ENV//
@@ -79,5 +82,11 @@ int		pwd(void);
 void    del_node(t_list **node, char *str);
 int     count_to_equal(char *str);
 void    unset(t_list **env, t_list **export, char *var);
+
+
+//// SIGNALS ////
+	//CTRL C//
+void	reset(int nb);
+void	ctrl_c_d(void);
 
 #endif
