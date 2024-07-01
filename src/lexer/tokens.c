@@ -8,21 +8,16 @@ static int in_quote(char *str, int i)
 	i++;
 	while (str[i])
 	{
-		if (str[i] != quote)
+		while (str[i] != quote)
 			i++;
-		else if(str[i] == quote)
+		i++;
+		if ((str[i] == (int)34 || str[i] == (int)39) && str[i])
 		{
-			i++;
-			if ((str[i] == (int)34 || str[i] == (int) 39) && str[i])
-				quote = str[i];
-			while((!check_whitespace(str, i) && !check_special_char(str, i) && str[i]))
-			{	
-				i++;
-				if ((check_whitespace(str, i) || check_special_char(str, i) && str[i]))
-					return i;
-			}
+			quote = str[i];
 			i++;
 		}
+		else if ((check_special_char(str, i) || check_whitespace(str, i)) && str[i])
+			return i;
 	}
 	return i;
 
