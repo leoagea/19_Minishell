@@ -8,8 +8,9 @@ static int in_quote(char *str, int i)
 	i++;
 	while (str[i])
 	{
-		while (str[i] != quote)
+		while (str[i] != quote && str[i] && quote != 0)
 			i++;
+		quote = 0;
 		i++;
 		if ((str[i] == (int)34 || str[i] == (int)39) && str[i])
 		{
@@ -79,6 +80,10 @@ int lexer(char *input, t_tokens *token)
 // "te""st" "cat" | infile > ls
 
 // "'''hola'''"'""hello""'
+
+// echo test"de la mort"te tete
+
+// "Hello"'>''<''|'|"Hello"
 
 /*
 minishell$ "HOLA"
