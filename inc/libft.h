@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 01:26:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/30 14:29:49 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/01 08:50:17 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <string.h> //strerror
 # include <math.h>
 
+# define BUFFER_SIZE 10000
 /*--------------------------------LIBFT----------------------------------*/
 /*Libc functions*/
 int					ft_isalpha(int c);

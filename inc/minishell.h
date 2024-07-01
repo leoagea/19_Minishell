@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/06/30 21:08:58 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/01 15:30:18 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ void	print_env(t_list *env);
 char	*min_node(t_list *env);
 t_list	*init_export(t_list	*env);
 void	print_export(t_list *export);
-void	export_node(t_list **env, t_list **export, char *str);
+void	export_node_0equal(t_list **export, char *str);
+void	export_node_1equal(t_list **env, t_list **export, char *str);
 
    //PWD//
 int		pwd(void);

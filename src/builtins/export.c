@@ -12,16 +12,16 @@ char	*min_node(t_list *env)
 	total = 0;
 	node = env;
 	node_to_flag = node;
-	str = "~~~~~~~~~~~";
+	str = "~~~~~~~~~~~~~~~~~~~";
 	while (i < env->count - 1)
 	{
-		if (ft_strncmp(str, node->next->content, ft_strlen(str)) > 0 && node->next->flag == 0 && ft_strncmp("_=/usr/bin/env", node->next->content, 15) != 0)
+		if (ft_strncmp(str, node->content, ft_strlen(str)) > 0 && node->flag == 0 && ft_strncmp("_=/usr/bin/env", node->content, 15) != 0)
 		{
-			str = node->next->content;
-			node_to_flag = node->next;
+			str = node->content;
+			node_to_flag = node;
 		}
 		node = node->next;
-		i++;
+		i++; 
 	}
 	node_to_flag->flag = 1;
 	return(str);
@@ -63,7 +63,57 @@ void	print_export(t_list *export)    // command : export
 	}
 }
 
-void	export_node(t_list **env, t_list **export, char *str)      // export VAR=XXXX
+// int		check_existing(t_list *list, char *str)
+// {
+	
+// }
+
+int		check_mutlitple_equal(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (*str)
+	{
+		if (*str == '=')
+			i++;
+		str++;
+	}
+	if (i > 1)
+		return (2);
+	if (i == 1)
+		return (1);
+	return (0);
+}
+
+void	export_node_0equal(t_list **export, char *str)
+{
+	t_list *new_node;
+	t_list *node;
+	char	*temp;
+	char	*new_str;
+
+	node = *export;
+	temp = ft_strjoin(str, "=''");
+	new_str = temp;
+	new_node = ft_lstnew(temp);
+	if (ft_strncmp(str, node->content, ft_strlen(str)) <= 0)
+	{
+		ft_lstadd_front(export, new_node);
+		return ;
+	}
+	while (ft_strncmp(str, node->next->content, ft_strlen(str)) > 0 && node->next->next != NULL)
+		node = node->next;
+	if (node->next->next != NULL)
+	{
+		new_node->next = node->next->next;
+		node->next->next = new_node;
+		return ;
+	}
+	ft_lstadd_back(export, new_node);
+}
+
+void	export_node_1equal(t_list **env, t_list **export, char *str)      // export VAR=XXXX
 {
 	t_list *new_node;
 	t_list *new_node2;
@@ -78,12 +128,12 @@ void	export_node(t_list **env, t_list **export, char *str)      // export VAR=XX
 		ft_lstadd_front(export, new_node2);
 		return ;
 	}
-	while (ft_strncmp(str, node->next->content, ft_strlen(str)) > 0 && node->next != NULL)
+	while (ft_strncmp(str, node->next->content, ft_strlen(str)) > 0 && node->next->next != NULL)
 		node = node->next;
-	if (node->next != NULL)
+	if (node->next->next != NULL)
 	{
-		new_node2->next = node->next;
-		node->next = new_node2;
+		new_node2->next = node->next->next;
+		node->next->next = new_node2;
 		return ;
 	}
 	ft_lstadd_back(export, new_node2);
@@ -96,8 +146,10 @@ void	export_node(t_list **env, t_list **export, char *str)      // export VAR=XX
 
 // 	env = init_env(envp);
 // 	export = init_export(env);
-// 	export_node(&env, &export, "a=tets");
+// 	export_node(&env, &export, "NNN");
 // 	print_export(export);
 
 // 	return (0);
 // }
+
+//TODO : REPLACE IF ALREADY EXISTING VAR ; VAR+=XXXX -> ft_strjoin
