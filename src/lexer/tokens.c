@@ -33,11 +33,9 @@ int lexer(char *input, t_dll *tokens)
 
 	while (input[i])
 	{
-		while (check_whitespace(input, i) && input[i])
-			i++;
+		i = skip_whitespace(input, i);
 		if((input[i] == (int)34 || input[i] == (int) 39) && input[i])
 		{
-			// printf("test \n");
 			start = i;
 			i = in_quote(input, i);
 		}
@@ -45,11 +43,8 @@ int lexer(char *input, t_dll *tokens)
 		{
 			if (input[i])
 			{
-				// printf("test 2\n");
-				while (check_whitespace(input, i) && input[i])
-					i++;
+				i = skip_whitespace(input, i);
 				start = i;
-				// printf("start char : '%c'\n", input[i]);
 				if (check_special_char(input, i))
 					while (check_special_char(input, i))
 						i++;
@@ -57,7 +52,6 @@ int lexer(char *input, t_dll *tokens)
 				{
 					while (!check_whitespace(input, i) && input[i])
 					{
-						// printf("c : %c\n", input[i]);
 						if((input[i] == (int)34 || input[i] == (int) 39) && input[i])
 							i = in_quote(input, i);
 						else
@@ -67,14 +61,13 @@ int lexer(char *input, t_dll *tokens)
 			}
 		}
 		word = ft_substr(input, start, i - start);
-		// printf("start : %d\n",start);
-		// printf("i : %d\n",i);
+		check_open_quote(word);
 		dll_insert_tail(word, tokens);
-		// printf("word : %s\n\n",word);
-		while (check_whitespace(input, i) && input[i])
-			i++;
+		i = skip_whitespace(input, i);
 	}
 	dll_print_forward(tokens);
+	if (check_open_pipe(tokens))
+		return (write(1, "Error: open pipe\n",17), 1);
 }
 
 

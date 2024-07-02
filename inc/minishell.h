@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/02 16:06:33 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/02 18:01:49 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,10 @@ int lexer(char *input, t_dll *tokens);
 
 int	check_whitespace(char *str, int i);
 int check_special_char(char *str, int i);
+int skip_whitespace(char *str, int i);
+
+/*--------------------------------Check----------------------------------*/
+
+int check_open_pipe(t_dll *tokens);
 
 #endif
