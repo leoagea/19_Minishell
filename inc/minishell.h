@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/01 20:00:02 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/02 18:20:18 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,14 @@ void    del_node(t_list **node, char *str);
 int     count_to_equal(char *str);
 void    unset(t_list **env, t_list **export, char *var);
 
+   //CD//
+void	cd_home(t_list **env, t_list **export);
 
 //// SIGNALS ////
 	//CTRL C//
-void	reset(int nb);
-void	ctrl_c_d(void);
+void    rl_replace_line(const char *text, int clear_undo);
+void	reset_ctrl_C(int sig);
+void	reset_ctrl_slash(int sig);
+void	handle_signal(void);
 
 #endif

@@ -57,7 +57,10 @@ void	print_export(t_list *export)    // command : export
 	while (node)
 	{
 		if (ft_strncmp("_=/Users/vdarras/Cursus/minishell/./minishell", node->content, 46) != 0)
-			printf("%s\n", (char *)node->content);
+		{
+			ft_printf("declare -x ");
+			ft_printf("%s\n", (char *)node->content);
+		}
 		node = node->next;
 		i++;
 	}
@@ -111,6 +114,12 @@ void	export_node_0equal(t_list **export, char *str)
 		return ;
 	}
 	ft_lstadd_back(export, new_node);
+	free(temp);
+}
+
+char	*modify_export_str(char *str)
+{
+	
 }
 
 void	export_node_1equal(t_list **env, t_list **export, char *str)      // export VAR=XXXX
