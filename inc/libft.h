@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 01:26:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 13:00:59 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/02 16:06:15 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,22 @@ int	ft_atoi_base(char *str, char *base);
 
 /*-------------------------DOUBLE LIMKED LIST----------------------------*/
 
+typedef enum s_type
+{
+	INPUT = 1, // '<'                              0
+	TRUNC,     // '>'                              1
+	HEREDOC,   // '<<'                             2
+	APPEND,    // '>>'                             3
+	PIPE,      // '|'                              4
+	CMD,       // 'COMMAND'  (cat, ls, ...)        5
+	OPTION,    // 'OPTION'   (-n, -la, ...)        6
+	ARG        // 'ARGUMENT DE COMMANDE' (Ce qu'il y a apres une commande comme echo par exemple,entre quotes ou non) 7
+}					t_type;
+
 typedef struct s_node
 {
-	int value;
+	char *str;
+	t_type type; 
 	struct s_node *next;
 	struct s_node *prev;
 }					t_node;
@@ -120,10 +133,10 @@ typedef struct s_dll
 }					t_dll;
 
 
-t_node	*dll_new_node(int data);
+t_node	*dll_new_node(char* input);
 int	dll_size(t_dll *dll);
-void	dll_insert_head(int data, t_dll *dll);
-void	dll_insert_tail(int data, t_dll *dll);
+void	dll_insert_head(char *data, t_dll *dll);
+void	dll_insert_tail(char *data, t_dll *dll);
 void	dll_delete_head(t_dll *dll);
 void	dll_delete_tail(t_dll *dll);
 void	dll_print_backward(t_dll *dll);

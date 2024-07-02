@@ -24,7 +24,7 @@ static int in_quote(char *str, int i)
 
 }
 
-int lexer(char *input, t_tokens *token)
+int lexer(char *input, t_dll *tokens)
 {
 	int i = 0;
 	int start;
@@ -69,10 +69,12 @@ int lexer(char *input, t_tokens *token)
 		word = ft_substr(input, start, i - start);
 		// printf("start : %d\n",start);
 		// printf("i : %d\n",i);
-		printf("word : %s\n\n",word);
+		dll_insert_tail(word, tokens);
+		// printf("word : %s\n\n",word);
 		while (check_whitespace(input, i) && input[i])
 			i++;
 	}
+	dll_print_forward(tokens);
 }
 
 

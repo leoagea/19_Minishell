@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/06/28 17:56:37 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/02 16:06:33 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@ typedef enum s_bool
 	TRUE   //  1
 }					t_bool;
 
-typedef enum s_type
-{
-	INPUT = 1, // '<'                              0
-	TRUNC,     // '>'                              1
-	HEREDOC,   // '<<'                             2
-	APPEND,    // '>>'                             3
-	PIPE,      // '|'                              4
-	CMD,       // 'COMMAND'  (cat, ls, ...)        5
-	OPTION,    // 'OPTION'   (-n, -la, ...)        6
-	ARG        // 'ARGUMENT DE COMMANDE' (Ce qu'il y a apres une commande comme echo par exemple,entre quotes ou non) 7
-}					t_type;
+// typedef enum s_type
+// {
+// 	INPUT = 1, // '<'                              0
+// 	TRUNC,     // '>'                              1
+// 	HEREDOC,   // '<<'                             2
+// 	APPEND,    // '>>'                             3
+// 	PIPE,      // '|'                              4
+// 	CMD,       // 'COMMAND'  (cat, ls, ...)        5
+// 	OPTION,    // 'OPTION'   (-n, -la, ...)        6
+// 	ARG        // 'ARGUMENT DE COMMANDE' (Ce qu'il y a apres une commande comme echo par exemple,entre quotes ou non) 7
+// }					t_type;
 
 typedef struct s_tokens
 {
@@ -59,7 +59,7 @@ typedef struct s_command
 /*--------------------------------LEXER----------------------------------*/
 /*-------------------------------Tokens----------------------------------*/
 
-int lexer(char *input, t_tokens *token);
+int lexer(char *input, t_dll *tokens);
 
 /*--------------------------------Utils----------------------------------*/
 

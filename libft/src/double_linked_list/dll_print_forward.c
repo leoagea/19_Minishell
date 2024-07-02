@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dll_print_forward.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:41:18 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 15:46:01 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/02 16:02:16 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	dll_print_forward(t_dll *dll)
 	current = dll->head;
 	while (current != NULL)
 	{
-		ft_printf("value : %d\n", current->value);
+		ft_printf("value : %s\n", current->str);
 		current = current->next;
 	}
 }

@@ -3,21 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/28 21:26:53 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/02 16:32:33 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+t_dll	*dll_init(void)
+{
+	t_dll	*stack;
+
+	stack = malloc(sizeof(t_dll));
+	if (!stack)
+		return (NULL);
+	stack->head = NULL;
+	stack->tail = NULL;
+	return (stack);
+}
+
 int main(void){
 	
 	char *input;
     char *str;
-	t_tokens token;
-	
+	t_dll   *tokens;
+
+    tokens = dll_init();
     // Print a prompt and read a line of input from the user
     while (1)
     {
@@ -29,8 +42,10 @@ int main(void){
             str = ft_strdup(input);
             add_history(str);
             
-            lexer(str, &token);
-
+            lexer(str, tokens);
+            dll_clear(tokens);
+            tokens->head = NULL;
+            tokens->tail = NULL;
             free(input);
             free(str);
         }
