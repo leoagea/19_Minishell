@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/03 13:34:49 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/03 13:46:37 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,10 @@ int main(void){
             str = ft_strdup(input);
             add_history(str);
             
-            check = check_open_quote(str);
-            if (check == 34 || check == 39)
-                printf("No Open quote\n");
-            else
-                printf("Open quote\n");
-            printf("check : '%c'\n", check);
-            // lexer(str, tokens);
-            // dll_clear(tokens);
-            // tokens->head = NULL;
-            // tokens->tail = NULL;
+            lexer(str, tokens);
+            dll_clear(tokens);
+            tokens->head = NULL;
+            tokens->tail = NULL;
             free(input);
             free(str);
         }
