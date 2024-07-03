@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:53:07 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/03 13:38:03 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/03 18:10:00 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int check_open_quote(char *str)
 	int i;
 	char quote;
 	
-	quote = 'x';
+	quote = -2 ;
 	i = -1;
 	while (str[++i])
 		if (str[i] == 34 || str[i] == 39)
