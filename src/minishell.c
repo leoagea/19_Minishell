@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/03 13:46:37 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/03 15:58:11 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,25 @@ int main(void){
 	char *input;
     char *str;
     char check;
-	t_dll   *tokens;
+    t_data data;
 
-    tokens = dll_init();
+    data.lexer = dll_init();
     // Print a prompt and read a line of input from the user
     while (1)
     {
-        input = readline("minishell$ ");
+        data.input = readline("minishell$ ");
 
         // If the input is not NULL, print it and free the allocated memory
-        if (input) {
+        if (data.input) {
             
-            str = ft_strdup(input);
+            str = ft_strdup(data.input);
             add_history(str);
             
-            lexer(str, tokens);
-            dll_clear(tokens);
-            tokens->head = NULL;
-            tokens->tail = NULL;
-            free(input);
+            lexer(str, data.lexer);
+            dll_clear(data.lexer);
+            data.lexer->head = NULL;
+            data.lexer->tail = NULL;
+            free(data.input);
             free(str);
         }
     }
