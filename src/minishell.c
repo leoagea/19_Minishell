@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/03 15:58:11 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/03 18:18:48 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int main(void){
             add_history(str);
             
             lexer(str, data.lexer);
+            parser(&data);
             dll_clear(data.lexer);
             data.lexer->head = NULL;
             data.lexer->tail = NULL;
