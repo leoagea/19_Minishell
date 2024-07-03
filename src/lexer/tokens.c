@@ -62,7 +62,7 @@ int lexer(char *input, t_dll *tokens)
 		}
 		word = ft_substr(input, start, i - start);
 		c = check_open_quote(word);
-		if (c != 34 || c != 39 || c != x)
+		if (c != 34 && c != 39 && c != 'x')
 			return (write(1, "Error: open quote\n",18), 1);
 		dll_insert_tail(word, tokens);
 		i = skip_whitespace(input, i);
