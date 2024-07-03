@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/03 15:56:24 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/03 18:15:51 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef enum s_bool
 
 typedef struct s_cmd
 {
-    char                    *str; //cmd, arg, flag
+    char                    **str; //cmd, arg, flag
     // int                        (builtin)(t_data , struct s_cmd);
     int                        num_redirections;
     t_node                    *redirections;
@@ -43,9 +43,13 @@ typedef struct s_cmd
 typedef struct s_data
 {
 	char *input;
-	t_cmd *cmd;
 	t_dll *lexer;
+	t_cmd *parser;
 }				t_data;
+
+/*-------------------------------Minishell----------------------------------*/
+
+t_dll	*dll_init(void);
 
 /*--------------------------------LEXER----------------------------------*/
 /*-------------------------------Tokens----------------------------------*/
@@ -62,5 +66,10 @@ int skip_whitespace(char *str, int i);
 
 int check_open_pipe(t_dll *tokens);
 int check_open_quote(char *str);
+
+/*-------------------------------PARSER----------------------------------*/
+/*--------------------------------Cmd------------------------------------*/
+
+int parser(t_data *data);
 
 #endif
