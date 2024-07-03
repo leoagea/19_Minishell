@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/02 18:01:49 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/03 13:22:28 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ int skip_whitespace(char *str, int i);
 /*--------------------------------Check----------------------------------*/
 
 int check_open_pipe(t_dll *tokens);
+int check_open_quote(char *str);
 
 #endif
