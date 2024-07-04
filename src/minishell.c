@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/03 18:18:48 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/04 14:42:28 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ t_dll	*dll_init(void)
 	return (stack);
 }
 
+t_dll_cmd *dll_cmd_init(void)
+{
+    t_dll_cmd *dll;
+
+    dll = malloc(sizeof(t_dll_cmd));
+    if (!dll)
+        return NULL;
+    dll->head = NULL;
+    dll->tail = NULL;
+    return dll;
+}
+
 int main(void){
 	
 	char *input;
@@ -32,6 +44,7 @@ int main(void){
     t_data data;
 
     data.lexer = dll_init();
+    data.parser = dll_cmd_init();
     // Print a prompt and read a line of input from the user
     while (1)
     {
