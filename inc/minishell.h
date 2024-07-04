@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/04 15:00:33 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/04 18:01:48 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ t_cmd	*dll_cmd_new_node(void);
 void	dll_cmd_clear(t_dll_cmd *dll);
 void	dll_cmd_insert_tail(t_dll_cmd *dll, t_cmd *new);
 void	dll_cmd_print_forward(t_dll_cmd *dll);
+void    dll_delete_node(t_node *delete);
 
 #endif
