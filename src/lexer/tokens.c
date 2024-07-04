@@ -67,7 +67,7 @@ int lexer(char *input, t_dll *tokens)
 		dll_insert_tail(word, tokens);
 		i = skip_whitespace(input, i);
 	}
-	dll_print_forward(tokens);
+	// dll_print_forward(tokens);
 	if (check_open_pipe(tokens))
 		return (write(1, "Error: open pipe\n",17), 1);
 }
