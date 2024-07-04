@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 01:26:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/02 16:06:15 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/04 13:04:07 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,14 @@ int	ft_atoi_base(char *str, char *base);
 
 typedef enum s_type
 {
-	INPUT = 1, // '<'                              0
-	TRUNC,     // '>'                              1
-	HEREDOC,   // '<<'                             2
-	APPEND,    // '>>'                             3
-	PIPE,      // '|'                              4
-	CMD,       // 'COMMAND'  (cat, ls, ...)        5
-	OPTION,    // 'OPTION'   (-n, -la, ...)        6
-	ARG        // 'ARGUMENT DE COMMANDE' (Ce qu'il y a apres une commande comme echo par exemple,entre quotes ou non) 7
+	INPUT = 1, // '<'                              1
+	TRUNC,     // '>'                              2
+	HEREDOC,   // '<<'                             3
+	APPEND,    // '>>'                             4
+	PIPE,      // '|'                              5
+	CMD,       // 'COMMAND'  (cat, ls, ...)        6
+	OPTION,    // 'OPTION'   (-n, -la, ...)        7
+	ARG        // 'ARGUMENT DE COMMANDE' (Ce qu'il y a apres une commande comme echo par exemple,entre quotes ou non) 8
 }					t_type;
 
 typedef struct s_node
