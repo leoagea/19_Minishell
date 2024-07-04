@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/03 18:15:51 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/04 15:00:33 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,26 @@ typedef struct s_cmd
 {
     char                    **str; //cmd, arg, flag
     // int                        (builtin)(t_data , struct s_cmd);
-    int                        num_redirections;
-    t_node                    *redirections;
+    int                     num_redirections;
+    t_dll                   *redirections;
     struct s_cmd    *next;
     struct s_cmd    *prev;
 }                t_cmd;
+
+typedef struct s_dll_cmd
+{
+    struct s_cmd *head;
+    struct s_cmd *tail;
+}               t_dll_cmd;
 
 typedef struct s_data
 {
 	char *input;
 	t_dll *lexer;
-	t_cmd *parser;
+	t_dll_cmd *parser;
 }				t_data;
 
-/*-------------------------------Minishell----------------------------------*/
+/*------------------------------Minishell--------------------------------*/
 
 t_dll	*dll_init(void);
 
@@ -71,5 +77,16 @@ int check_open_quote(char *str);
 /*--------------------------------Cmd------------------------------------*/
 
 int parser(t_data *data);
+
+/*----------------------------Redirections-------------------------------*/
+
+int handle_redirections(t_dll *single_cmd, t_data *data);
+
+/*-----------------------------Utils_cmn---------------------------------*/
+
+t_cmd	*dll_cmd_new_node(void);
+void	dll_cmd_clear(t_dll_cmd *dll);
+void	dll_cmd_insert_tail(t_dll_cmd *dll, t_cmd *new);
+void	dll_cmd_print_forward(t_dll_cmd *dll);
 
 #endif
