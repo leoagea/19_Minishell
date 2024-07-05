@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/05 13:54:31 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/05 17:50:44 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@ t_dll_cmd *dll_cmd_init(void)
     return dll;
 }
 
-int main(void){
+int main(void)
+{
 	
 	char *input;
     char *str;
     char check;
     t_data data;
 
+    error_code = 0;
     data.lexer = dll_init();
     data.parser = dll_cmd_init();
     // Print a prompt and read a line of input from the user
@@ -58,8 +60,10 @@ int main(void){
             str = ft_strdup(data.input);
             add_history(str);
             
-            lexer(str, data.lexer);
+            if (lexer(str, data.lexer))
+                return 1;
             parser(&data);
+            expander(&data);
             dll_clear(data.lexer);
             data.lexer->head = NULL;
             data.lexer->tail = NULL;

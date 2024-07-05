@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/05 13:37:16 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/05 17:49:16 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <sys/types.h>
 # include <unistd.h>
 # include <stdbool.h>
+
+int error_code;
 
 typedef enum s_bool
 {
@@ -50,6 +52,7 @@ typedef struct s_data
 {
 	char *input;
 	t_dll *lexer;
+    t_dll *expander;
 	t_dll_cmd *parser;
 }				t_data;
 
@@ -72,6 +75,7 @@ int skip_whitespace(char *str, int i);
 
 int check_open_pipe(t_dll *tokens);
 int check_open_quote(char *str);
+int	check_open_redirect(t_dll *tokens);
 
 /*-------------------------------PARSER----------------------------------*/
 /*--------------------------------Cmd------------------------------------*/
@@ -90,5 +94,14 @@ void	dll_cmd_insert_tail(t_dll_cmd *dll, t_cmd *new);
 void	dll_cmd_print_forward(t_dll_cmd *dll);
 void    dll_delete_node(t_node *delete);
 int	    dll_cmd_size(t_dll_cmd *dll);
+
+/*------------------------------EXPANDER---------------------------------*/
+/*------------------------------expander---------------------------------*/
+
+int expander(t_data *data);
+
+/*-----------------------------error_code--------------------------------*/
+
+bool check_expand_error_code(t_node *current);
 
 #endif
