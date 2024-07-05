@@ -7,6 +7,11 @@ void	cd_home(t_list **env, t_list **export)
 	char	*old_dir;
 
 	node = *env;
+	if (chdir("/Users/vdarras") == -1)
+	{
+		perror("cd");
+		return ;
+	}
 	if (!getcwd(buffer, sizeof(buffer)))
 	{
 		perror("getcwd");
@@ -17,7 +22,7 @@ void	cd_home(t_list **env, t_list **export)
 	{
 		if (ft_strncmp(node->content, "OLDPWD", 6) == 0)
 			node->content = old_dir;
-		if (ft_strncmp(node->content, "PWD", 3) == 0)
+		else if (ft_strncmp(node->content, "PWD", 3) == 0)
 			node->content = "PWD=/Users/vdarras";
 		node = node->next;
 	}
@@ -26,10 +31,20 @@ void	cd_home(t_list **env, t_list **export)
 	{
 		if (ft_strncmp(node->content, "OLDPWD", 6) == 0)
 			node->content = old_dir;
-		if (ft_strncmp(node->content, "PWD", 3) == 0)
+		else if (ft_strncmp(node->content, "PWD", 3) == 0)
 			node->content = "PWD=/Users/vdarras";
 		node = node->next;
 	}
 	chdir("/Users/vdarras");
 }
 
+// void	cd(t_list **env, t_list **export, char *dir)
+// {
+// 	t_list	*node;
+// 	char	buffer[PATH_MAX];
+// 	char	*old_dir;
+// 	char	*new_dir;
+
+// 	node = *env;
+	
+// }

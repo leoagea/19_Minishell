@@ -11,7 +11,7 @@ LIBFT = lib/libft.a
 
 CC = cc
 
-CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra -fsanitize=address
 
 RM = rm -rf
 
@@ -22,6 +22,7 @@ SRCS =	src/minishell.c \
 	src/builtins/env.c src/builtins/export.c src/builtins/pwd.c src/builtins/unset.c src/builtins/cd.c \
 	src/lexer/tokens.c \
 	src/signals/signals.c \
+	src/exec/redirections.c src/exec/pipe.c \
 
 OBJ = $(SRCS:$(SRCS_DIR)%.c=$(OBJS_DIR)%.o)
 
@@ -38,13 +39,14 @@ $(NAME) : $(OBJ)
 	@echo "\033[0;34m 	 ██║ ╚═╝ ██║ ██║ ██║ ╚████║ ██║ ███████║ ██║  ██║ ███████╗ ███████╗ ███████╗ "
 	@echo "\033[0;34m 	 ╚═╝     ╚═╝ ╚═╝ ╚═╝  ╚═══╝ ╚═╝ ╚══════╝ ╚═╝  ╚═╝ ╚══════╝ ╚══════╝ ╚══════╝ "
 	@echo "\033[0;34m                 																 "
-	@$(CC) $(OBJ) $(LIBFT) -g -lreadline -o $(NAME)
+	@$(CC) $(OBJ) $(LIBFT) -g -fsanitize=address -lreadline -o $(NAME)
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)/builtins
 	@mkdir -p $(OBJS_DIR)/signals
 	@mkdir -p $(OBJS_DIR)/lexer
+	@mkdir -p $(OBJS_DIR)/exec
 	$(CC) -g -o $@ -c $<
 
 $(LIBFT):

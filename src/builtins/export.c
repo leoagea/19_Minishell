@@ -117,11 +117,6 @@ void	export_node_0equal(t_list **export, char *str)
 	free(temp);
 }
 
-char	*modify_export_str(char *str)
-{
-	
-}
-
 void	export_node_1equal(t_list **env, t_list **export, char *str)      // export VAR=XXXX
 {
 	t_list *new_node;

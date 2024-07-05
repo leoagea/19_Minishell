@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 01:26:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/01 08:50:17 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/05 19:34:35 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,19 @@ void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 
+typedef enum s_type
+{
+	INPUT = 1, // '<'                              0
+	TRUNC,     // '>'                              1
+	HEREDOC,   // '<<'                             2
+	APPEND,    // '>>'                             3
+	PIPE,      // '|'                              4
+	CMD,       // 'COMMAND'  (cat, ls, ...)        5
+	OPTION,    // 'OPTION'   (-n, -la, ...)        6
+	ARG       
+		// 'ARGUMENT DE COMMANDE' (Ce qu'il y a apres une commande comme echo par exemple,entre quotes ou non) 7
+}					t_type;
+
 /*Partie bonus*/
 
 typedef struct s_list
@@ -108,19 +121,22 @@ int	ft_atoi_base(char *str, char *base);
 
 typedef struct s_node
 {
-	int value;
-	struct s_node *next;
-	struct s_node *prev;
-}					t_node;
+	int				value;
+	char 			*str;
+	t_type			type;
+	struct s_node	*next;
+	struct s_node	*prev;
+}
+					t_node;
 
 typedef struct s_dll
-{
+{	
 	struct s_node *head;
 	struct s_node *tail;
 }					t_dll;
 
 
-t_node	*dll_new_node(int data);
+// t_node	*dll_new_node(int data);
 int	dll_size(t_dll *dll);
 void	dll_insert_head(int data, t_dll *dll);
 void	dll_insert_tail(int data, t_dll *dll);
@@ -129,6 +145,7 @@ void	dll_delete_tail(t_dll *dll);
 void	dll_print_backward(t_dll *dll);
 void	dll_print_forward(t_dll *dll);
 void	dll_clear(t_dll *dll);
+t_node	*dll_new_node(int data);
 
 /*-----------------------------GET NEXT LINE---------------------------------*/
 
