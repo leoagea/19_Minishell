@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/04 14:42:28 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/05 13:54:31 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int main(void){
         data.input = readline("minishell$ ");
 
         // If the input is not NULL, print it and free the allocated memory
+        if (ft_strncmp(data.input, "\0", 1) == 0)
+            continue;
         if (data.input) {
             
             str = ft_strdup(data.input);
