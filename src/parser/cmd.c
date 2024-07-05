@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:12:31 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/04 18:09:45 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/05 13:49:43 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ static int put_in_str(t_data *data, t_dll *cmd)
 	current = cmd->head;
 	nb_tokens = dll_size(cmd);
 	data->parser->tail->str = malloc(sizeof(char *) * nb_tokens + 1);
-	if (!data->parser->tail->str)
+	if (dll_size(cmd) == 0)
 		return 1;
 	while (current != NULL)
 	{
-		data->parser->head->str[i] = current->str;
+;		data->parser->head->str[i] = current->str;
 		current = current->next;
 		i++;
 	}
@@ -83,11 +83,10 @@ int parser(t_data *data)
 	
 	assign_type(data);
 	current = data->lexer->head;
-	printf("\n======================\n");
 	while (current != NULL)
 	{
 		single_cmd = isolate_single_cmd(data, current);
-		dll_print_forward(single_cmd);
+		// dll_print_forward(single_cmd);
 		handle_redirections(single_cmd, data);
 		while (current != NULL && current->type != PIPE){
 			current = current->next;
@@ -96,6 +95,7 @@ int parser(t_data *data)
 			current = current->next;
 		put_in_str(data, single_cmd);
 		dll_print_forward(single_cmd);
+		printf("\n======================\n\n");
 		// printf("\n======================\n");
 		// printf("double array cmd : \n");
 		// int i = 0;
