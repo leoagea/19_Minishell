@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dll_delete_head.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 00:18:01 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 15:46:01 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/05 13:45:56 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,15 @@ void	dll_delete_head(t_dll *dll)
 
 	temp = dll->head;
 	if (dll->head == dll->tail)
-		return ;
-	dll->head = temp->next;
-	dll->head->prev = NULL;
-	free(temp);
+	{
+		dll->head = NULL;
+		dll->tail = NULL;
+		free(temp);
+	}
+	else
+	{
+		dll->head = temp->next;
+		dll->head->prev = NULL;
+		free(temp);
+	}
 }
