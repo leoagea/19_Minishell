@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/04 18:01:48 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/05 13:37:16 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef enum s_bool
 typedef struct s_cmd
 {
     char                    **str; //cmd, arg, flag
-    // int                        (builtin)(t_data , struct s_cmd);
+    bool                    builtin;
     int                     num_redirections;
     t_dll                   *redirections;
     struct s_cmd    *next;
@@ -89,5 +89,6 @@ void	dll_cmd_clear(t_dll_cmd *dll);
 void	dll_cmd_insert_tail(t_dll_cmd *dll, t_cmd *new);
 void	dll_cmd_print_forward(t_dll_cmd *dll);
 void    dll_delete_node(t_node *delete);
+int	    dll_cmd_size(t_dll_cmd *dll);
 
 #endif

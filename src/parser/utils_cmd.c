@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:29:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/04 17:37:04 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/05 13:36:52 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,19 @@ void dll_delete_node(t_node *delete)
     delete->prev->next = ptr->next;  
     ptr->next->prev = delete->prev;  
 	free(ptr);  
-	printf("\nNode Deleted\n");  
+}
+
+int	dll_cmd_size(t_dll_cmd *dll)
+{
+	int	dll_len;
+	t_cmd	*current;
+
+	dll_len = 0;
+	current = dll->head;
+	while (current != NULL)
+	{
+		dll_len++;
+		current = current->next;
+	}
+	return (dll_len);
 }
