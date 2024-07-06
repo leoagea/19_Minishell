@@ -39,9 +39,10 @@ void    exec_pipe(t_cmd *command)
                 close(pipe_fd[1]);
                 close(pipe_fd[0]);
             }
-            // handle_redirections(node);   // ouvre fichier puis redirige entree ou sortie depuis ou vers le fd
+            // redirections(node);   // ouvre fichier puis redirige entree ou sortie depuis ou vers le fd
             if (/*execute_builtin(node)*/-1 == -1)
             {
+                printf("%s\n",node->str[0]);
                 execve(node->str[0], node->str, command->env);
                 perror("execve");
                 exit (1);

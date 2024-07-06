@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-void    handle_redirections(t_cmd *command)
+void    redirections(t_cmd *command)
 {
     int         fd;
     t_dll       *node;

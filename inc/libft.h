@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 01:26:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/05 19:34:35 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/05 21:06:53 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,13 +121,11 @@ int	ft_atoi_base(char *str, char *base);
 
 typedef struct s_node
 {
-	int				value;
-	char 			*str;
-	t_type			type;
-	struct s_node	*next;
-	struct s_node	*prev;
-}
-					t_node;
+	char *str;
+	t_type type; 
+	struct s_node *next;
+	struct s_node *prev;
+}					t_node;
 
 typedef struct s_dll
 {	
@@ -135,17 +133,15 @@ typedef struct s_dll
 	struct s_node *tail;
 }					t_dll;
 
-
-// t_node	*dll_new_node(int data);
 int	dll_size(t_dll *dll);
-void	dll_insert_head(int data, t_dll *dll);
-void	dll_insert_tail(int data, t_dll *dll);
+void	dll_insert_head(char *data, t_dll *dll);
+void	dll_insert_tail(char *data, t_dll *dll);
 void	dll_delete_head(t_dll *dll);
 void	dll_delete_tail(t_dll *dll);
 void	dll_print_backward(t_dll *dll);
 void	dll_print_forward(t_dll *dll);
 void	dll_clear(t_dll *dll);
-t_node	*dll_new_node(int data);
+t_node	*dll_new_node(char *input);
 
 /*-----------------------------GET NEXT LINE---------------------------------*/
 

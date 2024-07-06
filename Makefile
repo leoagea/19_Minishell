@@ -20,9 +20,11 @@ OBJS_DIR = obj/
 
 SRCS =	src/minishell.c \
 	src/builtins/env.c src/builtins/export.c src/builtins/pwd.c src/builtins/unset.c src/builtins/cd.c \
-	src/lexer/tokens.c \
 	src/signals/signals.c \
 	src/exec/redirections.c src/exec/pipe.c \
+	src/lexer/tokens.c src/lexer/utils.c src/lexer/check.c \
+	src/parser/cmd.c src/parser/utils_cmd.c src/parser/redirections.c\
+	
 
 OBJ = $(SRCS:$(SRCS_DIR)%.c=$(OBJS_DIR)%.o)
 
@@ -47,7 +49,8 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)/signals
 	@mkdir -p $(OBJS_DIR)/lexer
 	@mkdir -p $(OBJS_DIR)/exec
-	$(CC) -g -o $@ -c $<
+	@mkdir -p $(OBJS_DIR)/parser
+	@$(CC) -o $@ -c $<
 
 $(LIBFT):
 	@echo "$(YELLOW)Compiling Libft...$(NC)"
