@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/06 12:39:19 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/06 13:36:42 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int main(int argc, char **argv, char **envp)
 			parser(&data);
 			command = data.parser->head;
 			command->env = envp;
-
+			
 			// if (command->is_builtin == 0)
 			// 	execute_builtin(command);   // TODO
 			exec_pipe(command);
