@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/08 14:35:41 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/08 18:56:30 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 
-int error_code;
+int g_exit_status;
 
 typedef enum s_bool
 {
@@ -48,17 +48,24 @@ typedef struct s_dll_cmd
     struct s_cmd *tail;
 }               t_dll_cmd;
 
+typedef struct s_env_expand
+{
+    int start;
+    int end;
+    char *var;
+}               t_env_expand;
+
 typedef struct s_data
 {
 	char *input;
+    t_list *env;
 	t_dll *lexer;
     t_dll *expander;
 	t_dll_cmd *parser;
+    t_env_expand *env_expand;
 }				t_data;
 
 /*------------------------------Minishell--------------------------------*/
-
-t_dll	*dll_init(void);
 
 /*--------------------------------LEXER----------------------------------*/
 /*-------------------------------Tokens----------------------------------*/
@@ -101,8 +108,17 @@ int	    dll_cmd_size(t_dll_cmd *dll);
 
 int expander(t_data *data);
 
-/*-----------------------------error_code--------------------------------*/
+/*---------------------------env_variables-------------------------------*/
 
-bool check_expand_error_code(t_node *current);
+char *handle_env_variables(t_data *data, char *str, int i);
+
+/*--------------------------------UTILS----------------------------------*/
+/*--------------------------------init-----------------------------------*/
+
+t_dll	*dll_init(void);
+t_dll_cmd *dll_cmd_init(void);
+t_env_expand *env_var_init(void);
+int		count_nodes(t_list *list);
+t_list	*init_env(char **envp);
 
 #endif
