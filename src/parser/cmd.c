@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:12:31 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/05 13:49:43 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/08 15:48:05 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,29 +32,6 @@ static t_dll *isolate_single_cmd(t_data *data, t_node *start)
 	return single_cmd;
 }
 
-static void assign_type(t_data *data)
-{
-	t_node *current;
-
-	current = data->lexer->head;
-	while (current != NULL)
-	{
-		if (ft_strncmp(current->str, ">>", 2) == 0)
-			current->type = 4;	
-		else if (ft_strncmp(current->str, "<<", 2) == 0)
-			current->type = 3;
-		else if (ft_strncmp(current->str, ">", 1) == 0)
-			current->type = 2;
-		else if (ft_strncmp(current->str, "<", 1) == 0)
-			current->type = 1;	
-		else if (ft_strncmp(current->str, "|", 2) == 0)
-			current->type = 5;
-		else if (ft_strncmp(current->str, "-", 1) == 0)
-			current->type = 7;
-		current = current->next;
-	}
-}
-
 static int put_in_str(t_data *data, t_dll *cmd)
 {
 	int i;
@@ -69,11 +46,11 @@ static int put_in_str(t_data *data, t_dll *cmd)
 		return 1;
 	while (current != NULL)
 	{
-;		data->parser->head->str[i] = current->str;
+;		data->parser->tail->str[i] = current->str;
 		current = current->next;
 		i++;
 	}
-	data->parser->head->str[i] = NULL;
+	data->parser->tail->str[i] = NULL;
 }
 
 int parser(t_data *data)
@@ -81,7 +58,6 @@ int parser(t_data *data)
 	t_node *current;
 	t_dll *single_cmd;
 	
-	assign_type(data);
 	current = data->lexer->head;
 	while (current != NULL)
 	{
@@ -96,7 +72,7 @@ int parser(t_data *data)
 		put_in_str(data, single_cmd);
 		dll_print_forward(single_cmd);
 		printf("\n======================\n\n");
-		// printf("\n======================\n");
+		printf("\n======================\n");
 		// printf("double array cmd : \n");
 		// int i = 0;
 		// while(data->parser->tail->str[i] != NULL){
