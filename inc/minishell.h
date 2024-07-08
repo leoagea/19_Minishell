@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/05 17:49:16 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/08 14:35:41 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int skip_whitespace(char *str, int i);
 int check_open_pipe(t_dll *tokens);
 int check_open_quote(char *str);
 int	check_open_redirect(t_dll *tokens);
+int check_wrong_token(t_dll *tokens);
 
 /*-------------------------------PARSER----------------------------------*/
 /*--------------------------------Cmd------------------------------------*/
