@@ -24,6 +24,30 @@ static int in_quote(char *str, int i)
 
 }
 
+static void assign_type(t_dll *tokens)
+{
+	t_node *current;
+
+	current = tokens->head;
+	while (current != NULL)
+	{
+		if (ft_strncmp(current->str, ">>", 2) == 0)
+			current->type = 4;	
+		else if (ft_strncmp(current->str, "<<", 2) == 0)
+			current->type = 3;
+		else if (ft_strncmp(current->str, ">", 1) == 0)
+			current->type = 2;
+		else if (ft_strncmp(current->str, "<", 1) == 0)
+			current->type = 1;	
+		else if (ft_strncmp(current->str, "|", 2) == 0)
+			current->type = 5;
+		else if (ft_strncmp(current->str, "-", 1) == 0)
+			current->type = 7;
+		current = current->next;
+	}
+}
+
+
 int lexer(char *input, t_dll *tokens)
 {
 	int i = 0;
@@ -69,9 +93,12 @@ int lexer(char *input, t_dll *tokens)
 	}
 	// dll_print_forward(tokens);
 	if (check_open_pipe(tokens))
-		return (write(1, "Error: open pipe\n",17), 1);
+		return (write(1, "Error: open pipe\n",17), exit(1), 1);
 	else if (check_open_redirect(tokens))
-		return (write(1, "Error: open redirection\n",24), 1);
+		return (write(1, "Error: open redirection\n",24), exit(1), 1);
+	else if (check_wrong_token(tokens))
+		return (write(1, "Error: wrong token\n",19), exit(1), 1);
+	assign_type(tokens);
 	return 0;
 }
 
