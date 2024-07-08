@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:18:44 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/08 19:16:53 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/09 00:20:40 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void sweep_word(t_data *data, char *str, t_node *current)
 	int i;
 	char cpy;
 	char *expand;
+	
 	i = 0;
 	data->env_expand = env_var_init();
 	while (str[i])
@@ -27,8 +28,13 @@ static void sweep_word(t_data *data, char *str, t_node *current)
 		// 	expand = handle_single_quotes(str, i);
 		if (str[i] == '$')
 		{
-			printf("1\n");
 			expand = handle_env_variables(data, str, i);
+			if (expand == NULL){
+				printf("NULL\n");
+				expand = "";
+			}
+			printf("start : %d, end : %d\n", data->env_expand->start, data->env_expand->end);
+			// i += data->env_expand->start + ft_strlen(data->env_expand->var);
 		}
 		i++;
 	}

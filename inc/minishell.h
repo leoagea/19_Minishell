@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/08 18:56:30 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/08 23:52:15 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,12 @@ typedef struct s_dll_cmd
 
 typedef struct s_env_expand
 {
-    int start;
     int end;
+    int sub;
+    int start;
+    int var_len;
     char *var;
+    char *expand;
 }               t_env_expand;
 
 typedef struct s_data

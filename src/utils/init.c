@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:16:16 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/08 18:47:34 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/08 23:52:33 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ t_env_expand *env_var_init(void)
 	if (!env)
 		return NULL;
 	env->end = 0;
+	env->sub = 0;
 	env->start = 0;
+	env->var_len = 0;
 	env->var = NULL;
 	return env;
 }
