@@ -6,12 +6,13 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/06 13:36:42 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/08 19:47:33 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+int	EXIT_STATUS = 0;
 
 t_dll	*dll_init(void)
 {
@@ -81,6 +82,8 @@ int main(int argc, char **argv, char **envp)
 	
 	env = init_env(envp);
 	export = init_export(env);
+	data.lexer = dll_init();
+	data.parser = dll_cmd_init();
 	handle_signal();
 	while (1)
 	{
@@ -92,27 +95,27 @@ int main(int argc, char **argv, char **envp)
 			write(1, "exit\n", 5);
 			exit (0);
 		}
-		if (data.input[0] != '\n')
+		line = ft_strdup(data.input);
+		if (data.input[0] != '\0')
 		{
-			data.lexer = dll_init();
-			data.parser = dll_cmd_init();
-			line = ft_strdup(data.input);
 			if (data.input[0] != '\0')
 				add_history(line);
 			lexer(line, data.lexer);
 			parser(&data);
 			command = data.parser->head;
 			command->env = envp;
-			
-			// if (command->is_builtin == 0)
-			// 	execute_builtin(command);   // TODO
+		    // if (command->is_builtin == 0)
+				 // 	execute_builtin(command);   // TODO
 			exec_pipe(command);
 			dll_clear(data.lexer);
+			dll_cmd_clear(data.parser);
+			data.parser->head = NULL;
+			data.parser->tail = NULL;
 			data.lexer->head = NULL;
 			data.lexer->tail = NULL;
 			// free_command(command); // TODO
 		}
+		free(line);
 	}
-	free (line);
 	return (0);
 }

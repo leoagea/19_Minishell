@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/05 23:10:33 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/08 19:14:35 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include <signal.h>
 
 # define BUFFER_SIZE 10000
-# define PATH_MAX    4096
 
 typedef enum s_bool
 {
@@ -37,13 +36,14 @@ typedef enum s_bool
 
 typedef struct s_cmd
 {
-    char                    **str; //cmd, arg, flag
-    bool                    is_builtin;
-    int                     num_redirections;
+   char                    **str; //cmd, arg, flag
+   bool                    is_builtin;
+   int                     num_redirections;
 	char					**env;
-    t_dll                   *redirections;
-    struct s_cmd    *next;
-    struct s_cmd    *prev;
+   char                    *absolute_path;
+   t_dll                   *redirections;
+   struct s_cmd    *next;
+   struct s_cmd    *prev;
 }                t_cmd;
 
 typedef struct s_dll_cmd
@@ -100,6 +100,11 @@ void    redirections(t_cmd *command);
 
   // EXEC_PIPE //
 void    exec_pipe(t_cmd *command);
+
+//// UTILS ////
+   //FREE//
+int     length_array_char(char **array);
+void  free_tab_char(char **array);
 
 /*------------------------------Minishell--------------------------------*/
 

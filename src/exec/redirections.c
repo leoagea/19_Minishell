@@ -3,43 +3,45 @@
 void    redirections(t_cmd *command)
 {
     int         fd;
-    t_dll       *node;
+    t_node       *node;
 
-    node = command->redirections;
-    if (command->redirections == NULL)
-        return ;
-    if (node->head->type == INPUT)
+    node = command->redirections->head;
+    while (node)
     {
-        fd = open(command->redirections->head->str, O_RDONLY, 0777);
-        if (fd == -1)
+        if (node->type == INPUT)
         {
-            perror("open");
-            exit (1);
+            fd = open(command->redirections->head->str, O_RDONLY, 0777);
+            if (fd == -1)
+            {
+                perror("open");
+                exit (1);
+            }
+            dup2(fd, STDIN_FILENO);
+            close(fd);
         }
-        dup2(fd, STDIN_FILENO);
-        close(fd);
-    }
-    if (node->head->type == TRUNC)
-    {
-        fd = open(command->redirections->head->str, O_WRONLY | O_CREAT | O_TRUNC, 777);
-        if (fd == -1)
+        if (node->type == TRUNC)
         {
-            perror("open");
-            exit (1);
+            fd = open(command->redirections->head->str, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+            if (fd == -1)
+            {
+                perror("open");
+                exit (1);
+            }
+            dup2(fd, STDOUT_FILENO);
+            close (fd);
         }
-        dup2(fd, STDOUT_FILENO);
-        close (fd);
-    }
-    if (node->head->type == APPEND)
-    {
-        fd = open(command->redirections->head->str, O_WRONLY | O_CREAT | O_APPEND, 777);
-        if (fd == -1)
+        if (node->type == APPEND)
         {
-            perror("open");
-            exit (1);
+            fd = open(command->redirections->head->str, O_WRONLY | O_CREAT | O_APPEND, 0777);
+            if (fd == -1)
+            {
+                perror("open");
+                exit (1);
+            }
+            dup2(fd, STDOUT_FILENO);
+            close (fd);
         }
-        dup2(fd, STDOUT_FILENO);
-        close (fd);
+        node = node->next;
     }
     // if (node->head->type == HEREDOC)
     // {
