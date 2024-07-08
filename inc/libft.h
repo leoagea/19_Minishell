@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 01:26:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/04 13:04:07 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/08 18:53:59 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,12 @@ void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 typedef struct s_list
 {
 	void			*content;
+	int				flag;
+	int				count;
+	int				total;
 	struct s_list	*next;
 }					t_list;
+
 
 t_list				*ft_lstnew(void *content);
 t_list				*ft_lstlast(t_list *lst);
@@ -116,7 +120,8 @@ typedef enum s_type
 	CMD,       // 'COMMAND'  (cat, ls, ...)        6
 	OPTION,    // 'OPTION'   (-n, -la, ...)        7
 	ARG        // 'ARGUMENT DE COMMANDE' (Ce qu'il y a apres une commande comme echo par exemple,entre quotes ou non) 8
-}					t_type;
+}					t_type; //An enum’s name must start by e_
+//A modifier
 
 typedef struct s_node
 {
