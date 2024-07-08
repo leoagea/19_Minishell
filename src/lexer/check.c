@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:53:07 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/05 17:52:08 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/08 14:35:33 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,22 @@ int	check_open_redirect(t_dll *tokens)
 
 	str = tokens->tail->str;
 	if (ft_strncmp(str, ">>", 2) == 0 || ft_strncmp(str, "<<", 2) == 0
-		|| ft_strncmp(str, ">", 1) == 0 || ft_strncmp(str, "<", 1) == 0
-		|| ft_strncmp(str, "|", 1) == 0)
+		|| ft_strncmp(str, ">", 1) == 0 || ft_strncmp(str, "<", 1) == 0)
 		return (1);
 	return (0);
+}
+
+int check_wrong_token(t_dll *tokens)
+{
+	char *str;
+	t_node *current;
+
+	current = tokens->head;
+	while (current != NULL){
+		str = current->str;
+		if (ft_strncmp(str, ">>>", 3) == 0 || ft_strncmp(str, "<<<", 3) == 0 || ft_strncmp(str, "||", 2) == 0)
+			return 1;
+		current = current->next;
+	}
+	return 0;	
 }
