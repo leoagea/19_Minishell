@@ -6,37 +6,13 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/05 17:50:44 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/08 19:15:54 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_dll	*dll_init(void)
-{
-	t_dll	*stack;
-
-	stack = malloc(sizeof(t_dll));
-	if (!stack)
-		return (NULL);
-	stack->head = NULL;
-	stack->tail = NULL;
-	return (stack);
-}
-
-t_dll_cmd *dll_cmd_init(void)
-{
-    t_dll_cmd *dll;
-
-    dll = malloc(sizeof(t_dll_cmd));
-    if (!dll)
-        return NULL;
-    dll->head = NULL;
-    dll->tail = NULL;
-    return dll;
-}
-
-int main(void)
+int main(int agc, char **argv, char **envp)
 {
 	
 	char *input;
@@ -44,9 +20,10 @@ int main(void)
     char check;
     t_data data;
 
-    error_code = 0;
+    g_exit_status = 0;
     data.lexer = dll_init();
     data.parser = dll_cmd_init();
+    data.env = init_env(envp);
     // Print a prompt and read a line of input from the user
     while (1)
     {
@@ -63,6 +40,26 @@ int main(void)
             if (lexer(str, data.lexer))
                 return 1;
             parser(&data);
+            printf("------------------\n");
+            // dll_cmd_print_forward(data.parser);
+            
+            //print the **arr give to the exec
+            // t_cmd *current;
+            // char **arr;
+            // int i;
+            
+            // current = data.parser->head;
+            // while (current != NULL){
+            //     arr = current->str;
+            //     i = 0;
+            //     while (arr[i]){
+            //         printf("str [%d] : %s\n", i, arr[i]);
+            //         i++;
+            //     }
+            //     printf("------------------\n");
+            //     current = current->next;
+            // }
+            
             expander(&data);
             dll_clear(data.lexer);
             data.lexer->head = NULL;
@@ -73,3 +70,7 @@ int main(void)
     }
 	return 0;
 }
+
+///regler cat|ls ne separent oas en 2 cmd
+
+//modifier le nom de la enum type
