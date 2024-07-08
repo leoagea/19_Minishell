@@ -22,7 +22,8 @@ SRCS =	src/minishell.c \
 	src/builtins/env.c \
 	src/lexer/tokens.c src/lexer/utils.c src/lexer/check.c \
 	src/parser/cmd.c src/parser/utils_cmd.c src/parser/redirections.c \
-	src/expander/expander.c \
+	src/expander/expander.c src/expander/env_variable.c \
+	src/utils/init.c \
 	
 
 OBJ = $(SRCS:$(SRCS_DIR)%.c=$(OBJS_DIR)%.o)
@@ -49,6 +50,7 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)/lexer
 	@mkdir -p $(OBJS_DIR)/parser
 	@mkdir -p $(OBJS_DIR)/expander
+	@mkdir -p $(OBJS_DIR)/utils
 	@$(CC) -o $@ -c $<
 
 $(LIBFT):
