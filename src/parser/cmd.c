@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:12:31 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/08 15:48:55 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/09 12:58:21 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int parser(t_data *data)
 		}
 		if (current != NULL && current->type == PIPE)
 			current = current->next;
-		t_node *curr;
 		put_in_str(data, single_cmd);
 		// dll_print_forward(single_cmd);
 		// printf("\n======================\n");

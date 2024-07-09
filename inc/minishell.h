@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/08 19:14:35 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/09 15:37:29 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_cmd
 	char					**env;
    char                    *absolute_path;
    t_dll                   *redirections;
+   t_list                  **env_list;
    struct s_cmd    *next;
    struct s_cmd    *prev;
 }                t_cmd;
@@ -84,7 +85,7 @@ int     count_to_equal(char *str);
 void    unset(t_list **env, t_list **export, char *var);
 
    //CD//
-void	cd_home(t_list **env, t_list **export);
+void	cd(t_list **env, t_list **export);
 
 //// SIGNALS ////
 	//CTRL C//

@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-void	cd_home(t_list **env, t_list **export)
+void	cd(t_list **env, t_list **export)
 {
 	t_list *node;
 	char	buffer[PATH_MAX];

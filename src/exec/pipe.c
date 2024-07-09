@@ -56,7 +56,7 @@ void    exec_pipe(t_cmd *command)
     node = command;
     fd_in = STDIN_FILENO;
 
-    // absolute_path(node);
+    absolute_path(node);
     while (node)
     {
         if (node->next)  // si commande apres -> pipe
@@ -81,7 +81,7 @@ void    exec_pipe(t_cmd *command)
                 dup2(fd_in, STDIN_FILENO);
                 close(fd_in);
             }
-            redirections(node);   // ouvre fichier puis redirige entree ou sortie depuis ou vers le fd       
+            // redirections(node);   // ouvre fichier puis redirige entree ou sortie depuis ou vers le fd       
             if (node->next)     // si commande apres -> j'ecris sur le pipe 
             {
                 dup2(pipe_fd[1], STDOUT_FILENO);
@@ -90,8 +90,7 @@ void    exec_pipe(t_cmd *command)
             }
             if (/*execute_builtin(node)*/-1 == -1)
             {
-                printf("--> %s\n", node->str[0]);
-                execve(node->str[0], node->str, command->env);
+                execve(node->absolute_path, node->str, command->env);
                 perror("execve");
                 exit (1);
             }
@@ -103,7 +102,6 @@ void    exec_pipe(t_cmd *command)
             if (WIFEXITED(wstatus))
             {
                 int statusCode = WEXITSTATUS(wstatus);
-                printf("EXIT STATUS %d\n", statusCode);
             }
             if (fd_in != STDIN_FILENO)
                 close(fd_in);

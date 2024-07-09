@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/08 19:47:33 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/09 16:10:17 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,10 @@ int main(int argc, char **argv, char **envp)
 			parser(&data);
 			command = data.parser->head;
 			command->env = envp;
+			command->env_list = &env;
 		    // if (command->is_builtin == 0)
 				 // 	execute_builtin(command);   // TODO
-			exec_pipe(command);
+			exec_pipe(command); 
 			dll_clear(data.lexer);
 			dll_cmd_clear(data.parser);
 			data.parser->head = NULL;
