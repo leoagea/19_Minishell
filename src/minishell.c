@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/08 19:15:54 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/09 16:02:33 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main(int agc, char **argv, char **envp)
     // Print a prompt and read a line of input from the user
     while (1)
     {
-        data.input = readline("minishell$ ");
+        data.input = readline("\nminishell$ ");
 
         // If the input is not NULL, print it and free the allocated memory
         if (ft_strncmp(data.input, "\0", 1) == 0)
@@ -60,6 +60,12 @@ int main(int agc, char **argv, char **envp)
             //     current = current->next;
             // }
             
+            // t_list *current = data.env;
+            // while (current != NULL)
+            // {
+            //     printf("current : %s\n", current->content);
+            //     current = current->next;
+            // }
             expander(&data);
             dll_clear(data.lexer);
             data.lexer->head = NULL;
