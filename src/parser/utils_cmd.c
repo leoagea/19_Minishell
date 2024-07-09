@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:29:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/05 13:36:52 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/09 12:51:21 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	dll_cmd_print_forward(t_dll_cmd *dll)
 	current = dll->head;
 	while (current != NULL)
 	{
-		ft_printf("nbr redirections : %d\n", current->num_redirections);
-		ft_printf("redirections : %s\n", current->str);
+		ft_printf("str : %s\n", current->str[0]);
+		ft_printf("redirections : %d\n", current->num_redirections);
 		current = current->next;
 	}
 }

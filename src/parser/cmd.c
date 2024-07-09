@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:12:31 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/08 15:48:05 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/09 12:56:11 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int parser(t_data *data)
 		if (current != NULL && current->type == PIPE)
 			current = current->next;
 		put_in_str(data, single_cmd);
-		dll_print_forward(single_cmd);
+		// dll_print_forward(single_cmd);
 		printf("\n======================\n\n");
 		printf("\n======================\n");
 		// printf("double array cmd : \n");
@@ -80,6 +80,7 @@ int parser(t_data *data)
 		// 	i++;
 		// }
 	}
+	// dll_cmd_print_forward(data->parser);
 }
 
 // cat -e | ls -la |echo "test" | pwd | cat < Makefile > test.txt
