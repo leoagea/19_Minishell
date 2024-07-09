@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 01:26:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/08 18:53:59 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/09 13:24:00 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	ft_atoi_base(char *str, char *base);
 
 /*-------------------------DOUBLE LIMKED LIST----------------------------*/
 
-typedef enum s_type
+typedef enum e_type
 {
 	INPUT = 1, // '<'                              1
 	TRUNC,     // '>'                              2
@@ -121,7 +121,7 @@ typedef enum s_type
 	OPTION,    // 'OPTION'   (-n, -la, ...)        7
 	ARG        // 'ARGUMENT DE COMMANDE' (Ce qu'il y a apres une commande comme echo par exemple,entre quotes ou non) 8
 }					t_type; //An enum’s name must start by e_
-//A modifier
+
 
 typedef struct s_node
 {
