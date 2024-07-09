@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:18:44 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/09 16:11:31 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/09 17:35:51 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,48 +33,31 @@ static char *join_char(char *str, char c)
 	return new;
 }
 
-static void sweep_word(t_data *data, char *str, t_node *current)
+static char *sweep_word(t_data *data, char *str, t_node *current)
 {
 	int i;
 	int j;
-	char *cpy = ft_strdup("");
-	char *expand;
+	char *cpy;
 	
 	i = 0;
+	cpy = ft_strdup("");
 	data->env_expand = env_var_init();
 	while (str[i])
 	{
-		// if (str[i] == 34)
-		// 	expand = handle_double_quotes(str, i);
+		if (str[i] == 34)
+			cpy = expand_double_quotes(data, cpy, &i, str);
 		// else if (str [i] == 39)
 		// 	expand = handle_single_quotes(str, i);
-		if (str[i] == '$')
-		{
-			// printf("Test\n");
-			expand = handle_env_variables(data, str, i);
-			// printf("Test segfault 2\n");
-			// printf("env sub : %d\n", data->env_expand->sub);
-			// printf("env start : %d\n", data->env_expand->start);
-			// printf("env end : %d\n", data->env_expand->end);
-			// printf("env var_len : %d\n", data->env_expand->var_len);
-			if (expand == NULL)
-			{
-				printf("NULL\n");
-				i += data->env_expand->end - data->env_expand->start;
-			}
-			else{
-				// printf("start : %d, end : %d\n", data->env_expand->start, data->env_expand->end);
-				i += data->env_expand->sub ;
-				// printf("expand sweep word : %s\n", data->env_expand->expand);
-				cpy = ft_strjoin(cpy, data->env_expand->expand);
-			}
-			// printf("i : %d, char : %c\n",i, str[i]); 
-		}
+		else if (str[i] == '$')
+			cpy = expand_env_var(data, cpy, &i, str);
 		else
+		{
 			cpy = join_char(cpy, str[i]);
-			i++;
+			i++;	
+		}
 	}
 	printf("cpy final : %s\n", cpy);
+	return cpy;
 }
 
 //avancer dans le word , si on rrentre dans auncuin if copie str[i] dans la cpy
@@ -96,7 +79,7 @@ int expander(t_data *data)
 		{
 			// printf("test ");
 			// printf("%s\n", str);
-			sweep_word(data, str, current);
+			str = sweep_word(data, str, current);
 		}
 		current = current->next;
 	}

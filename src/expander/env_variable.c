@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:51:28 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/09 16:11:54 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/09 17:38:54 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char *handle_env_variables(t_data *data, char *str, int i)
 	i++;		
 	env->end = i;
 	env->start = i;
-	while ((!check_whitespace(str, i) && str[i] != '$' )  && str[i])
+	while ((!check_whitespace(str, i) && str[i] != '$' && str[i] != 34 && str[i] != 39)  && str[i])
 	{
 		// printf("2\n");
 		i++;
@@ -79,4 +79,24 @@ char *handle_env_variables(t_data *data, char *str, int i)
 	return env->expand;
 }
 
+char *expand_env_var(t_data *data, char *cpy, int *i, char *str)
+{
+	char *expand;
+	
+	if (str[*i + 1] == '?')
+	{
+		cpy = ft_strjoin(cpy, ft_itoa(g_exit_status));
+		*i+= 2;
+		return cpy;
+	}
+	expand = handle_env_variables(data, str, *i);
+	if (expand == NULL)
+		*i += data->env_expand->end - data->env_expand->start + 1;
+	else
+	{
+		*i += data->env_expand->sub + 1;
+		cpy = ft_strjoin(cpy, data->env_expand->expand);
+	}
+	return cpy;
+}
 //echo $USER

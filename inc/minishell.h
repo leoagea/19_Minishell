@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/08 23:52:15 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/09 17:11:58 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,11 @@ int expander(t_data *data);
 /*---------------------------env_variables-------------------------------*/
 
 char *handle_env_variables(t_data *data, char *str, int i);
+char *expand_env_var(t_data *data, char *cpy, int *i, char *str);
+
+/*---------------------------double_quotes-------------------------------*/
+
+char *expand_double_quotes(t_data *data, char *cpy, int *i, char *str);
 
 /*--------------------------------UTILS----------------------------------*/
 /*--------------------------------init-----------------------------------*/
