@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:16:16 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/08 23:52:33 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/09 15:40:59 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ t_list	*init_env(char **envp)
 		ft_lstadd_back(&env, new_node);
 		i++;
 	}
+	node = ft_lstlast(env);
+	node->next = NULL;
 	node = env;
 	while (node != NULL)
 	{
