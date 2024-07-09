@@ -22,7 +22,7 @@ SRCS =	src/minishell.c \
 	src/builtins/env.c \
 	src/lexer/tokens.c src/lexer/utils.c src/lexer/check.c \
 	src/parser/cmd.c src/parser/utils_cmd.c src/parser/redirections.c \
-	src/expander/expander.c src/expander/env_variable.c \
+	src/expander/expander.c src/expander/env_variable.c src/expander/double_quotes.c \
 	src/utils/init.c \
 	
 
