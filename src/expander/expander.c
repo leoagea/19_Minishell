@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:18:44 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/09 17:35:51 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/10 13:46:23 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static char *sweep_word(t_data *data, char *str, t_node *current)
 			cpy = expand_env_var(data, cpy, &i, str);
 		else
 		{
+			if (str[i - 1] == '$' && str[i - 1])
+				cpy = join_char(cpy, '$');
 			cpy = join_char(cpy, str[i]);
 			i++;	
 		}

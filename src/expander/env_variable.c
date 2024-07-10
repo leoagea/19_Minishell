@@ -6,11 +6,16 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:51:28 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/09 17:38:54 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/10 13:43:28 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+static int check_special(char c)
+{
+	return ((c >= 33 && c <= 47) || (c >= 58 && c <= 64) || (c >= 91 && c <= 94) || c == 96 || (c >= 123 && c <= 126));
+}
 
 static char *get_env_var(t_data *data, t_env_expand *env)
 {
@@ -61,7 +66,7 @@ char *handle_env_variables(t_data *data, char *str, int i)
 	i++;		
 	env->end = i;
 	env->start = i;
-	while ((!check_whitespace(str, i) && str[i] != '$' && str[i] != 34 && str[i] != 39)  && str[i])
+	while ((!check_whitespace(str, i) && !check_special(str[i]) && str[i] != 34 && str[i] != 39)  && str[i])
 	{
 		// printf("2\n");
 		i++;
@@ -75,7 +80,7 @@ char *handle_env_variables(t_data *data, char *str, int i)
 	if (check == NULL)
 		return NULL;
 	// printf("var : %s\n", env->var);
-	// printf("expand : %s\n", env->expand);
+	printf("expand : %s\n", env->expand);
 	return env->expand;
 }
 
