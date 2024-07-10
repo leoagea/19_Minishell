@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:53:07 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/08 14:35:33 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/10 22:16:13 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +19,24 @@ int	check_open_pipe(t_dll *tokens)
 	return (1);
 }
 
-int	check_open_quote(char *str)
+bool check_open_quote(const char *str)
 {
-	int		i;
-	char	quote;
+    bool single_quote_open = false;
+    bool double_quote_open = false;
 
-	quote = -2;
-	i = -1;
-	while (str[++i])
-		if (str[i] == 34 || str[i] == 39)
-			quote = str[i];
-	i = 0;
-	while (str[i])
-	{
-		while (str[i] != quote && str[i] && quote != 0)
-			i++;
-		if (str[i] && quote != 0)
-		{
-			quote = 0;
-			i++;
-		}
-		else
-			i++;
-		if ((str[i] == 34 || str[i] == 39) && str[i])
-		{
-			quote = str[i];
-			i++;
-		}
-	}
-	return (quote);
+    while (*str)
+    {
+        if (*str == '\'' && !double_quote_open)
+        {
+            single_quote_open = !single_quote_open;
+        }
+        else if (*str == '\"' && !single_quote_open)
+        {
+            double_quote_open = !double_quote_open;
+        }
+        str++;
+    }
+    return single_quote_open || double_quote_open;
 }
 
 int	check_open_redirect(t_dll *tokens)

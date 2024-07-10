@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/10 14:39:57 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/10 22:16:39 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int skip_whitespace(char *str, int i);
 /*--------------------------------Check----------------------------------*/
 
 int check_open_pipe(t_dll *tokens);
-int check_open_quote(char *str);
+bool check_open_quote(const char *str);
 int	check_open_redirect(t_dll *tokens);
 int check_wrong_token(t_dll *tokens);
 

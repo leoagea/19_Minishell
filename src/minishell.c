@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/10 18:09:18 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/10 22:18:35 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,3 @@ int main(int agc, char **argv, char **envp)
 }
 
 ///regler cat|ls ne separent oas en 2 cmd
-
-//probleme open quote avec dsadasda"dsadasd''
