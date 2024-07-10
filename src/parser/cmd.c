@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:12:31 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/09 12:56:11 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/10 18:05:14 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int parser(t_data *data)
 	t_node *current;
 	t_dll *single_cmd;
 	
-	current = data->lexer->head;
+	current = data->expander->head;
 	while (current != NULL)
 	{
 		single_cmd = isolate_single_cmd(data, current);
@@ -70,9 +70,9 @@ int parser(t_data *data)
 		if (current != NULL && current->type == PIPE)
 			current = current->next;
 		put_in_str(data, single_cmd);
-		// dll_print_forward(single_cmd);
+		dll_print_forward(single_cmd);
 		printf("\n======================\n\n");
-		printf("\n======================\n");
+		// printf("\n======================\n");
 		// printf("double array cmd : \n");
 		// int i = 0;
 		// while(data->parser->tail->str[i] != NULL){

@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/09 16:02:33 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/10 18:09:18 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,16 @@ int main(int agc, char **argv, char **envp)
             
             if (lexer(str, data.lexer))
                 return 1;
+           
+            printf("---------------\nLexer\n");
+            dll_print_forward(data.lexer);
+            printf("---------------\n");
+            expander(&data);
+           
+            // printf("---------------\nExpander\n");
+            // dll_print_forward(data.expander);
+            // printf("---------------\n");
             parser(&data);
-            printf("------------------\n");
             // dll_cmd_print_forward(data.parser);
             
             //print the **arr give to the exec
@@ -66,7 +74,6 @@ int main(int agc, char **argv, char **envp)
             //     printf("current : %s\n", current->content);
             //     current = current->next;
             // }
-            expander(&data);
             dll_clear(data.lexer);
             data.lexer->head = NULL;
             data.lexer->tail = NULL;
@@ -79,4 +86,4 @@ int main(int agc, char **argv, char **envp)
 
 ///regler cat|ls ne separent oas en 2 cmd
 
-//modifier le nom de la enum type
+//probleme open quote avec dsadasda"dsadasd''

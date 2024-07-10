@@ -39,10 +39,12 @@ static void assign_type(t_dll *tokens)
 			current->type = 2;
 		else if (ft_strncmp(current->str, "<", 1) == 0)
 			current->type = 1;	
-		else if (ft_strncmp(current->str, "|", 2) == 0)
+		else if (ft_strncmp(current->str, "|", 1) == 0)
 			current->type = 5;
 		else if (ft_strncmp(current->str, "-", 1) == 0)
 			current->type = 7;
+		else 
+			current->type = 6;
 		current = current->next;
 	}
 }
@@ -99,6 +101,7 @@ int lexer(char *input, t_dll *tokens)
 	else if (check_wrong_token(tokens))
 		return (write(1, "Error: wrong token\n",19), exit(1), 1);
 	assign_type(tokens);
+	// dll_print_forward(tokens);
 	return 0;
 }
 
