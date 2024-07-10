@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:53:07 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/10 22:16:13 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/10 22:52:49 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int	check_open_pipe(t_dll *tokens)
 {
-	if (ft_strncmp(tokens->tail->str, "|", 1))
-		return (0);
-	return (1);
+	if (tokens->tail->type == PIPE)
+		return (1);
+	if (tokens->head->type == PIPE)
+		return 1;
+	return (0);
 }
 
 bool check_open_quote(const char *str)

@@ -93,13 +93,13 @@ int lexer(char *input, t_dll *tokens)
 		i = skip_whitespace(input, i);
 	}
 	// dll_print_forward(tokens);
+	assign_type(tokens);
 	if (check_open_pipe(tokens))
 		return (write(1, "Error: open pipe\n",17), exit(1), 1);
 	else if (check_open_redirect(tokens))
 		return (write(1, "Error: open redirection\n",24), exit(1), 1);
 	else if (check_wrong_token(tokens))
 		return (write(1, "Error: wrong token\n",19), exit(1), 1);
-	assign_type(tokens);
 	// dll_print_forward(tokens);
 	return 0;
 }
