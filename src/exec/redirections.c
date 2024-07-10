@@ -8,6 +8,7 @@ void    redirections(t_cmd *command)
     node = command->redirections->head;
     while (node)
     {
+        printf("%d\n", node->type);
         if (node->type == INPUT)
         {
             fd = open(command->redirections->head->str, O_RDONLY, 0777);

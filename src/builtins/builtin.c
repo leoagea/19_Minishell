@@ -21,13 +21,20 @@ void	is_builtin(t_cmd *command)
 	}
 }
 
-
 // int		exec_builtin(t_cmd *command)
 // {
 // 	if (ft_strncmp(command->str[0], "cd", INT_MAX) == 0)
-// 	{
-// 		cd(command->env)
-// 	}
-// 	else if (ft_strncmp(command->str[0], "cd", INT_MAX) == 0 )
-
+// 		cd(command->env, command->export);
+// 	if (ft_strncmp(command->str[0], "echo", INT_MAX) == 0 )
+// 		echo();
+// 	if (ft_strncmp(command->str[0], "env", INT_MAX) == 0 )
+// 		env();
+// 	if (ft_strncmp(command->str[0], "exit", INT_MAX) == 0 )
+// 		exit();
+// 	if (ft_strncmp(command->str[0], "export", INT_MAX) == 0 )
+// 		export();
+// 	if (ft_strncmp(command->str[0], "pwd", INT_MAX) == 0 )
+// 		pwd();
+// 	if (ft_strncmp(command->str[0], "unset", INT_MAX) == 0 )
+// 		unset();
 // }

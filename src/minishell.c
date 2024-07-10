@@ -6,13 +6,11 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/09 16:10:17 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/10 18:45:24 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	EXIT_STATUS = 0;
 
 t_dll	*dll_init(void)
 {
@@ -80,6 +78,7 @@ int main(int argc, char **argv, char **envp)
 	t_list *export;
 	t_cmd *command;
 	
+	g_exit_status = 1;
 	env = init_env(envp);
 	export = init_export(env);
 	data.lexer = dll_init();
@@ -107,7 +106,8 @@ int main(int argc, char **argv, char **envp)
 			command->env_list = &env;
 		    // if (command->is_builtin == 0)
 				 // 	execute_builtin(command);   // TODO
-			exec_pipe(command); 
+			exec_pipe(command);
+			// printf("exit code : %d\n", g_exit_status); 
 			dll_clear(data.lexer);
 			dll_cmd_clear(data.parser);
 			data.parser->head = NULL;

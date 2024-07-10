@@ -50,6 +50,7 @@ void    exec_pipe(t_cmd *command)
     int     pipe_fd[2];
     int     wstatus;
     int     fd_in;
+    int     i;
     pid_t     pid;
     t_cmd   *node;
 
@@ -57,6 +58,8 @@ void    exec_pipe(t_cmd *command)
     fd_in = STDIN_FILENO;
 
     absolute_path(node);
+    pid_t child_pids[256]; // Assuming a maximum of 256 commands in a pipeline
+    int child_count = 0;
     while (node)
     {
         if (node->next)  // si commande apres -> pipe
@@ -81,7 +84,7 @@ void    exec_pipe(t_cmd *command)
                 dup2(fd_in, STDIN_FILENO);
                 close(fd_in);
             }
-            // redirections(node);   // ouvre fichier puis redirige entree ou sortie depuis ou vers le fd       
+            redirections(node);   // ouvre fichier puis redirige entree ou sortie depuis ou vers le fd       
             if (node->next)     // si commande apres -> j'ecris sur le pipe 
             {
                 dup2(pipe_fd[1], STDOUT_FILENO);
@@ -98,11 +101,7 @@ void    exec_pipe(t_cmd *command)
         }
         else 
         {
-            wait(&wstatus);
-            if (WIFEXITED(wstatus))
-            {
-                int statusCode = WEXITSTATUS(wstatus);
-            }
+            child_pids[child_count++] = pid;
             if (fd_in != STDIN_FILENO)
                 close(fd_in);
             if (node->next)
@@ -112,6 +111,14 @@ void    exec_pipe(t_cmd *command)
             }
         }
         node = node->next;
+    }
+    i = 0;
+    while (i < child_count)
+    {
+        waitpid(child_pids[i], &wstatus, 0);
+        if (WIFEXITED(wstatus))
+            g_exit_status = WEXITSTATUS(wstatus);
+        i++;
     }
 }
 
