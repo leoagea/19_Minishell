@@ -76,7 +76,7 @@ int lexer(char *input, t_dll *tokens)
 						i++;
 				else
 				{
-					while (!check_whitespace(input, i) && input[i])
+					while (!check_whitespace(input, i) && !check_special_char(input, i) && input[i])
 					{
 						if((input[i] == (int)34 || input[i] == (int) 39) && input[i])
 							i = in_quote(input, i);
