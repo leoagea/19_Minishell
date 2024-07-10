@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:51:28 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/10 13:43:28 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/10 17:42:04 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char *get_env_var(t_data *data, t_env_expand *env)
 	// printf("current content : %s\n", current->content);
 	// printf("env var : %s÷\n", env->var);
 	// printf("len : %d\n",len);
-	while (current != NULL && ft_strncmp(env->var, current->content, len) != 0)
+	while (current != NULL && ft_strncmp(env->var, current->content, INT_MAX) != -61)
 	{
 		// printf("current : %s\n", current->content);
 		current = current->next;
@@ -76,11 +76,12 @@ char *handle_env_variables(t_data *data, char *str, int i)
 	// printf("start : %d, end : %d\n", env->start, env->end);
 	env->var = ft_substr(str, env->start, env->end - env->start);
 	// printf("env total : %d, count : %d\n", data->env->total, data->env->count); 
+		// printf("test \n");
 	check = get_env_var(data, env);
 	if (check == NULL)
 		return NULL;
 	// printf("var : %s\n", env->var);
-	printf("expand : %s\n", env->expand);
+	// printf("expand : %s\n", env->expand);
 	return env->expand;
 }
 
