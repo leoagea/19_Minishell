@@ -31,8 +31,6 @@ char    *path(char *command)
 void    absolute_path(t_cmd *command)
 {
     t_cmd   *node;
-    char    *final_path;
-    char    *temp;
     node = command;
     while (node)
     {

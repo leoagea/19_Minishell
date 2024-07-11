@@ -6,15 +6,14 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:52 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/10 16:14:49 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/11 15:26:44 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char *expand_single_quotes(t_data *data, char *cpy, int *i, char *str)
+char *expand_single_quotes(char *cpy, int *i, char *str)
 {
-	int end;
 	int start;
 	char *expand;
 	
@@ -26,6 +25,7 @@ char *expand_single_quotes(t_data *data, char *cpy, int *i, char *str)
 		*i += 1;
 	expand = ft_substr(str, start, *i - start);
 	cpy = ft_strjoin(cpy, expand);
+	free(expand);
 	*i+= 1;
 	// printf("expand : %s\n", expand);
 	return cpy;

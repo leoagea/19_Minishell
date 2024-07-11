@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:40:47 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/11 14:50:50 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/11 15:25:03 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static int delete_node(t_dll *cmd, t_node *delete)
+static void delete_node(t_dll *cmd, t_node *delete)
 {
 	if (delete == cmd->head)
 		dll_delete_head(cmd);
@@ -26,7 +26,6 @@ int handle_redirections(t_dll *single_cmd, t_data *data)
 {
 	t_cmd *cmd;
 	t_node *current;
-	t_node *temp;
 	
 	current = single_cmd->head;
 	cmd = dll_cmd_new_node();
@@ -45,6 +44,7 @@ int handle_redirections(t_dll *single_cmd, t_data *data)
 		}
 		current = current->next;
 	}
+	return 0;
 	// printf("\nRedirections dll-------------\n");
 	// dll_print_forward(cmd->redirections);
 	// printf("Redirections dll-------------\n\n");

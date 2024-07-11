@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:18:44 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/11 14:44:11 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/11 15:29:09 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ char *join_char(char *str, char c)
 	return new;
 }
 
-static char *sweep_word(t_data *data, char *str, t_node *current)
+static char *sweep_word(t_data *data, char *str)
 {
 	int i;
-	int j;
 	char *cpy;
 	
 	i = 0;
@@ -46,7 +45,7 @@ static char *sweep_word(t_data *data, char *str, t_node *current)
 		if (str[i] == 34)
 			cpy = expand_double_quotes(data, cpy, &i, str);
 		else if (str [i] == 39)
-			cpy = expand_single_quotes(data, cpy, &i, str);
+			cpy = expand_single_quotes(cpy, &i, str);
 		else if (str[i] == '$')
 		{
 			if (str[i] == '$' && !str[i + 1])
@@ -84,7 +83,7 @@ int expander(t_data *data)
 		{
 			// printf("test ");
 			// printf("%s\n", str);
-			cpy = sweep_word(data, str, current);
+			cpy = sweep_word(data, str);
 			dll_insert_tail(cpy, data->expander);
 			data->expander->tail->type = current->type;
 		}
@@ -94,7 +93,7 @@ int expander(t_data *data)
 			data->expander->tail->type = current->type;
 			current = current->next;
 			// printf("test \n");
-			cpy = expand_heredoc(data, current->str);
+			cpy = expand_heredoc(current->str);
 			// printf("cpy : %s\n", cpy);
 			dll_insert_tail(cpy, data->expander);
 			data->expander->tail->type = current->type;

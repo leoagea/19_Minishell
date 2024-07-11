@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/11 14:47:53 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/11 15:28:16 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ int expander(t_data *data);
 
 /*------------------------------heredoc----------------------------------*/
 
-char *expand_heredoc(t_data *data, char *str);
+char *expand_heredoc(char *str);
 
 /*---------------------------env_variables-------------------------------*/
 
@@ -183,7 +183,7 @@ char *expand_double_quotes(t_data *data, char *cpy, int *i, char *str);
 
 /*---------------------------single_quotes-------------------------------*/
 
-char *expand_single_quotes(t_data *data, char *cpy, int *i, char *str);
+char *expand_single_quotes(char *cpy, int *i, char *str);
 
 /*--------------------------------UTILS----------------------------------*/
 /*--------------------------------init-----------------------------------*/

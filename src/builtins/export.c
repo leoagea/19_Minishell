@@ -31,7 +31,6 @@ t_list	*init_export(t_list	*env)   // INITIALISE LISTE EXPORT
 {
 	t_list	*export;
 	t_list	*new_node;
-	t_list	*node;
 	int		i;
 
 	i = 0;

@@ -54,7 +54,6 @@ int lexer(char *input, t_dll *tokens)
 {
 	int i = 0;
 	int start;
-	char c;
 	char *word;
 
 	while (input[i])

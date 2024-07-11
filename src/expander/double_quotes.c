@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:01:04 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/10 16:27:22 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/11 15:25:41 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 char *expand_double_quotes(t_data *data, char *cpy, int *i, char *str)
 {
-	int end;
 	int start;
-	char *expand;
 	
 	*i += 1;
 	start = *i;

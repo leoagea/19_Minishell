@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:12:31 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/11 14:50:34 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/11 15:24:07 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static t_dll *isolate_single_cmd(t_data *data, t_node *start)
+static t_dll *isolate_single_cmd(t_node *start)
 {
 	t_node *current;
 	t_node *currend_cmd;
@@ -49,8 +49,10 @@ static int put_in_str(t_data *data, t_dll *cmd)
 ;		data->parser->tail->str[i] = current->str;
 		current = current->next;
 		i++;
-	}handle_signal();
+	}
+	handle_signal();
 	data->parser->tail->str[i] = NULL;
+	return 0;
 }
 
 int parser(t_data *data)
@@ -61,7 +63,7 @@ int parser(t_data *data)
 	current = data->expander->head;
 	while (current != NULL)
 	{
-		single_cmd = isolate_single_cmd(data, current);
+		single_cmd = isolate_single_cmd(current);
 		// dll_print_forward(single_cmd);
 		handle_redirections(single_cmd, data);
 		while (current != NULL && current->type != PIPE){
@@ -79,6 +81,7 @@ int parser(t_data *data)
 		// 	i++;
 		// }
 	}
+	return 0;
 	// dll_cmd_print_forward(data->parser);
 }
 

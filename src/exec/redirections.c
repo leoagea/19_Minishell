@@ -3,7 +3,6 @@
 void    redirections(t_cmd *command)
 {
     int         fd;
-    int         temp_fd;
     t_node       *node;
 
     node = command->redirections->head;
