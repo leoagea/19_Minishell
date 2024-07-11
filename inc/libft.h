@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 01:26:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/05 21:06:53 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:47:48 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,6 @@ void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 
-typedef enum s_type
-{
-	INPUT = 1, // '<'                              0
-	TRUNC,     // '>'                              1
-	HEREDOC,   // '<<'                             2
-	APPEND,    // '>>'                             3
-	PIPE,      // '|'                              4
-	CMD,       // 'COMMAND'  (cat, ls, ...)        5
-	OPTION,    // 'OPTION'   (-n, -la, ...)        6
-	ARG       
-		// 'ARGUMENT DE COMMANDE' (Ce qu'il y a apres une commande comme echo par exemple,entre quotes ou non) 7
-}					t_type;
-
 /*Partie bonus*/
 
 typedef struct s_list
@@ -93,6 +80,7 @@ typedef struct s_list
 	int				total;
 	struct s_list	*next;
 }					t_list;
+
 
 t_list				*ft_lstnew(void *content);
 t_list				*ft_lstlast(t_list *lst);
@@ -118,6 +106,19 @@ long				ft_atol(const char *str);
 int	ft_atoi_base(char *str, char *base);
 
 /*-------------------------DOUBLE LIMKED LIST----------------------------*/
+
+typedef enum e_type
+{
+	INPUT = 1, // '<'                              1
+	TRUNC,     // '>'                              2
+	HEREDOC,   // '<<'                             3
+	APPEND,    // '>>'                             4
+	PIPE,      // '|'                              5
+	CMD,       // 'COMMAND'  (cat, ls, ...)        6
+	OPTION,    // 'OPTION'   (-n, -la, ...)        7
+	ARG        // 'ARGUMENT DE COMMANDE' (Ce qu'il y a apres une commande comme echo par exemple,entre quotes ou non) 8
+}					t_type; //An enum’s name must start by e_
+
 
 typedef struct s_node
 {

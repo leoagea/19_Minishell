@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:40:47 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/11 12:46:03 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:50:50 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int handle_redirections(t_dll *single_cmd, t_data *data)
 		}
 		current = current->next;
 	}
-	// printf("-----------\n");
+	// printf("\nRedirections dll-------------\n");
 	// dll_print_forward(cmd->redirections);
-	// printf("-----------\n");
+	// printf("Redirections dll-------------\n\n");
 }
 
 

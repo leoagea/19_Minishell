@@ -6,69 +6,11 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/11 12:48:17 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/11 15:01:30 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-t_dll	*dll_init(void)
-{
-	t_dll	*stack;
-
-	stack = malloc(sizeof(t_dll));
-	if (!stack)
-		return (NULL);
-	stack->head = NULL;
-	stack->tail = NULL;
-	return (stack);
-}
-
-t_dll_cmd *dll_cmd_init(void)
-{
-    t_dll_cmd *dll;
-
-    dll = malloc(sizeof(t_dll_cmd));
-    if (!dll)
-        return NULL;
-    dll->head = NULL;
-    dll->tail = NULL;
-    return dll;
-}
-
-// int main(void){
-	
-// 	char *input;
-//     char *str;
-//     char check;
-//     t_data data;
-
-//     data.lexer = dll_init();
-//     data.parser = dll_cmd_init();
-//     // Print a prompt and read a line of input from the user
-//     while (1)
-//     {
-//         data.input = readline("minishell$ ");
-
-//         // If the input is not NULL, print it and free the allocated memory
-//         if (ft_strncmp(data.input, "\0", 1) == 0)
-//             continue;
-//         if (data.input) {
-            
-//             str = ft_strdup(data.input);
-//             add_history(str);
-            
-//             lexer(str, data.lexer);
-//             parser(&data);
-//             dll_clear(data.lexer);
-//             data.lexer->head = NULL;
-//             data.lexer->tail = NULL;
-//             free(data.input);
-//             free(str);
-//         }
-//     }
-// 	return 0;
-// }
 
 int main(int argc, char **argv, char **envp)
 {
@@ -82,6 +24,7 @@ int main(int argc, char **argv, char **envp)
 	env = init_env(envp);
 	export = init_export(env);
 	data.lexer = dll_init();
+	data.env = env;
 	data.parser = dll_cmd_init();
 	handle_signal();
 	while (1)
@@ -100,6 +43,7 @@ int main(int argc, char **argv, char **envp)
 			if (data.input[0] != '\0')
 				add_history(line);
 			lexer(line, data.lexer);
+			expander(&data);
 			parser(&data);
 
 			command = data.parser->head;

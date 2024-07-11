@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/11 14:30:29 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:47:53 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define BUFFER_SIZE 10000
 
 int   g_exit_status;
+
+int g_exit_status;
 
 typedef enum s_bool
 {
@@ -55,11 +57,24 @@ typedef struct s_dll_cmd
     struct s_cmd *tail;
 }               t_dll_cmd;
 
+typedef struct s_env_expand
+{
+    int end;
+    int sub;
+    int start;
+    int var_len;
+    char *var;
+    char *expand;
+}               t_env_expand;
+
 typedef struct s_data
 {
 	char *input;
+    t_list *env;
 	t_dll *lexer;
+    t_dll *expander;
 	t_dll_cmd *parser;
+    t_env_expand *env_expand;
 }				t_data;
 
 	//// MAIN ////
@@ -111,8 +126,6 @@ void  free_tab_char(char **array);
 
 /*------------------------------Minishell--------------------------------*/
 
-t_dll	*dll_init(void);
-
 /*--------------------------------LEXER----------------------------------*/
 /*-------------------------------Tokens----------------------------------*/
 
@@ -127,7 +140,9 @@ int skip_whitespace(char *str, int i);
 /*--------------------------------Check----------------------------------*/
 
 int check_open_pipe(t_dll *tokens);
-int check_open_quote(char *str);
+bool check_open_quote(const char *str);
+int	check_open_redirect(t_dll *tokens);
+int check_wrong_token(t_dll *tokens);
 
 /*-------------------------------PARSER----------------------------------*/
 /*--------------------------------Cmd------------------------------------*/
@@ -146,5 +161,37 @@ void	dll_cmd_insert_tail(t_dll_cmd *dll, t_cmd *new);
 void	dll_cmd_print_forward(t_dll_cmd *dll);
 void    dll_delete_node(t_node *delete);
 int	    dll_cmd_size(t_dll_cmd *dll);
+
+/*------------------------------EXPANDER---------------------------------*/
+/*------------------------------expander---------------------------------*/
+
+char *join_char(char *str, char c);
+int expander(t_data *data);
+
+/*------------------------------heredoc----------------------------------*/
+
+char *expand_heredoc(t_data *data, char *str);
+
+/*---------------------------env_variables-------------------------------*/
+
+char *handle_env_variables(t_data *data, char *str, int i);
+char *expand_env_var(t_data *data, char *cpy, int *i, char *str);
+
+/*---------------------------double_quotes-------------------------------*/
+
+char *expand_double_quotes(t_data *data, char *cpy, int *i, char *str);
+
+/*---------------------------single_quotes-------------------------------*/
+
+char *expand_single_quotes(t_data *data, char *cpy, int *i, char *str);
+
+/*--------------------------------UTILS----------------------------------*/
+/*--------------------------------init-----------------------------------*/
+
+t_dll	*dll_init(void);
+t_dll_cmd *dll_cmd_init(void);
+t_env_expand *env_var_init(void);
+int		count_nodes(t_list *list);
+t_list	*init_env(char **envp);
 
 #endif

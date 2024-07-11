@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:12:31 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/09 12:58:21 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:50:34 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,6 @@ static t_dll *isolate_single_cmd(t_data *data, t_node *start)
 		current = current->next;
 	}
 	return single_cmd;
-}
-
-static void assign_type(t_data *data)
-{
-	t_node *current;
-
-	current = data->lexer->head;
-	while (current != NULL)
-	{
-		if (ft_strncmp(current->str, ">>", 2) == 0)
-			current->type = 4;
-		else if (ft_strncmp(current->str, "<<", 2) == 0)
-			current->type = 3;
-		else if (ft_strncmp(current->str, ">", 1) == 0)
-			current->type = 2;
-		else if (ft_strncmp(current->str, "<", 1) == 0)
-			current->type = 1;	
-		else if (ft_strncmp(current->str, "|", 2) == 0)
-			current->type = 5;
-		else if (ft_strncmp(current->str, "-", 1) == 0)
-			current->type = 7;
-		current = current->next;
-	}
 }
 
 static int put_in_str(t_data *data, t_dll *cmd)
@@ -81,8 +58,7 @@ int parser(t_data *data)
 	t_node *current;
 	t_dll *single_cmd;
 	
-	assign_type(data);
-	current = data->lexer->head;
+	current = data->expander->head;
 	while (current != NULL)
 	{
 		single_cmd = isolate_single_cmd(data, current);
@@ -103,6 +79,7 @@ int parser(t_data *data)
 		// 	i++;
 		// }
 	}
+	// dll_cmd_print_forward(data->parser);
 }
 
 // cat -e | ls -la |echo "test" | pwd | cat < Makefile > test.txt

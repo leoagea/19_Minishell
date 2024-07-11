@@ -24,6 +24,32 @@ static int in_quote(char *str, int i)
 
 }
 
+static void assign_type(t_dll *tokens)
+{
+	t_node *current;
+
+	current = tokens->head;
+	while (current != NULL)
+	{
+		if (ft_strncmp(current->str, ">>", 2) == 0)
+			current->type = 4;	
+		else if (ft_strncmp(current->str, "<<", 2) == 0)
+			current->type = 3;
+		else if (ft_strncmp(current->str, ">", 1) == 0)
+			current->type = 2;
+		else if (ft_strncmp(current->str, "<", 1) == 0)
+			current->type = 1;	
+		else if (ft_strncmp(current->str, "|", 1) == 0)
+			current->type = 5;
+		else if (ft_strncmp(current->str, "-", 1) == 0)
+			current->type = 7;
+		else 
+			current->type = 6;
+		current = current->next;
+	}
+}
+
+
 int lexer(char *input, t_dll *tokens)
 {
 	int i = 0;
@@ -50,7 +76,7 @@ int lexer(char *input, t_dll *tokens)
 						i++;
 				else
 				{
-					while (!check_whitespace(input, i) && input[i])
+					while (!check_whitespace(input, i) && !check_special_char(input, i) && input[i])
 					{
 						if((input[i] == (int)34 || input[i] == (int) 39) && input[i])
 							i = in_quote(input, i);
@@ -61,16 +87,21 @@ int lexer(char *input, t_dll *tokens)
 			}
 		}
 		word = ft_substr(input, start, i - start);
-		c = check_open_quote(word);
-		if (c != 34 && c != 39 && c != -2 )
+		if (check_open_quote(word) == 1)
 			return (write(1, "Error: open quote\n",18), 1);
 		dll_insert_tail(word, tokens);
 		i = skip_whitespace(input, i);
 	}
 	// dll_print_forward(tokens);
+	assign_type(tokens);
 	if (check_open_pipe(tokens))
-		return (write(1, "Error: open pipe\n",17), 1);
-		
+		return (write(1, "Error: open pipe\n",17), exit(1), 1);
+	else if (check_open_redirect(tokens))
+		return (write(1, "Error: open redirection\n",24), exit(1), 1);
+	else if (check_wrong_token(tokens))
+		return (write(1, "Error: wrong token\n",19), exit(1), 1);
+	// dll_print_forward(tokens);
+	return 0;
 }
 
 
