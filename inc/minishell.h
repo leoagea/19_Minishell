@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/11 21:48:45 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/12 00:39:50 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ typedef struct s_dll_cmd
     struct s_cmd *tail;
 }               t_dll_cmd;
 
+typedef struct s_get_env
+{
+   char *var;
+   char *value;   
+}              t_get_env;
+
 typedef struct s_env_expand
 {
     int end;
@@ -83,8 +89,6 @@ typedef struct s_data
 //// BUILTINS ////
 	//ENV//
 int		count_nodes(t_list *list);
-t_list	*init_env(char **envp);
-void	print_env(t_list *env);
 
    //EXPORT//
 char	*min_node(t_list *env);
@@ -191,13 +195,22 @@ char *expand_single_quotes(char *cpy, int *i, char *str);
 t_dll	*dll_init(void);
 t_dll_cmd *dll_cmd_init(void);
 t_env_expand *env_var_init(void);
-int		count_nodes(t_list *list);
-t_list	*init_env(char **envp);
 
+/*------------------------------init_env---------------------------------*/
+
+t_list	*init_env(char **envp);
 
 /*------------------------------BUILTINS---------------------------------*/
 /*--------------------------------echo-----------------------------------*/
 
 void echo(t_cmd *cmd);
+
+/*--------------------------------echo-----------------------------------*/
+
+char *get_pwd(void);
+
+/*--------------------------------env------------------------------------*/
+
+void	print_env(t_list *env, int mode);
 
 #endif
