@@ -1,5 +1,14 @@
 #include "../../inc/minishell.h"
 
+char *get_pwd(void)
+{
+    char buffer[BUFFER_SIZE];
+
+    if (!getcwd(buffer, BUFFER_SIZE))
+        return (NULL);
+    return (buffer);
+}
+
 int pwd(void)
 {
     char buffer[BUFFER_SIZE];
