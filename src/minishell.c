@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/10 22:18:35 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/11 14:44:26 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ int main(int agc, char **argv, char **envp)
             if (lexer(str, data.lexer))
                 return 1;
            
-            printf("---------------\nLexer\n");
-            dll_print_forward(data.lexer);
-            printf("---------------\n");
+            // printf("---------------\nLexer\n");
+            // dll_print_forward(data.lexer);
+            // printf("---------------\n");
             expander(&data);
            
             // printf("---------------\nExpander\n");
@@ -51,29 +51,6 @@ int main(int agc, char **argv, char **envp)
             parser(&data);
             // dll_cmd_print_forward(data.parser);
             
-            //print the **arr give to the exec
-            // t_cmd *current;
-            // char **arr;
-            // int i;
-            
-            // current = data.parser->head;
-            // while (current != NULL){
-            //     arr = current->str;
-            //     i = 0;
-            //     while (arr[i]){
-            //         printf("str [%d] : %s\n", i, arr[i]);
-            //         i++;
-            //     }
-            //     printf("------------------\n");
-            //     current = current->next;
-            // }
-            
-            // t_list *current = data.env;
-            // while (current != NULL)
-            // {
-            //     printf("current : %s\n", current->content);
-            //     current = current->next;
-            // }
             dll_clear(data.lexer);
             data.lexer->head = NULL;
             data.lexer->tail = NULL;
@@ -84,4 +61,6 @@ int main(int agc, char **argv, char **envp)
 	return 0;
 }
 
-///regler cat|ls ne separent oas en 2 cmd
+//expand cas particulier heredoc
+//virer les " " et les ' '
+//pas expand les env var

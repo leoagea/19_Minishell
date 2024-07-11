@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:41:18 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/02 16:02:16 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/11 14:37:16 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	dll_print_forward(t_dll *dll)
 	current = dll->head;
 	while (current != NULL)
 	{
-		ft_printf("value : %s\n", current->str);
+		ft_printf("value : %s, type : %d\n", current->str, current->type);
 		current = current->next;
 	}
 }
