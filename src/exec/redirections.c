@@ -3,15 +3,15 @@
 void    redirections(t_cmd *command)
 {
     int         fd;
+    int         temp_fd;
     t_node       *node;
 
     node = command->redirections->head;
-    while (node)
+    while (node != NULL)
     {
-        printf("%d\n", node->type);
         if (node->type == INPUT)
         {
-            fd = open(command->redirections->head->str, O_RDONLY, 0777);
+            fd = open(node->str, O_RDONLY, 0777);
             if (fd == -1)
             {
                 perror("open");
@@ -22,7 +22,7 @@ void    redirections(t_cmd *command)
         }
         if (node->type == TRUNC)
         {
-            fd = open(command->redirections->head->str, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+            fd = open(node->str, O_WRONLY | O_CREAT | O_TRUNC, 0777);
             if (fd == -1)
             {
                 perror("open");
@@ -33,7 +33,7 @@ void    redirections(t_cmd *command)
         }
         if (node->type == APPEND)
         {
-            fd = open(command->redirections->head->str, O_WRONLY | O_CREAT | O_APPEND, 0777);
+            fd = open(node->str, O_WRONLY | O_CREAT | O_APPEND, 0777);
             if (fd == -1)
             {
                 perror("open");
@@ -44,16 +44,15 @@ void    redirections(t_cmd *command)
         }
         node = node->next;
     }
-    // if (node->head->type == HEREDOC)
-    // {
-    //     fd = open(command->redirections->head->str, O_WRONLY | O_CREAT, 777);
-    //     if (fd == -1)
-    //     {
-    //         perror("open");
-    //         exit (1);
-    //     }
-    //     dup2(fd, STDOUT_FILENO);
-    //     close (fd);
-    // }
+    // if (node->type == HEREDOC)
+    //     heredoc(t_cmd *command);
+        // fd = open(command->redirections->head->str, O_WRONLY | O_CREAT, 777);
+        // if (fd == -1)
+        // {
+        //     perror("open");
+        //     exit (1);
+        // }
+        // dup2(fd, STDOUT_FILENO);
+        // close (fd);
 }
 

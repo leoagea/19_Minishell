@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/10 18:45:24 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/11 12:48:17 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int main(int argc, char **argv, char **envp)
 				add_history(line);
 			lexer(line, data.lexer);
 			parser(&data);
+
 			command = data.parser->head;
 			command->env = envp;
 			command->env_list = &env;

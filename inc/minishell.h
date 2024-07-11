@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/10 15:13:25 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:30:29 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_cmd
    char                    **str; //cmd, arg, flag
    bool                    is_builtin;
    int                     num_redirections;
-	char					**env;
+	char					      **env;
    char                    *absolute_path;
    t_dll                   *redirections;
    t_list                  **env_list;

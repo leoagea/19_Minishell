@@ -58,7 +58,7 @@ void    exec_pipe(t_cmd *command)
     fd_in = STDIN_FILENO;
 
     absolute_path(node);
-    pid_t child_pids[256]; // Assuming a maximum of 256 commands in a pipeline
+    pid_t child_pids[2048]; // Si AU PLUS 2048 commandes dans la pipeline
     int child_count = 0;
     while (node)
     {
@@ -94,7 +94,9 @@ void    exec_pipe(t_cmd *command)
             if (/*execute_builtin(node)*/-1 == -1)
             {
                 execve(node->absolute_path, node->str, command->env);
-                perror("execve");
+                ft_putstr_fd("bash: ", 2);
+                write(2, node->str[0], ft_strlen(node->str[0]));
+                ft_putstr_fd(": command not found\n", 2);
                 exit (1);
             }
             exit (0);
