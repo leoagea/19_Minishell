@@ -23,7 +23,7 @@ SRCS_DIR = src/
 OBJS_DIR = obj/
 
 SRCS =	src/minishell.c \
-	src/builtins/env.c src/builtins/export.c src/builtins/pwd.c src/builtins/unset.c src/builtins/cd.c src/builtins/builtin.c \
+	src/builtins/env.c src/builtins/export.c src/builtins/pwd.c src/builtins/unset.c src/builtins/cd.c src/builtins/builtin.c src/builtins/echo.c \
 	src/signals/signals.c \
 	src/exec/redirections.c src/exec/pipe.c src/exec/heredoc.c \
 	src/lexer/tokens.c src/lexer/utils.c src/lexer/check.c \
