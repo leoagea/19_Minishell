@@ -156,3 +156,8 @@ void	export_node_1equal(t_list **env, t_list **export, char *str)      // export
 // }
 
 //TODO : REPLACE IF ALREADY EXISTING VAR ; VAR+=XXXX -> ft_strjoin
+
+//export sans rien a check
+//export avec une variable sans = a check
+
+//a faire export += et export multi variabbles et export var="string"
