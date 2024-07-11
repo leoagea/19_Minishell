@@ -5,6 +5,10 @@ BLUE=\033[0;34m
 ORANGE=\033[38;2;255;165;0m
 NC=\033[0m
 
+READLIB = /Users/$(shell whoami)/homebrew/opt/readline/lib
+READINC = /Users/$(shell whoami)/homebrew/opt/readline/include
+LINK = -L$(READLIB) -I$(READINC) -lreadline
+
 NAME = minishell
 
 LIBFT = lib/libft.a
@@ -43,7 +47,7 @@ $(NAME) : $(OBJ)
 	@echo "\033[0;34m 	 ██║ ╚═╝ ██║ ██║ ██║ ╚████║ ██║ ███████║ ██║  ██║ ███████╗ ███████╗ ███████╗ "
 	@echo "\033[0;34m 	 ╚═╝     ╚═╝ ╚═╝ ╚═╝  ╚═══╝ ╚═╝ ╚══════╝ ╚═╝  ╚═╝ ╚══════╝ ╚══════╝ ╚══════╝ "
 	@echo "\033[0;34m                 																 "
-	@$(CC) $(OBJ) $(CFLAGS) $(LIBFT) -g -lreadline -o $(NAME)
+	@$(CC) $(OBJ) $(CFLAGS) $(LIBFT) -g $(LINK)  -o $(NAME)
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)
