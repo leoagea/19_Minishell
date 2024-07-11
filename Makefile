@@ -5,8 +5,14 @@ BLUE=\033[0;34m
 ORANGE=\033[38;2;255;165;0m
 NC=\033[0m
 
+ifeq ($(ARCH),arm64)
 READLIB = /Users/$(shell whoami)/homebrew/opt/readline/lib
 READINC = /Users/$(shell whoami)/homebrew/opt/readline/include
+else
+READLIB = /opt/homebrew/opt/readline/lib
+READINC = /opt/homebrew/opt/readline/include
+endif
+
 LINK = -L$(READLIB) -I$(READINC) -lreadline
 
 NAME = minishell
@@ -29,7 +35,7 @@ SRCS =	src/minishell.c \
 	src/lexer/tokens.c src/lexer/utils.c src/lexer/check.c \
 	src/parser/cmd.c src/parser/utils_cmd.c src/parser/redirections.c \
 	src/expander/expander.c src/expander/env_variable.c src/expander/double_quotes.c src/expander/single_quotes.c  src/expander/heredoc.c\
-	src/utils/init.c src/utils/free.c \
+	src/utils/init.c src/utils/free.c src/utils/init_env.c \
 	
 
 OBJ = $(SRCS:$(SRCS_DIR)%.c=$(OBJS_DIR)%.o)
@@ -58,7 +64,7 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)/parser
 	@mkdir -p $(OBJS_DIR)/expander
 	@mkdir -p $(OBJS_DIR)/utils
-	@$(CC) $(CFLAGS) -o $@ -c $<
+	@$(CC)  -o $@ -c $<
 
 $(LIBFT):
 	@echo "$(YELLOW)Compiling Libft...$(NC)"

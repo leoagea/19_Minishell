@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/11 18:23:19 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/12 00:44:05 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,21 @@ int main(int argc, char **argv, char **envp)
 			expander(&data);
 			parser(&data);
 
+			dll_cmd_print_forward(data.parser);
+
 			command = data.parser->head;
 			command->env = envp;
 			command->env_list = &env;
 			char **str;
 
-			str = data.parser->head->str;
-			int i = 0;
-			while (str[i])
-			{
-				printf("str [%d] : %s\n", i, str[i]);
-				i++;
-			}
+			// str = data.parser->head->str;
+			// int i = 0;
+			// while (str[i])
+			// {
+			// 	printf("str [%d] : %s\n", i, str[i]);
+			// 	i++;
+			// }
 
-			echo(data.parser->head);
 		    // if (command->is_builtin == 0)
 				 // 	execute_builtin(command);   // TODO
 			// exec_pipe(command);

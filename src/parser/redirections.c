@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:40:47 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/11 15:25:03 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/12 00:44:52 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int handle_redirections(t_dll *single_cmd, t_data *data)
 		current = current->next;
 	}
 	return 0;
-	// printf("\nRedirections dll-------------\n");
-	// dll_print_forward(cmd->redirections);
-	// printf("Redirections dll-------------\n\n");
+	printf("\nRedirections dll-------------\n");
+	dll_print_forward(cmd->redirections);
+	printf("Redirections dll-------------\n\n");
 }
 
 
