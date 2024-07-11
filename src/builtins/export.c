@@ -1,5 +1,7 @@
 #include "../../inc/minishell.h"
 
+/// A REFAIRE
+
 char	*min_node(t_list *env)
 {
 	t_list *node;
@@ -15,9 +17,9 @@ char	*min_node(t_list *env)
 	str = "~~~~~~~~~~~~~~~~~~~";
 	while (i < env->count - 1)
 	{
-		if (ft_strncmp(str, node->content, ft_strlen(str)) > 0 && node->flag == 0 && ft_strncmp("_=/usr/bin/env", node->content, 15) != 0)
+		if (ft_strncmp(str, node->var, ft_strlen(str)) > 0 && node->flag == 0 && ft_strncmp("_=/usr/bin/env", node->var, 15) != 0)
 		{
-			str = node->content;
+			str = node->var;
 			node_to_flag = node;
 		}
 		node = node->next;
@@ -37,7 +39,7 @@ t_list	*init_export(t_list	*env)   // INITIALISE LISTE EXPORT
 	export = NULL;
 	while (i < env->count - 1)
 	{
-		new_node = ft_lstnew(min_node(env));
+		new_node = ft_lstnew(min_node(env), NULL, 0);
 		if (!new_node)
 			return (NULL);
 		ft_lstadd_back(&export, new_node);
@@ -55,10 +57,10 @@ void	print_export(t_list *export)    // command : export
 	node = export;
 	while (node)
 	{
-		if (ft_strncmp("_=/Users/vdarras/Cursus/minishell/./minishell", node->content, 46) != 0)
+		if (ft_strncmp("_=/Users/vdarras/Cursus/minishell/./minishell", node->var, 46) != 0)
 		{
 			ft_printf("declare -x ");
-			ft_printf("%s\n", (char *)node->content);
+			ft_printf("%s\n", (char *)node->var);
 		}
 		node = node->next;
 		i++;
@@ -98,13 +100,13 @@ void	export_node_0equal(t_list **export, char *str)
 	node = *export;
 	temp = ft_strjoin(str, "=''");
 	new_str = temp;
-	new_node = ft_lstnew(temp);
-	if (ft_strncmp(str, node->content, ft_strlen(str)) <= 0)
+	new_node = ft_lstnew(temp, NULL, 0);
+	if (ft_strncmp(str, node->var, ft_strlen(str)) <= 0)
 	{
 		ft_lstadd_front(export, new_node);
 		return ;
 	}
-	while (ft_strncmp(str, node->next->content, ft_strlen(str)) > 0 && node->next->next != NULL)
+	while (ft_strncmp(str, node->next->var, ft_strlen(str)) > 0 && node->next->next != NULL)
 		node = node->next;
 	if (node->next->next != NULL)
 	{
@@ -122,16 +124,16 @@ void	export_node_1equal(t_list **env, t_list **export, char *str)      // export
 	t_list *new_node2;
 	t_list *node;
 
-	new_node = ft_lstnew(str);
-	new_node2 = ft_lstnew(str);
+	new_node = ft_lstnew(str, NULL, 0);
+	new_node2 = ft_lstnew(str, NULL, 0);
 	node = *export;
 	ft_lstadd_back(env, new_node);
-	if (ft_strncmp(str, node->content, ft_strlen(str)) <= 0)
+	if (ft_strncmp(str, node->var, ft_strlen(str)) <= 0)
 	{
 		ft_lstadd_front(export, new_node2);
 		return ;
 	}
-	while (ft_strncmp(str, node->next->content, ft_strlen(str)) > 0 && node->next->next != NULL)
+	while (ft_strncmp(str, node->next->var, ft_strlen(str)) > 0 && node->next->next != NULL)
 		node = node->next;
 	if (node->next->next != NULL)
 	{

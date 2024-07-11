@@ -2,11 +2,21 @@
 
 char *get_pwd(void)
 {
+    int i;
+    int len;
+    char *pwd;
     char buffer[BUFFER_SIZE];
 
     if (!getcwd(buffer, BUFFER_SIZE))
         return (NULL);
-    return (buffer);
+    len = ft_strlen(buffer);
+    pwd = malloc(sizeof(char) * len + 1);
+    if (!pwd)
+        return NULL;
+    i = -1;
+    while(buffer[i])
+        pwd[i] = buffer[i];
+    return (pwd);
 }
 
 int pwd(void)

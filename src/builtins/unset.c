@@ -9,14 +9,14 @@ void    del_node(t_list **node, char *str)
     temp = *node;
     prev = NULL;
     len = ft_strlen(str);
-    if (temp && ft_strncmp(temp->content, str, len) == 0 && *((char *)temp->content + len + 1 ) == '=')
+    if (temp && ft_strncmp(temp->var, str, len) == 0 && *((char *)temp->var + len + 1 ) == '=')
     {
         *node = temp->next;
         temp->next = NULL;
         free(temp);
         return ;
     }
-    while (temp && ft_strncmp(temp->content, str, len) != 0 && *((char *)temp->content + len + 1 ) != '=')
+    while (temp && ft_strncmp(temp->var, str, len) != 0 && *((char *)temp->var + len + 1 ) != '=')
     {
         prev = temp;
         temp = temp->next;
