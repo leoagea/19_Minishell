@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:18:44 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/10 18:02:37 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/11 14:44:11 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static char *sweep_word(t_data *data, char *str, t_node *current)
 	
 	i = 0;
 	cpy = ft_strdup("");
-	data->env_expand = env_var_init();
 	while (str[i])
 	{
 		if (str[i] == 34)
@@ -76,11 +75,12 @@ int expander(t_data *data)
 	t_node *current;
 	
 	data->expander = dll_init(); 
+	data->env_expand = env_var_init();
 	current = data->lexer->head;
 	while (current != NULL)
 	{
 		str = current->str;
-		if (current->type != PIPE && current->type != INPUT && current->type != TRUNC && current->type != HEREDOC && current->type != APPEND)
+		if (current->type != PIPE && current->type != INPUT && current->type != TRUNC && current->type != APPEND && current->type != HEREDOC)
 		{
 			// printf("test ");
 			// printf("%s\n", str);
@@ -88,7 +88,19 @@ int expander(t_data *data)
 			dll_insert_tail(cpy, data->expander);
 			data->expander->tail->type = current->type;
 		}
-		else {
+		else if (current->type == HEREDOC)
+		{
+			dll_insert_tail(cpy, data->expander);
+			data->expander->tail->type = current->type;
+			current = current->next;
+			// printf("test \n");
+			cpy = expand_heredoc(data, current->str);
+			// printf("cpy : %s\n", cpy);
+			dll_insert_tail(cpy, data->expander);
+			data->expander->tail->type = current->type;
+		}
+		else 
+		{
 			dll_insert_tail(current->str, data->expander);
 			data->expander->tail->type = current->type;
 		}

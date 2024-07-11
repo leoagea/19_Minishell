@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/10 22:16:39 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/11 14:28:12 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,10 @@ int	    dll_cmd_size(t_dll_cmd *dll);
 
 char *join_char(char *str, char c);
 int expander(t_data *data);
+
+/*------------------------------heredoc----------------------------------*/
+
+char *expand_heredoc(t_data *data, char *str);
 
 /*---------------------------env_variables-------------------------------*/
 
