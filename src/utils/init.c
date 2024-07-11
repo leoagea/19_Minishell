@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:16:16 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/09 15:40:59 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/11 23:05:09 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,48 +49,4 @@ t_env_expand *env_var_init(void)
 	env->var_len = 0;
 	env->var = NULL;
 	return env;
-}
-
-int		count_nodes(t_list *list)
-{
-	int	i;
-	t_list	*node;
-
-	i = 0;
-	node = list;
-	while (node)
-	{
-		i++;
-		node = node->next;
-	}
-	return (i);
-}
-
-t_list	*init_env(char **envp)
-{
-	t_list	*env;
-	t_list	*new_node;
-	t_list	*node;
-	int		i;
-
-	i = 0;
-	env = NULL;
-	while (envp[i])
-	{
-		new_node = ft_lstnew(envp[i]);
-		if (!new_node)
-			return (NULL); // free elements liste chainee
-		ft_lstadd_back(&env, new_node);
-		i++;
-	}
-	node = ft_lstlast(env);
-	node->next = NULL;
-	node = env;
-	while (node != NULL)
-	{
-		node->flag = 0;
-		node = node->next;
-	}
-	env->count = count_nodes(env);
-	return (env);
 }

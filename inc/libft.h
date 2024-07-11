@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 01:26:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/11 14:47:48 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/11 23:41:54 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 
 typedef struct s_list
 {
-	void			*content;
+	void			*var;
+	void			*value;
 	int				flag;
 	int				count;
 	int				total;
@@ -82,7 +83,7 @@ typedef struct s_list
 }					t_list;
 
 
-t_list				*ft_lstnew(void *content);
+t_list				*ft_lstnew(void *var, void *value, int flag);
 t_list				*ft_lstlast(t_list *lst);
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));

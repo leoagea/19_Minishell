@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 22:49:46 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 15:53:34 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/11 22:59:08 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	{
 		temp = current;
 		current = current->next;
-		del(temp->content);
+		del(temp->var);
+		del(temp->value);
 		free(temp);
 	}
 	*lst = NULL;
