@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:17:04 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/11 18:26:07 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/11 22:09:47 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int check_flag(char *str)
 {
 	int i;
 	
-	i = 0;
-	while ((str[i] == '-' || str[i] == 'n') && str[i])
+	i = 1;
+	while (str[i] == 'n' && str[i])
 		i++;
 	i++;
 	if (str[i] == '\0')
@@ -25,30 +25,43 @@ int check_flag(char *str)
 	return 0;		
 }
 
-void check_option(char **str, int *flag)
+int check_option(char **str)
 {
-	int i = 1;
+	int i;
+	int flag;
+	
+	i = 1;
+	flag = 0;
 	while (str[i])
 	{
-		if (ft_strncmp(str[i],"-",1))
+		if (!ft_strncmp(str[i],"-",1))
 		{
 			if (check_flag(str[i]))
-				*flag += 1;
+				flag ++;
 		}
 		else
-			return ;
+			return flag;
 		i++;
 	}
+	return flag;
 }
 
-int echo(t_cmd *cmd)
+void echo(t_cmd *cmd)
 {
+	int i;
 	int flag;
 	char **str;
 	
-	flag = 0;
 	str = cmd->str;
-	check_option(str, &flag);
-	printf("flag : %d", flag);
-	return 0;
+	flag = check_option(str);
+	i = flag + 1;
+	while (str[i])
+	{
+		write(STDOUT_FILENO, str[i], ft_strlen(str[i]));
+		if (str[i + 1])
+			write(STDOUT_FILENO, " ", 1);
+		i++;
+	}
+	if (flag == 0)
+		write(STDOUT_FILENO, "\n", 1);
 }
