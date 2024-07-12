@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:18:44 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/11 15:29:09 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/12 16:27:54 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static char *sweep_word(t_data *data, char *str)
 				cpy = join_char(cpy, str[i]);
 				break;
 			}
+			// printf("test env\n");
 			cpy = expand_env_var(data, cpy, &i, str);
 		}
 		else
@@ -76,12 +77,14 @@ int expander(t_data *data)
 	data->expander = dll_init(); 
 	data->env_expand = env_var_init();
 	current = data->lexer->head;
+	// printf("test 1\n");
 	while (current != NULL)
 	{
 		str = current->str;
+		// printf("test 2\n");
 		if (current->type != PIPE && current->type != INPUT && current->type != TRUNC && current->type != APPEND && current->type != HEREDOC)
 		{
-			// printf("test ");
+			// printf("test \n");
 			// printf("%s\n", str);
 			cpy = sweep_word(data, str);
 			dll_insert_tail(cpy, data->expander);
@@ -106,5 +109,6 @@ int expander(t_data *data)
 		current = current->next;
 	}
 	// dll_print_forward(data->expander);
+	check_node_null(data);
 	return 0;
 }

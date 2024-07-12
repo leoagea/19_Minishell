@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_variable.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:51:28 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/11 23:55:20 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/12 15:54:44 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static char *get_env_var(t_data *data, t_env_expand *env)
 	int i;
 	int len;
 	char *str;
-	t_list *current;
+	t_env *current;
 	
 	i = 0;
 	len = ft_strlen(env->var);
-	current = data->env;
+	current = data->env->head;
 	// printf("current content : %s\n", current->content);
 	// printf("env var : %s÷\n", env->var);
 	// printf("len : %d\n",len);
@@ -40,6 +40,7 @@ static char *get_env_var(t_data *data, t_env_expand *env)
 	if (len != env->var_len)
 		return NULL;
 	env->expand = current->value;
+	// printf("env expand : %s\n", env->expand);
 	return "";
 }
 
@@ -54,6 +55,7 @@ char *handle_env_variables(t_data *data, char *str, int i)
 	i++;		
 	env->end = i;
 	env->start = i;
+	// printf("check \n");
 	while ((!check_whitespace(str, i) && !check_special(str[i]) && str[i] != 34 && str[i] != 39)  && str[i])
 	{
 		// printf("2\n");
@@ -64,7 +66,7 @@ char *handle_env_variables(t_data *data, char *str, int i)
 	// printf("start : %d, end : %d\n", env->start, env->end);
 	env->var = ft_substr(str, env->start, env->end - env->start);
 	// printf("env total : %d, count : %d\n", data->env->total, data->env->count); 
-		// printf("test \n");
+	// printf("var : %s\n", env->var);
 	check = get_env_var(data, env);
 	if (check == NULL)
 		return NULL;
@@ -83,12 +85,13 @@ char *expand_env_var(t_data *data, char *cpy, int *i, char *str)
 		*i+= 2;
 		return cpy;
 	}
+	// printf("test 3\n");
 	expand = handle_env_variables(data, str, *i);
 	if (expand == NULL)
 		*i += data->env_expand->end - data->env_expand->start + 1;
 	else
 	{
-		*i += data->env_expand->sub + 1;
+		*i += data->env_expand->end - data->env_expand->start + 1;
 		cpy = ft_strjoin(cpy, data->env_expand->expand);
 	}
 	return cpy;
