@@ -2,160 +2,84 @@
 
 /// A REFAIRE
 
-char	*min_node(t_list *env)
+void	print_export(t_lst *env)    //besoin de check le triage par ordre ascii et ne pas trier les valeur export
 {
-	t_list *node;
-	t_list	*node_to_flag;
-	char	*str;
-	int		i;
-	int		total;
+	t_env *node;
+	char *join;
 
-	i = 0;
-	total = 0;
-	node = env;
-	node_to_flag = node;
-	str = "~~~~~~~~~~~~~~~~~~~";
-	while (i < env->count - 1)
-	{
-		if (ft_strncmp(str, node->var, ft_strlen(str)) > 0 && node->flag == 0 && ft_strncmp("_=/usr/bin/env", node->var, 15) != 0)
-		{
-			str = node->var;
-			node_to_flag = node;
-		}
-		node = node->next;
-		i++; 
-	}
-	node_to_flag->flag = 1;
-	return(str);
-}
-
-t_list	*init_export(t_list	*env)   // INITIALISE LISTE EXPORT
-{
-	t_list	*export;
-	t_list	*new_node;
-	int		i;
-
-	i = 0;
-	export = NULL;
-	while (i < env->count - 1)
-	{
-		new_node = ft_lstnew(min_node(env), NULL, 0);
-		if (!new_node)
-			return (NULL);
-		ft_lstadd_back(&export, new_node);
-		i++;
-	}
-	return (export);
-}
-
-void	print_export(t_list *export)    // command : export
-{
-	t_list *node;
-	int		i;
-
-	i = 0;
-	node = export;
+	node = env->head;
 	while (node)
 	{
+		join = ft_strjoin(node->var, "=");
+		join = ft_strjoin(join, node->value);
+		// printf("join : %s\n", join);
 		if (ft_strncmp("_=/Users/vdarras/Cursus/minishell/./minishell", node->var, 46) != 0)
 		{
 			ft_printf("declare -x ");
-			ft_printf("%s\n", (char *)node->var);
+			ft_printf("%s", node->var);
+			if (node->value)
+				ft_printf("=\"%s\"\n", node->value);
+			else
+				write(1, "\n", 1);
 		}
+		free(join);
 		node = node->next;
+	}
+}
+
+
+static int dispatch_export(t_data *data, char *str, int j)
+{
+	int return_value;
+
+	return_value = 0;
+	if (!ft_isalpha(str[0]) && str[0] != '_')
+	{
+		return_value = 1;
+		ft_printf("bash: export: `%s': not a valid identifier\n", str);
+	}
+	else if (str[j] == '\0')
+	{
+		printf("check 3\n");
+		return_value = export_var(data, str);
+	}
+	else if (str[j] && str[j] == '=')
+		printf("var=\n"); //replace by function
+	else if (str[j] && str[j + 1] && str[j + 1] == '=' && str[j] == '+')
+		printf("var+=\n"); //replace by function
+	else
+	{
+		return_value = 1;
+		ft_printf("bash: export: `%s': not a valid identifier\n", str);
+	}
+	return return_value;
+}
+
+int export(t_data *data, t_cmd *cmd)
+{
+	int i;
+	int j;
+	int return_value;
+	char **arr;
+	char *str;
+
+	i = 1;
+	arr = cmd->str;
+	return_value = 0;
+	printf("check \n");
+	while (arr[i])
+	{
+		j = 0;
+		str = arr[i];
+		while (str[j] && (ft_isalnum((int)str[j]) == 1 || str[j] == '_'))
+			j++;
+		printf("check 1\n");
+		return_value = dispatch_export(data, str, j);
+		printf("check 2\n");
 		i++;
 	}
+	return return_value;
 }
-
-// int		check_existing(t_list *list, char *str)
-// {
-	
-// }
-
-int		check_mutlitple_equal(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (*str)
-	{
-		if (*str == '=')
-			i++;
-		str++;
-	}
-	if (i > 1)
-		return (2);
-	if (i == 1)
-		return (1);
-	return (0);
-}
-
-void	export_node_0equal(t_list **export, char *str)
-{
-	t_list *new_node;
-	t_list *node;
-	char	*temp;
-	char	*new_str;
-
-	node = *export;
-	temp = ft_strjoin(str, "=''");
-	new_str = temp;
-	new_node = ft_lstnew(temp, NULL, 0);
-	if (ft_strncmp(str, node->var, ft_strlen(str)) <= 0)
-	{
-		ft_lstadd_front(export, new_node);
-		return ;
-	}
-	while (ft_strncmp(str, node->next->var, ft_strlen(str)) > 0 && node->next->next != NULL)
-		node = node->next;
-	if (node->next->next != NULL)
-	{
-		new_node->next = node->next->next;
-		node->next->next = new_node;
-		return ;
-	}
-	ft_lstadd_back(export, new_node);
-	free(temp);
-}
-
-void	export_node_1equal(t_list **env, t_list **export, char *str)      // export VAR=XXXX
-{
-	t_list *new_node;
-	t_list *new_node2;
-	t_list *node;
-
-	new_node = ft_lstnew(str, NULL, 0);
-	new_node2 = ft_lstnew(str, NULL, 0);
-	node = *export;
-	ft_lstadd_back(env, new_node);
-	if (ft_strncmp(str, node->var, ft_strlen(str)) <= 0)
-	{
-		ft_lstadd_front(export, new_node2);
-		return ;
-	}
-	while (ft_strncmp(str, node->next->var, ft_strlen(str)) > 0 && node->next->next != NULL)
-		node = node->next;
-	if (node->next->next != NULL)
-	{
-		new_node2->next = node->next->next;
-		node->next->next = new_node2;
-		return ;
-	}
-	ft_lstadd_back(export, new_node2);
-}
-
-// int main(int argc, char **argv, char **envp)
-// {
-// 	t_list *env;
-// 	t_list *export;
-
-// 	env = init_env(envp);
-// 	export = init_export(env);
-// 	export_node(&env, &export, "NNN");
-// 	print_export(export);
-
-// 	return (0);
-// }
 
 //TODO : REPLACE IF ALREADY EXISTING VAR ; VAR+=XXXX -> ft_strjoin
 
@@ -163,3 +87,5 @@ void	export_node_1equal(t_list **env, t_list **export, char *str)      // export
 //export avec une variable sans = a check
 
 //a faire export += et export multi variabbles et export var="string"
+
+//pour export tout seul mettre la liste dans dans un char** et faire une bubble sort

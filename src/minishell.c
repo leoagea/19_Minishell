@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/12 00:44:05 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/12 21:43:25 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,21 @@ int main(int argc, char **argv, char **envp)
 {
 	char *line;
 	t_data	data;
-	t_list *env;
-	t_list *export;
+	t_lst *env;
+	// t_lst *export;
 	t_cmd *command;
 	
     (void) argc;
     (void) argv;
 	g_exit_status = 1;
+	printf("check \n");
 	env = init_env(envp);
-	export = init_export(env);
+	printf("check 0\n");
 	data.lexer = dll_init();
 	data.env = env;
 	data.parser = dll_cmd_init();
+	// print_env(env);
+	// print_export(data.env);
 	handle_signal();
 	while (1)
 	{
@@ -45,16 +48,23 @@ int main(int argc, char **argv, char **envp)
 			if (data.input[0] != '\0')
 				add_history(line);
 			lexer(line, data.lexer);
+			// dll_print_forward(data.lexer);
+			// printf("--------------------\n");
 			expander(&data);
+			// dll_print_forward(data.expander);
 			parser(&data);
 
 			dll_cmd_print_forward(data.parser);
 
 			command = data.parser->head;
 			command->env = envp;
-			command->env_list = &env;
-			char **str;
-
+			command->env_list = data.env;
+			
+			export(&data, data.parser->head);
+			print_env(data.env);
+			printf("===============================================\n");
+			print_export(data.env);
+			// char **str;
 			// str = data.parser->head->str;
 			// int i = 0;
 			// while (str[i])
@@ -62,10 +72,15 @@ int main(int argc, char **argv, char **envp)
 			// 	printf("str [%d] : %s\n", i, str[i]);
 			// 	i++;
 			// }
-
 		    // if (command->is_builtin == 0)
 				 // 	execute_builtin(command);   // TODO
+				 
 			// exec_pipe(command);
+
+			
+			// char *test = get_pwd();
+			// printf("pwd : %s\n", test);
+			// pwd();
 			// printf("exit code : %d\n", g_exit_status); 
 			dll_clear(data.lexer);
 			dll_cmd_clear(data.parser);

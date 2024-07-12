@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/12 16:21:14 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/12 21:44:11 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,6 @@ typedef enum s_bool
 	TRUE   //  1
 }					t_bool;
 
-typedef struct s_cmd
-{
-   char                    **str; //cmd, arg, flag
-   bool                    is_builtin;
-   int                     num_redirections;
-	char					      **env;
-   char                    *absolute_path;
-   t_dll                   *redirections;
-   t_list                  **env_list;
-   struct s_cmd    *next;
-   struct s_cmd    *prev;
-}                t_cmd;
-
-typedef struct s_dll_cmd
-{
-    struct s_cmd *head;
-    struct s_cmd *tail;
-}               t_dll_cmd;
-
 typedef struct s_env
 {
    char *var;
@@ -70,6 +51,27 @@ typedef struct s_lst
 	struct s_env	*head;
 	struct s_env	*tail;
 }					t_lst;
+
+typedef struct s_cmd
+{
+   char                    **str; //cmd, arg, flag
+   bool                    is_builtin;
+   int                     num_redirections;
+	char					      **env;
+   char                    *absolute_path;
+   t_dll                   *redirections;
+   t_lst                  *env_list;
+   struct s_cmd    *next;
+   struct s_cmd    *prev;
+}                t_cmd;
+
+typedef struct s_dll_cmd
+{
+    struct s_cmd *head;
+    struct s_cmd *tail;
+}               t_dll_cmd;
+
+
 
 typedef struct s_env_expand
 {
@@ -95,18 +97,6 @@ typedef struct s_data
 	//MINISHELL//
 
 //// BUILTINS ////
-	//ENV//
-int		count_nodes(t_list *list);
-
-   //EXPORT//
-char	*min_node(t_list *env);
-t_list	*init_export(t_list	*env);
-void	print_export(t_list *export);
-void	export_node_0equal(t_list **export, char *str);
-void	export_node_1equal(t_list **env, t_list **export, char *str);
-
-   //PWD//
-int		pwd(void);
 
    //UNSET//
 void    del_node(t_list **node, char *str);
@@ -211,6 +201,8 @@ t_lst *lst_init(void);
 
 /*------------------------------init_env---------------------------------*/
 
+t_env	*lst_new(char *var, char *value, int flag);
+void	lst_insert_tail(t_env *new, t_lst *lst);
 t_lst	*init_env(char **envp);
 
 /*------------------------------BUILTINS---------------------------------*/
@@ -225,5 +217,20 @@ char *get_pwd(void);
 /*--------------------------------env------------------------------------*/
 
 void	print_env(t_lst *env);
+
+/*--------------------------------pwd------------------------------------*/
+
+int		pwd(void);
+
+/*-------------------------------export-----------------------------------*/
+
+void	print_export(t_lst *env);
+int export(t_data *data, t_cmd *cmd);
+
+/*--------------------------export_functions-------------------------------*/
+
+int export_var(t_data *data, char *str);
+int export_var_value(t_data *data, char *str);
+int export_cat_value(t_data *data, char *str);
 
 #endif
