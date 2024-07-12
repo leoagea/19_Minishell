@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 23:04:43 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/12 15:10:16 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/12 21:29:04 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ t_env *get_env_var(char *envp)
     return env;
 }
 
-static t_env	*lstnew(char *var, char *value, int flag)
+//export = 1 -> value exported otherwise value by default
+t_env	*lst_new(char *var, char *value, int flag)
 {
 	t_env	*new;
 
@@ -55,7 +56,7 @@ static t_env	*lstnew(char *var, char *value, int flag)
 	return (new);
 }
 
-static void	lst_insert_tail(t_env *new, t_lst *lst)
+void	lst_insert_tail(t_env *new, t_lst *lst)
 {
 	if (lst->tail == NULL)
 	{
@@ -69,6 +70,32 @@ static void	lst_insert_tail(t_env *new, t_lst *lst)
 	}
 }
 
+t_lst *init_env_i(void)
+{
+    char *pwd;
+    t_env *node;
+    t_lst *env;
+
+    env = lst_init();
+    if (!env)
+        return NULL;
+    if (!(pwd = get_pwd()))
+       return NULL;
+    node = lst_new("PWD", pwd, 1);
+    if (!node)
+        return NULL;
+    lst_insert_tail(node, env);
+    node = lst_new("SHLVL", "1", 1);
+    if (!node)
+        return NULL;
+    lst_insert_tail(node, env);
+    node = lst_new("_", ft_strjoin(pwd, "/./minishell"), 1);
+    if (!node)
+        return NULL;
+    lst_insert_tail(node, env);
+    return env;
+}
+
 t_lst	*init_env(char **envp)
 {
     t_lst *env;
@@ -78,10 +105,18 @@ t_lst	*init_env(char **envp)
 
 	i = 0;
     env = lst_init();
+    if (!envp || !*envp)
+    {
+        env = init_env_i();
+        // env = NULL;
+        return env;
+    }
+    if (!env)
+        return NULL;
 	while (envp[i])
 	{
         env_var = get_env_var(envp[i]);
-		new_node = lstnew(env_var->var, env_var->value, env_var->flag);
+		new_node = lst_new(env_var->var, env_var->value, env_var->flag);
 		if (!new_node)
 			return (NULL); // free elements liste chainee
 		lst_insert_tail(new_node, env);
@@ -89,3 +124,4 @@ t_lst	*init_env(char **envp)
 	}
 	return (env);
 }
+
