@@ -34,7 +34,7 @@ SRCS =	src/minishell.c \
 	src/exec/redirections.c src/exec/pipe.c src/exec/heredoc.c \
 	src/lexer/tokens.c src/lexer/utils.c src/lexer/check.c \
 	src/parser/cmd.c src/parser/utils_cmd.c src/parser/redirections.c \
-	src/expander/expander.c src/expander/env_variable.c src/expander/double_quotes.c src/expander/single_quotes.c  src/expander/heredoc.c\
+	src/expander/expander.c src/expander/env_variable.c src/expander/double_quotes.c src/expander/single_quotes.c  src/expander/heredoc.c src/expander/check.c \
 	src/utils/init.c src/utils/free.c src/utils/init_env.c \
 	
 
