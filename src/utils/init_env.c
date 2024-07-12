@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 23:04:43 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/12 14:27:03 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/12 15:10:16 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,20 +80,12 @@ t_lst	*init_env(char **envp)
     env = lst_init();
 	while (envp[i])
 	{
-        // printf("%d\n", i);
         env_var = get_env_var(envp[i]);
-        // printf("%s=%s   falg : %d\n", env_var->var, env_var->value, env_var->flag);
 		new_node = lstnew(env_var->var, env_var->value, env_var->flag);
 		if (!new_node)
 			return (NULL); // free elements liste chainee
 		lst_insert_tail(new_node, env);
-        // printf("%s=%s   falg : %d\n", env->tail->var, env->tail->value, env->tail->flag);
-        // printf("%s=%s   falg : %d\n", env->tail->var, env->tail->value, env->tail->flag);
 		i++;
 	}
-    print_env(env);
-    // print_env(env);
-    // print_env(env);
-    // print_env(env);
 	return (env);
 }

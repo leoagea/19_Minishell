@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:29:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/11 14:52:54 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/12 16:29:14 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,26 @@ void	dll_cmd_insert_tail(t_dll_cmd *dll, t_cmd *new)
 
 void	dll_cmd_print_forward(t_dll_cmd *dll)
 {
+	char **str;
 	t_cmd	*current;
-
 	current = dll->head;
+	int i;
+	t_node *red;
+	
 	while (current != NULL)
 	{
-		ft_printf("str : %s\n", current->str[0]);
-		ft_printf("redirections : %d\n", current->num_redirections);
+		str = current->str;
+		i = 0;
+		while (str[i])
+		{
+			ft_printf("str : %s\n", current->str[i]);
+			i++;
+		}
+		printf("---------------\n");
+		dll_print_forward(current->redirections);
+		printf("---------------\n");
 		current = current->next;
+		printf("========================\n");
 	}
 }
 
