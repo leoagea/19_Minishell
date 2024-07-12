@@ -10,16 +10,6 @@ char *get_pwd(void)
     pwd = getcwd(NULL, 0);
     if (!pwd)
         return NULL;
-    // if (!(getcwd(buffer, BUFFER_SIZE)))
-    //     return NULL;
-    // len = ft_strlen(buffer);
-    // pwd = malloc(sizeof(char) * len + 1);
-    // printf("pwd : %s\n", pwd);
-    // if (!pwd)
-    //     return NULL;
-    // i = -1;
-    // while(buffer[i])
-    //     pwd[i] = buffer[i];
     return (pwd);
 }
 
