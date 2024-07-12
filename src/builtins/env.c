@@ -1,29 +1,16 @@
 #include "../../inc/minishell.h"
-//mode = 1 ==> env / mode != 1 ==> export
-void	print_env(t_list *env, int mode)
+//mode = 1 ==> print / mode != 1 ==> not print
+void	print_env(t_lst *env)
 {
-	t_list	*node;
+	t_env	*node;
 
-	node = env;
-	if (mode == 1)
+	node = env->head;
+	while (node != NULL)
 	{
-		while (node != NULL)
-		{
-			ft_printf("%s=",node->var);
-			if (node->flag == 1)
-				ft_printf("%s\n", node->value);
-			node = node->next;
-		}
-	}
-	else
-	{
-		while (node != NULL)
-		{
-			ft_printf("%s=",node->var);
-			if (node->flag == 1)
-				ft_printf("\"%s\"\n", node->value);
-			node = node->next;
-		}
+		ft_printf("%s=",node->var);
+		if (node->flag == 1)
+			ft_printf("%s\n", node->value);
+		node = node->next;
 	}
 }
 

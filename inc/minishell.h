@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/12 00:39:50 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/12 14:14:05 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,19 @@ typedef struct s_dll_cmd
     struct s_cmd *tail;
 }               t_dll_cmd;
 
-typedef struct s_get_env
+typedef struct s_env
 {
    char *var;
-   char *value;   
-}              t_get_env;
+   char *value;
+   int				flag;
+	struct s_env	*next; 
+}              t_env;
+
+typedef struct s_lst
+{
+	struct s_env	*head;
+	struct s_env	*tail;
+}					t_lst;
 
 typedef struct s_env_expand
 {
@@ -76,11 +84,11 @@ typedef struct s_env_expand
 typedef struct s_data
 {
 	char *input;
-    t_list *env;
+   t_lst *env;
 	t_dll *lexer;
-    t_dll *expander;
+   t_dll *expander;
 	t_dll_cmd *parser;
-    t_env_expand *env_expand;
+   t_env_expand *env_expand;
 }				t_data;
 
 	//// MAIN ////
@@ -195,10 +203,11 @@ char *expand_single_quotes(char *cpy, int *i, char *str);
 t_dll	*dll_init(void);
 t_dll_cmd *dll_cmd_init(void);
 t_env_expand *env_var_init(void);
+t_lst *lst_init(void);
 
 /*------------------------------init_env---------------------------------*/
 
-t_list	*init_env(char **envp);
+t_lst	*init_env(char **envp);
 
 /*------------------------------BUILTINS---------------------------------*/
 /*--------------------------------echo-----------------------------------*/
@@ -211,6 +220,6 @@ char *get_pwd(void);
 
 /*--------------------------------env------------------------------------*/
 
-void	print_env(t_list *env, int mode);
+void	print_env(t_lst *env);
 
 #endif
