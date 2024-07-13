@@ -1,30 +1,68 @@
 #include "../../inc/minishell.h"
 
 /// A REFAIRE
-
-void	print_export(t_lst *env)    //besoin de check le triage par ordre ascii et ne pas trier les valeur export
+void swap_node(t_env *a, t_env *b, t_lst *exp)
 {
-	t_env *node;
-	char *join;
+	t_env *tmp;
+	tmp = a;
+	a = b;
+	b = tmp;
+	if (a == exp->head)
+		exp->head = b;
+	else if (b == exp->head)
+		exp->head = a;
+}
 
-	node = env->head;
-	while (node)
+static t_lst *put_in_lst_export(t_lst *env)
+{
+	t_lst *export;
+	t_env *new;
+	t_env *current;
+
+	export = lst_init();
+	if (!export)
+		return NULL;
+	current = env->head;
+	while (current != NULL)
 	{
-		join = ft_strjoin(node->var, "=");
-		join = ft_strjoin(join, node->value);
-		// printf("join : %s\n", join);
-		if (ft_strncmp("_=/Users/vdarras/Cursus/minishell/./minishell", node->var, 46) != 0)
-		{
-			ft_printf("declare -x ");
-			ft_printf("%s", node->var);
-			if (node->value)
-				ft_printf("=\"%s\"\n", node->value);
-			else
-				write(1, "\n", 1);
-		}
-		free(join);
-		node = node->next;
+		new = lst_new(current->var, current->value, 1);
+		if (!new)
+			return NULL;
+		lst_insert_tail(new, export);
+		current = current->next;
 	}
+	current = export->head;
+	return export;
+}
+
+void	print_export(t_lst *env)    //besoin de check le triage par ordre ascii
+{
+	int i = 0;
+	char *join;
+	t_env *node;
+	t_lst *export;
+
+	export = put_in_lst_export(env);
+	sort_export(export);
+	// node = export->head;
+	// printf("check\n\n");
+	// while (node)
+	// {
+	// 	join = ft_strjoin(node->var, "=");
+	// 	join = ft_strjoin(join, node->value);
+	// 	// if (ft_strncmp("_=/Users/vdarras/Cursus/minishell/./minishell", node->var, 46) != 0)
+	// 	// {
+	// 	// 	ft_printf("declare -x ");
+	// 	// 	ft_printf("%s", node->var);
+	// 	// 	if (node->value)
+	// 	// 		ft_printf("=\"%s\"\n", node->value);
+	// 	// 	else
+	// 	// 		write(1, "\n", 1);
+	// 	// }
+	// 	printf("%s\n", join);
+	// 	free(join);
+	// 	node = node->next;
+	// }
 }
 
 
@@ -39,14 +77,11 @@ static int dispatch_export(t_data *data, char *str, int j)
 		ft_printf("bash: export: `%s': not a valid identifier\n", str);
 	}
 	else if (str[j] == '\0')
-	{
-		printf("check 3\n");
 		return_value = export_var(data, str);
-	}
 	else if (str[j] && str[j] == '=')
-		printf("var=\n"); //replace by function
+		return_value = export_var_value(data, str);
 	else if (str[j] && str[j + 1] && str[j + 1] == '=' && str[j] == '+')
-		printf("var+=\n"); //replace by function
+		return_value = export_cat_value(data, str);
 	else
 	{
 		return_value = 1;
@@ -66,26 +101,20 @@ int export(t_data *data, t_cmd *cmd)
 	i = 1;
 	arr = cmd->str;
 	return_value = 0;
-	printf("check \n");
+	if (!arr[1])
+		print_export(data->env);
 	while (arr[i])
 	{
 		j = 0;
 		str = arr[i];
 		while (str[j] && (ft_isalnum((int)str[j]) == 1 || str[j] == '_'))
 			j++;
-		printf("check 1\n");
 		return_value = dispatch_export(data, str, j);
-		printf("check 2\n");
 		i++;
 	}
 	return return_value;
 }
 
-//TODO : REPLACE IF ALREADY EXISTING VAR ; VAR+=XXXX -> ft_strjoin
-
 //export sans rien a check
-//export avec une variable sans = a check
-
-//a faire export += et export multi variabbles et export var="string"
 
 //pour export tout seul mettre la liste dans dans un char** et faire une bubble sort

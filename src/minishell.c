@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/12 21:43:25 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/13 01:37:41 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,12 @@ int main(int argc, char **argv, char **envp)
 			command->env = envp;
 			command->env_list = data.env;
 			
-			export(&data, data.parser->head);
-			print_env(data.env);
+			// dll_print_forward(data.expander);
 			printf("===============================================\n");
-			print_export(data.env);
+			export(&data, data.parser->head);
+			// print_env(data.env);
+			// printf("===============================================\n");
+			// print_export(data.env);
 			// char **str;
 			// str = data.parser->head->str;
 			// int i = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/12 21:44:11 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/13 02:30:44 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,9 +201,13 @@ t_lst *lst_init(void);
 
 /*------------------------------init_env---------------------------------*/
 
+t_lst	*init_env(char **envp);
+
+/*--------------------------------lst------------------------------------*/
+
 t_env	*lst_new(char *var, char *value, int flag);
 void	lst_insert_tail(t_env *new, t_lst *lst);
-t_lst	*init_env(char **envp);
+int    lst_size(t_lst *lst);
 
 /*------------------------------BUILTINS---------------------------------*/
 /*--------------------------------echo-----------------------------------*/
@@ -224,8 +228,10 @@ int		pwd(void);
 
 /*-------------------------------export-----------------------------------*/
 
+void swap_node(t_env *a, t_env *b, t_lst *exp);
 void	print_export(t_lst *env);
 int export(t_data *data, t_cmd *cmd);
+void sort_export(t_lst *export);
 
 /*--------------------------export_functions-------------------------------*/
 
