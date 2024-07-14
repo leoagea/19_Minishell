@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/14 23:54:55 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/15 01:24:11 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,6 @@ typedef struct s_data
 	//MINISHELL//
 
 //// BUILTINS ////
-
-   //UNSET//
-void    del_node(t_list **node, char *str);
-int     count_to_equal(char *str);
-void    unset(t_list **env, t_list **export, char *var);
 
    //CD//
 void	cd(t_list **env, t_list **export);
@@ -236,6 +231,13 @@ int export(t_data *data, t_cmd *cmd);
 int export_var(t_data *data, char *str);
 int export_var_value(t_data *data, char *str);
 int export_cat_value(t_data *data, char *str);
+
+/*-----------------------------export_sort---------------------------------*/
+
 void sort_export(char **arr, int size);
+
+/*--------------------------------unset------------------------------------*/
+
+int unset(t_data *data, t_cmd *cmd);
 
 #endif

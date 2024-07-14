@@ -13,7 +13,7 @@ void	print_env(t_lst *env)
 		{
 			ft_printf("%s=",node->var);
 			if (node->value)
-				ft_printf("=%s\n", node->value);
+				ft_printf("%s\n", node->value);
 		}
 		node = node->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/13 01:37:41 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/15 01:42:44 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,14 @@ int main(int argc, char **argv, char **envp)
 {
 	char *line;
 	t_data	data;
-	t_lst *env;
 	// t_lst *export;
 	t_cmd *command;
 	
     (void) argc;
     (void) argv;
 	g_exit_status = 1;
-	printf("check \n");
-	env = init_env(envp);
-	printf("check 0\n");
+	data.env = init_env(envp);
 	data.lexer = dll_init();
-	data.env = env;
 	data.parser = dll_cmd_init();
 	// print_env(env);
 	// print_export(data.env);
@@ -62,18 +58,12 @@ int main(int argc, char **argv, char **envp)
 			
 			// dll_print_forward(data.expander);
 			printf("===============================================\n");
-			export(&data, data.parser->head);
-			// print_env(data.env);
-			// printf("===============================================\n");
-			// print_export(data.env);
-			// char **str;
-			// str = data.parser->head->str;
-			// int i = 0;
-			// while (str[i])
-			// {
-			// 	printf("str [%d] : %s\n", i, str[i]);
-			// 	i++;
-			// }
+			if (ft_strncmp(data.parser->head->str[0], "export", INT_MAX) == 0)
+				export(&data, data.parser->head);
+			else if (ft_strncmp(data.parser->head->str[0], "unset", INT_MAX) == 0)
+				unset(&data, data.parser->head);
+			else if (ft_strncmp(data.parser->head->str[0], "env", INT_MAX) == 0)
+				print_env(data.env);
 		    // if (command->is_builtin == 0)
 				 // 	execute_builtin(command);   // TODO
 				 

@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 00:40:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/15 00:40:36 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/15 01:33:31 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,3 @@ int export(t_data *data, t_cmd *cmd)
 	}
 	return return_value;
 }
-//export sans rien a check
