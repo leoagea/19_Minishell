@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 21:02:16 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/13 02:35:22 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/14 23:54:46 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,34 +73,28 @@ int export_cat_value(t_data *data, char *str)
 	return 0;
 }
 
-void sort_export(t_lst *export) //segfault a corriger
+static void swap(char **a, char **b)
 {
-    const int size=lst_size(export);
-	int i;
-    t_env *node;
-    t_env *node2 = NULL;
+    char *temp = *a;
+    *a = *b;
+    *b = temp;
+}
 
-	printf("check 1\n");
+void sort_export(char **arr, int size)
+{
+	int i;
+	int j;
+
 	i = 0;
-	while(i < size)
+    while(i < size - 1)
 	{
-		node = export->head;
-		while(node->next != node2)
+		j = 0;
+		while(j < size - i - 1)
 		{
-			printf("check 2\n");
-			if (ft_strncmp(node->value, node->next->value, INT_MAX) < 0)
-				swap_node(node, node->next, export);
-			node = node->next;
-		}
-		node2 = node;
-	}
-	printf("check 3\n");
-	node = export->head;
-	printf("check 4\n");
-	while (node != NULL)
-	{
-		printf("%s\n", node->var);
-		node = node->next;
-	}
-	printf("check 5\n");
+            if (ft_strncmp(arr[j], arr[j + 1], INT_MAX) > 0)
+                swap(&arr[j], &arr[j + 1]);
+			j++;
+        }
+		i++;
+    }
 }

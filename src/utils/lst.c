@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 01:48:14 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/13 02:00:13 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/14 23:57:28 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int    lst_size(t_lst *lst)
     size = 0;
     if(!lst)
         return size;
-    printf("check\n");
     current = lst->head;
     while(current != NULL)
     {

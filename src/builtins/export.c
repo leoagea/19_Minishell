@@ -1,68 +1,51 @@
 #include "../../inc/minishell.h"
 
-/// A REFAIRE
-void swap_node(t_env *a, t_env *b, t_lst *exp)
+static char **put_int_arr(t_lst *env)
 {
-	t_env *tmp;
-	tmp = a;
-	a = b;
-	b = tmp;
-	if (a == exp->head)
-		exp->head = b;
-	else if (b == exp->head)
-		exp->head = a;
-}
-
-static t_lst *put_in_lst_export(t_lst *env)
-{
-	t_lst *export;
-	t_env *new;
-	t_env *current;
-
-	export = lst_init();
-	if (!export)
-		return NULL;
-	current = env->head;
-	while (current != NULL)
-	{
-		new = lst_new(current->var, current->value, 1);
-		if (!new)
-			return NULL;
-		lst_insert_tail(new, export);
-		current = current->next;
-	}
-	current = export->head;
-	return export;
-}
-
-void	print_export(t_lst *env)    //besoin de check le triage par ordre ascii
-{
-	int i = 0;
-	char *join;
+	const int size = lst_size(env);
+	char **arr;
+	int i;
 	t_env *node;
-	t_lst *export;
+	int len;
 
-	export = put_in_lst_export(env);
-	sort_export(export);
-	// node = export->head;
-	// printf("check\n\n");
-	// while (node)
-	// {
-	// 	join = ft_strjoin(node->var, "=");
-	// 	join = ft_strjoin(join, node->value);
-	// 	// if (ft_strncmp("_=/Users/vdarras/Cursus/minishell/./minishell", node->var, 46) != 0)
-	// 	// {
-	// 	// 	ft_printf("declare -x ");
-	// 	// 	ft_printf("%s", node->var);
-	// 	// 	if (node->value)
-	// 	// 		ft_printf("=\"%s\"\n", node->value);
-	// 	// 	else
-	// 	// 		write(1, "\n", 1);
-	// 	// }
-	// 	printf("%s\n", join);
-	// 	free(join);
-	// 	node = node->next;
-	// }
+	i = 0;
+	arr = malloc(sizeof(char *) * size + 1);
+	node = env->head;
+	while(node)
+	{
+		len = ft_strlen(node->var);
+		arr[i] = malloc(sizeof(char) * len + 1);
+		arr[i] = node->var;
+		arr[i][len] = '\0';
+		i++;
+		node = node->next;
+	}
+
+	node = NULL;
+	return arr;
+}
+
+void	print_export(t_lst *env)
+{
+	int i;
+	char **arr;
+	t_env *node;
+
+	arr = put_int_arr(env);
+	sort_export(arr, lst_size(env));
+	i = 0;
+	while(arr[i]) 
+	{
+		node = env->head;
+		while(ft_strncmp(arr[i], node->var, INT_MAX) != 0)
+			node = node->next;
+		ft_printf("declare -x %s", arr[i]);
+		if (node->value)
+			ft_printf("=\"%s\"\n", node->value);
+		// free(arr[i]);
+		i++;
+    }
+	// free(arr);
 }
 
 
@@ -114,7 +97,4 @@ int export(t_data *data, t_cmd *cmd)
 	}
 	return return_value;
 }
-
 //export sans rien a check
-
-//pour export tout seul mettre la liste dans dans un char** et faire une bubble sort

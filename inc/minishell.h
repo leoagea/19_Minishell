@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/13 02:30:44 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/14 23:54:55 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,15 +228,14 @@ int		pwd(void);
 
 /*-------------------------------export-----------------------------------*/
 
-void swap_node(t_env *a, t_env *b, t_lst *exp);
 void	print_export(t_lst *env);
 int export(t_data *data, t_cmd *cmd);
-void sort_export(t_lst *export);
 
 /*--------------------------export_functions-------------------------------*/
 
 int export_var(t_data *data, char *str);
 int export_var_value(t_data *data, char *str);
 int export_cat_value(t_data *data, char *str);
+void sort_export(char **arr, int size);
 
 #endif
