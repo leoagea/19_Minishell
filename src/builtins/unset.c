@@ -1,48 +1,40 @@
 # include "../../inc/minishell.h"
 
-void    del_node(t_list **node, char *str)
-{
-    t_list  *temp;
-    t_list  *prev;
-    int     len;
-
-    temp = *node;
-    prev = NULL;
-    len = ft_strlen(str);
-    if (temp && ft_strncmp(temp->var, str, len) == 0 && *((char *)temp->var + len + 1 ) == '=')
-    {
-        *node = temp->next;
-        temp->next = NULL;
-        free(temp);
-        return ;
-    }
-    while (temp && ft_strncmp(temp->var, str, len) != 0 && *((char *)temp->var + len + 1 ) != '=')
-    {
-        prev = temp;
-        temp = temp->next;
-    }
-    if (temp == NULL)
-        return ;
-    prev->next = temp->next;
-    free (temp);
+static void lst_delete_node(t_env *prev, t_env *delete, t_lst *lst)  
+{  
+    t_env *node;  
+	 
+    node = delete;
+    if (!prev)
+        lst->head = node->next;
+    else if (node == lst->tail)
+        lst->tail = prev;
+    else
+        prev->next = node->next;  
+	free(node);
 }
 
-void    unset(t_list **env, t_list **export, char *var)
+void    unset(t_lst *env, char *var)
 {
-    del_node(env, var);
-    del_node(export, var);
-}
+    t_env *node;
 
-// int main(int argc, char **argv, char **envp) 
-// {
-//     t_list *env = init_env(envp);
-//     t_list *export = init_export(env);
-//     export_node_0equal(&export, "VICENTE");
-//     // print_export(export);
-//     print_export(export);
-//     unset(&env, &export, "VICENTE");
-//     sleep(1);
-//     printf("\n\n");
-//     print_export(export);
-//     return (0);
-// }
+    node = env->head;
+    if (ft_strncmp(node->var, env->head->var, INT_MAX) != 0)
+    {
+        printf("env var to delete : %s\n", var);
+        printf("node->var->head var : %s\n", node->var);
+        lst_delete_node(NULL, node, env);
+        printf("check\n");
+        return ;
+    }
+    while(node)
+    {
+        if (ft_strncmp(node->next->var, var, INT_MAX) == 0)
+        {
+            lst_delete_node(node, node->next, env);
+            printf("check 1\n");
+            return ;
+        }
+        node = node->next;
+    }
+}
