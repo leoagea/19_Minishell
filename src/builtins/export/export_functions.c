@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 21:02:16 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/15 00:40:22 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/15 13:06:41 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int export_cat_value(t_data *data, char *str)
 	value = ft_substr(str, start, i - start);
 	if (!value)
 		return 1;
+	if (!current->value)
+		current->value = ft_strdup("");
 	current->value = ft_strjoin(current->value, value);
 	if (!current->value)
 		return 1;
