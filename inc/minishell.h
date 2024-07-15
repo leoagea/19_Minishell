@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/11 14:47:53 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/15 12:03:06 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@
 # define BUFFER_SIZE 10000
 
 int   g_exit_status;
-
-int g_exit_status;
 
 typedef enum s_bool
 {

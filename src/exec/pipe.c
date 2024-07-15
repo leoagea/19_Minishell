@@ -97,9 +97,8 @@ void    exec_pipe(t_cmd *command)
                 ft_putstr_fd("bash: ", 2);
                 write(2, node->str[0], ft_strlen(node->str[0]));
                 ft_putstr_fd(": command not found\n", 2);
-                exit (1);
+                exit (127);
             }
-            exit (0);
         }
         else 
         {

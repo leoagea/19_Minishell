@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:12:31 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/11 14:50:34 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/11 17:07:49 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int parser(t_data *data)
 	}
 	// dll_cmd_print_forward(data->parser);
 }
-
 // cat -e | ls -la |echo "test" | pwd | cat < Makefile > test.txt
 
 
