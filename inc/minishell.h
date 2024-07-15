@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/15 12:03:06 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/15 19:30:15 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,9 @@ void	handle_signal(void);
 //// EXEC ////
   // REDIRECTIONS //
 void    redirections(t_cmd *command);
+
+   // HEREDOC //
+void     heredoc(t_node *node);
 
   // EXEC_PIPE //
 void    exec_pipe(t_cmd *command);

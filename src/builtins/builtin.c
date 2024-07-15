@@ -24,7 +24,7 @@ void	is_builtin(t_cmd *command)
 // int		exec_builtin(t_cmd *command)
 // {
 // 	if (ft_strncmp(command->str[0], "cd", INT_MAX) == 0)
-// 		cd(command->env, command->export);
+// 		cd();
 // 	if (ft_strncmp(command->str[0], "echo", INT_MAX) == 0 )
 // 		echo();
 // 	if (ft_strncmp(command->str[0], "env", INT_MAX) == 0 )
