@@ -43,7 +43,7 @@ void    absolute_path(t_cmd *command)
     }
 }
 
-void    exec_pipe(t_cmd *command)
+void    exec_pipe(t_cmd *command, t_data *data)
 {
     int     pipe_fd[2];
     int     wstatus;
@@ -89,7 +89,7 @@ void    exec_pipe(t_cmd *command)
                 close(pipe_fd[1]);
                 close(pipe_fd[0]);
             }
-            if (/*execute_builtin(node)*/-1 == -1)
+            if (/*exec_builtin(node, data)*/ -1 == -1)
             {
                 execve(node->absolute_path, node->str, command->env);
                 ft_putstr_fd("bash: ", 2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/15 01:42:44 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/15 19:07:07 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,16 @@ int main(int argc, char **argv, char **envp)
 				unset(&data, data.parser->head);
 			else if (ft_strncmp(data.parser->head->str[0], "env", INT_MAX) == 0)
 				print_env(data.env);
+			else if (ft_strncmp(data.parser->head->str[0], "cd", INT_MAX) == 0)
+				cd(&data);
+			else if ((ft_strncmp(data.parser->head->str[0], "pwd", INT_MAX) == 0))
+				pwd();
+			else if (ft_strncmp(command->str[0], "echo", INT_MAX) == 0)
+				return echo(data.parser->head);
 		    // if (command->is_builtin == 0)
 				 // 	execute_builtin(command);   // TODO
 				 
-			// exec_pipe(command);
+			exec_pipe(command, &data);
 
 			
 			// char *test = get_pwd();
@@ -75,14 +81,20 @@ int main(int argc, char **argv, char **envp)
 			// pwd();
 			// printf("exit code : %d\n", g_exit_status); 
 			dll_clear(data.lexer);
+			dll_clear(data.expander);
 			dll_cmd_clear(data.parser);
-			data.parser->head = NULL;
-			data.parser->tail = NULL;
 			data.lexer->head = NULL;
 			data.lexer->tail = NULL;
+			data.parser->head = NULL;
+			data.parser->tail = NULL;
+			data.expander->head = NULL;
+			data.expander->tail = NULL;
 			// free_command(command); // TODO
 		}
 		free(line);
 	}
 	return (0);
 }
+
+//verifie si il y a des nodes parser avant de rentrer dans l exec
+//re check tous les builtins avec l exec
