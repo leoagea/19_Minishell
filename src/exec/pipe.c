@@ -85,7 +85,7 @@ void    exec_pipe(t_cmd *command)
                 close(fd_in);
             }
             redirections(node);   // ouvre fichier puis redirige entree ou sortie depuis ou vers le fd       
-            if (node->next)     // si commande apres -> j'ecris sur le pipe 
+            if (node->next)     // si commande apres ->  j'ecris sur le pipe 
             {
                 dup2(pipe_fd[1], STDOUT_FILENO);
                 close(pipe_fd[1]);
