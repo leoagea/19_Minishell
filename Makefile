@@ -29,8 +29,9 @@ SRCS_DIR = src/
 OBJS_DIR = obj/
 
 SRCS =	src/minishell.c \
-	src/builtins/env.c src/builtins/pwd.c src/builtins/unset.c src/builtins/cd.c src/builtins/builtin.c src/builtins/echo.c \
+	src/builtins/env.c src/builtins/pwd.c src/builtins/unset.c src/builtins/builtin.c src/builtins/echo.c \
 	src/builtins/export/export.c src/builtins/export/export_functions.c src/builtins/export/export_sort.c \
+	src/builtins/cd/cd.c src/builtins/cd/cd_functions.c \
 	src/signals/signals.c \
 	src/exec/redirections.c src/exec/pipe.c src/exec/heredoc.c \
 	src/lexer/tokens.c src/lexer/utils.c src/lexer/check.c \
@@ -54,12 +55,13 @@ $(NAME) : $(OBJ)
 	@echo "\033[0;34m 	 ██║ ╚═╝ ██║ ██║ ██║ ╚████║ ██║ ███████║ ██║  ██║ ███████╗ ███████╗ ███████╗ "
 	@echo "\033[0;34m 	 ╚═╝     ╚═╝ ╚═╝ ╚═╝  ╚═══╝ ╚═╝ ╚══════╝ ╚═╝  ╚═╝ ╚══════╝ ╚══════╝ ╚══════╝ "
 	@echo "\033[0;34m                 																 "
-	@$(CC) $(OBJ) $(CFLAGS) $(LIBFT) -g $(LINK)  -o $(NAME)
+	@$(CC) $(OBJ) $(CFLAGS) $(LIBFT) -g $(LINK) -o $(NAME)
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)/builtins
 	@mkdir -p $(OBJS_DIR)/builtins/export
+	@mkdir -p $(OBJS_DIR)/builtins/cd
 	@mkdir -p $(OBJS_DIR)/signals
 	@mkdir -p $(OBJS_DIR)/lexer
 	@mkdir -p $(OBJS_DIR)/exec

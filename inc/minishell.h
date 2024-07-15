@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/15 02:01:21 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/15 16:23:13 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,6 @@ typedef struct s_data
 
 	//// MAIN ////
 	//MINISHELL//
-
-//// BUILTINS ////
-
-   //CD//
-void	cd(t_list **env, t_list **export);
 
 //// SIGNALS ////
 	//CTRL C//
@@ -203,6 +198,7 @@ t_lst	*init_env(char **envp);
 t_env	*lst_new(char *var, char *value, int flag);
 void	lst_insert_tail(t_env *new, t_lst *lst);
 int    lst_size(t_lst *lst);
+t_env *get_node(t_lst *env, char *var);
 
 /*------------------------------BUILTINS---------------------------------*/
 /*--------------------------------echo-----------------------------------*/
@@ -238,5 +234,13 @@ void sort_export(char **arr, int size);
 /*--------------------------------unset------------------------------------*/
 
 int unset(t_data *data, t_cmd *cmd);
+
+/*----------------------------------cd-------------------------------------*/
+
+int cd(t_data *data);
+
+/*-----------------------------cd_functions--------------------------------*/
+
+int change_directory(t_data *data, char *new, char *old);
 
 #endif

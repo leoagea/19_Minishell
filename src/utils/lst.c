@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 01:48:14 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/14 23:57:28 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/15 16:26:23 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,14 @@ int    lst_size(t_lst *lst)
         current = current->next;
     }
     return size;
+}
+
+t_env *get_node(t_lst *env, char *var)
+{
+	t_env *node;
+	
+	node = env->head;
+	while(node != NULL && ft_strncmp(node->var, var, INT_MAX) != 0)
+		node = node->next;
+	return node;
 }
