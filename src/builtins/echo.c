@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:17:04 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/11 22:09:47 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/15 18:47:55 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int check_option(char **str)
 	return flag;
 }
 
-void echo(t_cmd *cmd)
+int echo(t_cmd *cmd)
 {
 	int i;
 	int flag;
@@ -64,4 +64,5 @@ void echo(t_cmd *cmd)
 	}
 	if (flag == 0)
 		write(STDOUT_FILENO, "\n", 1);
+	return 0;
 }
