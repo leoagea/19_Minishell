@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:41:07 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/15 17:22:45 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/15 18:25:59 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,11 @@ int change_directory(t_data *data, char *new, char *old)
 		perror("cd");
 		return 1;
 	}
-	chdir(new);
+	if (chdir(new) == -1)
+	{
+		ft_printf("bash: cd: %s: No such file or directory");
+		return 1;
+	}	
 	return_value = update_env(data, new, old);
 	printf("check \n");
 	return 0;	

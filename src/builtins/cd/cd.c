@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:01:17 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/15 17:30:33 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/15 18:27:42 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ static int dispatch_cd(t_data *data, char **str)
 		new_pwd = get_home(data);
 	else if (ft_strncmp("-", str[1], INT_MAX) == 0)
 		new_pwd = get_old_pwd(data);
+	else
+		new_pwd = str[1];
 	printf("old : %s\nnew : %s\n", old_pwd, new_pwd);
 	change_directory(data, new_pwd, old_pwd);
 	return 0;
@@ -72,6 +74,8 @@ static int dispatch_cd(t_data *data, char **str)
 
 int cd(t_data *data)
 {
-	dispatch_cd(data, data->parser->head->str);
-	return 0;
+	int return_value;
+
+	return_value = dispatch_cd(data, data->parser->head->str);
+	return return_value;
 }

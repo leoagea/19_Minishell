@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/15 16:23:13 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/15 18:48:03 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	handle_signal(void);
 void    redirections(t_cmd *command);
 
   // EXEC_PIPE //
-void    exec_pipe(t_cmd *command);
+void    exec_pipe(t_cmd *command, t_data *data);
 
 //// UTILS ////
    //FREE//
@@ -203,7 +203,7 @@ t_env *get_node(t_lst *env, char *var);
 /*------------------------------BUILTINS---------------------------------*/
 /*--------------------------------echo-----------------------------------*/
 
-void echo(t_cmd *cmd);
+int echo(t_cmd *cmd);
 
 /*--------------------------------echo-----------------------------------*/
 
@@ -242,5 +242,9 @@ int cd(t_data *data);
 /*-----------------------------cd_functions--------------------------------*/
 
 int change_directory(t_data *data, char *new, char *old);
+
+/*-------------------------------builtin-----------------------------------*/
+
+int		exec_builtin(t_cmd *command, t_data *data);
 
 #endif
