@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:18:44 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/12 16:27:54 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/15 17:46:51 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,16 @@ static char *sweep_word(t_data *data, char *str)
 {
 	int i;
 	char *cpy;
+	t_env *home;
 	
 	i = 0;
 	cpy = ft_strdup("");
+	if (ft_strncmp("~", str, 1) == 0)
+	{
+		home = get_node(data->env, "HOME");
+		cpy = ft_strjoin(cpy, home->value);
+		i++;
+	}
 	while (str[i])
 	{
 		if (str[i] == 34)
