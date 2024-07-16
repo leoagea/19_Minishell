@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/16 15:12:34 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/16 16:50:10 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int check_open_pipe(t_dll *tokens);
 bool check_open_quote(const char *str);
 int	check_open_redirect(t_dll *tokens);
 int check_wrong_token(t_dll *tokens);
+int do_all_check(t_dll *tokens);
 
 /*-------------------------------PARSER----------------------------------*/
 /*--------------------------------Cmd------------------------------------*/
@@ -180,6 +181,10 @@ char *expand_single_quotes(char *cpy, int *i, char *str);
 /*-------------------------------check-----------------------------------*/
 
 void check_node_null(t_data *data);
+
+/*----------------------------sweep_word---------------------------------*/
+
+char	*sweep_word(t_data *data, char *str);
 
 /*--------------------------------UTILS----------------------------------*/
 /*--------------------------------init-----------------------------------*/

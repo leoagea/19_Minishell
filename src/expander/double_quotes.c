@@ -6,23 +6,20 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:01:04 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/11 15:25:41 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/16 16:25:26 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char *expand_double_quotes(t_data *data, char *cpy, int *i, char *str)
+char	*expand_double_quotes(t_data *data, char *cpy, int *i, char *str)
 {
-	int start;
-	
+	int	start;
+
 	*i += 1;
 	start = *i;
-	// printf("start : %d\n", start);
-	// printf("cpy : %s\n", cpy);
 	while (str[*i] && str[*i] != 34)
 	{
-		// printf("test\n");
 		if (str[*i] == '$')
 			cpy = expand_env_var(data, cpy, i, str);
 		else
@@ -34,5 +31,5 @@ char *expand_double_quotes(t_data *data, char *cpy, int *i, char *str)
 		}
 	}
 	*i += 1;
-	return cpy;
+	return (cpy);
 }
