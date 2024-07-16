@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/16 16:50:10 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/16 17:15:42 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void    exec_pipe(t_cmd *command, t_data *data);
    //FREE//
 int     length_array_char(char **array);
 void  free_tab_char(char **array);
+void	dll_cmd_clear(t_dll_cmd *dll);
 
 /*------------------------------Minishell--------------------------------*/
 

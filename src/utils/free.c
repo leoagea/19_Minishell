@@ -22,3 +22,19 @@ void	free_tab_char(char **array)
 	}
 	free(array);
 }
+
+void	dll_cmd_clear(t_dll_cmd *dll)
+{
+	t_cmd	*temp;
+	t_cmd	*current;
+
+	if (!dll)
+		return ;
+	current = dll->head;
+	while (current != NULL)
+	{
+		temp = current;
+		current = current->next;
+		free(temp);
+	}
+}
