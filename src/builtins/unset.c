@@ -1,50 +1,64 @@
-# include "../../inc/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 17:21:37 by lagea             #+#    #+#             */
+/*   Updated: 2024/07/16 17:22:45 by lagea            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static void lst_delete_node(t_env *prev, t_env *delete, t_lst *lst)  
-{  
-    if (!prev) 
-    {
-        lst->head = delete->next;
-        if (delete == lst->tail) 
-            lst->tail = NULL;
-    }
-    else 
-    {
-        prev->next = delete->next;
-        if (delete == lst->tail)
-            lst->tail = prev;
-    }
-    if (delete->value)
-    {
-        free(delete->value);
-        delete->value = NULL;
-    }
-    free(delete->var);
-    delete->var = NULL;
-    free(delete);
+#include "../../inc/minishell.h"
+
+static void	lst_delete_node(t_env *prev, t_env *delete, t_lst *lst)
+{
+	if (!prev)
+	{
+		lst->head = delete->next;
+		if (delete == lst->tail)
+			lst->tail = NULL;
+	}
+	else
+	{
+		prev->next = delete->next;
+		if (delete == lst->tail)
+			lst->tail = prev;
+	}
+	if (delete->value)
+	{
+		free(delete->value);
+		delete->value = NULL;
+	}
+	free(delete->var);
+	delete->var = NULL;
+	free(delete);
 }
 
-static int unset_var(t_lst *env, char *var)
+static int	unset_var(t_lst *env, char *var)
 {
-    t_env *node = env->head;
-    t_env *prev = NULL;
+	t_env	*node;
+	t_env	*prev;
 
-    while (node) 
-    {
-        if (strncmp(node->var, var, INT_MAX) == 0)
-        {
-            lst_delete_node(prev, node, env);
-            return 0;
-        }
-        prev = node;
-        node = node->next;
-    }
-    return 0;
+	node = env->head;
+	prev = NULL;
+	while (node)
+	{
+		if (strncmp(node->var, var, INT_MAX) == 0)
+		{
+			lst_delete_node(prev, node, env);
+			return (0);
+		}
+		prev = node;
+		node = node->next;
+	}
+	return (0);
 }
 
-static int dispatch_unset(t_data *data, char *str, int j)
+static int	dispatch_unset(t_data *data, char *str, int j)
 {
-	int return_value;
+	int	return_value;
 
 	return_value = 0;
 	if (!ft_isalpha(str[0]) && str[0] != '_')
@@ -59,16 +73,16 @@ static int dispatch_unset(t_data *data, char *str, int j)
 		return_value = 1;
 		ft_printf("bash: unset: `%s': not a valid identifier\n", str);
 	}
-	return return_value;
+	return (return_value);
 }
 
-int unset(t_data *data, t_cmd *cmd)
+int	unset(t_data *data, t_cmd *cmd)
 {
-	int i;
-	int j;
-	int return_value;
-	char **arr;
-	char *str;
+	int		i;
+	int		j;
+	int		return_value;
+	char	**arr;
+	char	*str;
 
 	i = 1;
 	arr = cmd->str;
@@ -82,5 +96,5 @@ int unset(t_data *data, t_cmd *cmd)
 		return_value = dispatch_unset(data, str, j);
 		i++;
 	}
-	return return_value;
+	return (return_value);
 }
