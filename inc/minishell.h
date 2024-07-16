@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/15 18:48:03 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/16 15:12:34 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,7 @@ int change_directory(t_data *data, char *new, char *old);
 
 /*-------------------------------builtin-----------------------------------*/
 
+void	is_builtin(t_cmd *command);
 int		exec_builtin(t_cmd *command, t_data *data);
 
 #endif

@@ -58,6 +58,15 @@ void    exec_pipe(t_cmd *command, t_data *data)
     absolute_path(node);
     pid_t child_pids[2048]; // Si AU PLUS 2048 commandes dans la pipeline
     int child_count = 0;
+    is_builtin(node);
+    if (node->next == NULL && node->is_builtin)
+    {
+        printf("test builtin\n");
+        // redirections(node);
+        exec_builtin(node, data);
+        printf("test builtin 1\n");
+        return ;
+    }
     while (node)
     {
         if (node->next)  // si commande apres -> pipe
@@ -89,8 +98,9 @@ void    exec_pipe(t_cmd *command, t_data *data)
                 close(pipe_fd[1]);
                 close(pipe_fd[0]);
             }
-            if (/*exec_builtin(node, data)*/ -1 == -1)
+            if (exec_builtin(node, data) == -1)
             {
+                printf("check 1\n");
                 execve(node->absolute_path, node->str, command->env);
                 ft_putstr_fd("bash: ", 2);
                 write(2, node->str[0], ft_strlen(node->str[0]));
