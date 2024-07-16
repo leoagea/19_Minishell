@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/16 17:15:42 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/16 17:32:05 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct s_data
 //// SIGNALS ////
 	//CTRL C//
 void    rl_replace_line(const char *text, int clear_undo);
-void	reset_ctrl_C(int sig);
+void	reset_ctrl_c(int sig);
 void	reset_ctrl_slash(int sig);
 void	handle_signal(void);
 
@@ -150,7 +150,6 @@ int handle_redirections(t_dll *single_cmd, t_data *data);
 /*-----------------------------Utils_cmn---------------------------------*/
 
 t_cmd	*dll_cmd_new_node(void);
-void	dll_cmd_clear(t_dll_cmd *dll);
 void	dll_cmd_insert_tail(t_dll_cmd *dll, t_cmd *new);
 void	dll_cmd_print_forward(t_dll_cmd *dll);
 void    dll_delete_node(t_node *delete);
