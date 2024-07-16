@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:16:16 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/12 14:14:13 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/16 17:29:50 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,41 +24,41 @@ t_dll	*dll_init(void)
 	return (stack);
 }
 
-t_dll_cmd *dll_cmd_init(void)
+t_dll_cmd	*dll_cmd_init(void)
 {
-    t_dll_cmd *dll;
+	t_dll_cmd	*dll;
 
-    dll = malloc(sizeof(t_dll_cmd));
-    if (!dll)
-        return NULL;
-    dll->head = NULL;
-    dll->tail = NULL;
-    return dll;
+	dll = malloc(sizeof(t_dll_cmd));
+	if (!dll)
+		return (NULL);
+	dll->head = NULL;
+	dll->tail = NULL;
+	return (dll);
 }
 
-t_env_expand *env_var_init(void)
+t_env_expand	*env_var_init(void)
 {
-	t_env_expand *env;
+	t_env_expand	*env;
 
 	env = malloc(sizeof(t_env_expand));
 	if (!env)
-		return NULL;
+		return (NULL);
 	env->end = 0;
 	env->sub = 0;
 	env->start = 0;
 	env->var_len = 0;
 	env->var = NULL;
-	return env;
+	return (env);
 }
 
-t_lst *lst_init(void)
+t_lst	*lst_init(void)
 {
-	t_lst *env;
+	t_lst	*env;
 
 	env = malloc(sizeof(t_lst));
 	if (!env)
-		return NULL;
+		return (NULL);
 	env->head = NULL;
 	env->tail = NULL;
-	return env;
+	return (env);
 }

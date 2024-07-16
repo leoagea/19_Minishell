@@ -6,13 +6,13 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 01:48:14 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/15 16:26:23 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/16 17:28:54 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-//export = 1 -> value exported otherwise value by default
+/* export = 1 -> value exported otherwise value by default */
 t_env	*lst_new(char *var, char *value, int flag)
 {
 	t_env	*new;
@@ -41,29 +41,29 @@ void	lst_insert_tail(t_env *new, t_lst *lst)
 	}
 }
 
-int    lst_size(t_lst *lst)
+int	lst_size(t_lst *lst)
 {
-    int size;
-    t_env *current;
+	int		size;
+	t_env	*current;
 
-    size = 0;
-    if(!lst)
-        return size;
-    current = lst->head;
-    while(current != NULL)
-    {
-        size++;
-        current = current->next;
-    }
-    return size;
+	size = 0;
+	if (!lst)
+		return (size);
+	current = lst->head;
+	while (current != NULL)
+	{
+		size++;
+		current = current->next;
+	}
+	return (size);
 }
 
-t_env *get_node(t_lst *env, char *var)
+t_env	*get_node(t_lst *env, char *var)
 {
-	t_env *node;
-	
+	t_env	*node;
+
 	node = env->head;
-	while(node != NULL && ft_strncmp(node->var, var, INT_MAX) != 0)
+	while (node != NULL && ft_strncmp(node->var, var, INT_MAX) != 0)
 		node = node->next;
-	return node;
+	return (node);
 }
