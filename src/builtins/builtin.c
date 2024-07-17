@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:21:10 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 17:21:12 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/17 17:11:45 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	exec_builtin(t_cmd *command, t_data *data)
 		cd(data);
 	else if ((ft_strncmp(command->str[0], "pwd", INT_MAX) == 0))
 		pwd();
+	else if ((ft_strncmp(command->str[0], "exit", INT_MAX) == 0))
+		ft_exit(data, command);
 	else
 		return (-1);
 	return (0);
