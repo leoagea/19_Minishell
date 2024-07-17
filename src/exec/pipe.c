@@ -22,10 +22,10 @@ char    *path(char *command)
             exit(1);
         free(temp);
         if (access(final_path, F_OK) == 0)
-            return (free_tab_char(dir_command), final_path);
+            return (free_var("arr", dir_command), final_path);
         free(final_path);
     }
-    return (free_tab_char(dir_command), NULL);
+    return (free_var("%arr", dir_command), NULL);
 }
 
 void    absolute_path(t_cmd *command)
@@ -98,9 +98,11 @@ void    exec_pipe(t_cmd *command, t_data *data)
                 close(pipe_fd[1]);
                 close(pipe_fd[0]);
             }
+            if (ft_strncmp("./minishell", node->str[0], INT_MAX) == 0 && !node->str[1])
+                execve("./minishell", node->str, command->env);
+             //faire en sorte d augmenter le shell lv de 1
             if (exec_builtin(node, data) == -1)
             {
-                printf("check 1\n");
                 execve(node->absolute_path, node->str, command->env);
                 ft_putstr_fd("bash: ", 2);
                 write(2, node->str[0], ft_strlen(node->str[0]));
