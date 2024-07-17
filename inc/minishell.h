@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/16 17:39:47 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/17 16:29:28 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,15 +99,10 @@ void				redirections(t_cmd *command);
 // EXEC_PIPE //
 void				exec_pipe(t_cmd *command, t_data *data);
 
-//// UTILS ////
-// FREE//
-int					length_array_char(char **array);
-void				free_tab_char(char **array);
-void				dll_cmd_clear(t_dll_cmd *dll);
 
-/*------------------------------Minishell--------------------------------*/
+/*==============================Minishell================================*/
 
-/*--------------------------------LEXER----------------------------------*/
+/*================================LEXER==================================*/
 /*-------------------------------Tokens----------------------------------*/
 
 int					lexer(char *input, t_dll *tokens);
@@ -126,7 +121,7 @@ int					check_open_redirect(t_dll *tokens);
 int					check_wrong_token(t_dll *tokens);
 int					do_all_check(t_dll *tokens);
 
-/*-------------------------------PARSER----------------------------------*/
+/*===============================PARSER==================================*/
 /*--------------------------------Cmd------------------------------------*/
 
 int					parser(t_data *data);
@@ -143,7 +138,7 @@ void				dll_cmd_print_forward(t_dll_cmd *dll);
 void				dll_delete_node(t_node *delete);
 int					dll_cmd_size(t_dll_cmd *dll);
 
-/*------------------------------EXPANDER---------------------------------*/
+/*==============================EXPANDER=================================*/
 /*------------------------------expander---------------------------------*/
 
 char				*join_char(char *str, char c);
@@ -175,7 +170,7 @@ void				check_node_null(t_data *data);
 
 char				*sweep_word(t_data *data, char *str);
 
-/*--------------------------------UTILS----------------------------------*/
+/*================================UTILS==================================*/
 /*--------------------------------init-----------------------------------*/
 
 t_dll				*dll_init(void);
@@ -194,7 +189,18 @@ void				lst_insert_tail(t_env *new, t_lst *lst);
 int					lst_size(t_lst *lst);
 t_env				*get_node(t_lst *env, char *var);
 
-/*------------------------------BUILTINS---------------------------------*/
+/*-----------------------------free_var----------------------------------*/
+
+int	free_var(const char *s, ...);
+
+/*--------------------------------free-----------------------------------*/
+
+void				dll_cmd_clear(t_dll_cmd *dll);
+void		free_dll(t_dll *dll);
+void		free_cmd(t_dll_cmd *cmd);
+void		free_exp(t_env_expand *env);
+
+/*==============================BUILTINS=================================*/
 /*--------------------------------echo-----------------------------------*/
 
 int					echo(t_cmd *cmd);
@@ -237,7 +243,7 @@ int					cd(t_data *data);
 
 int					change_directory(t_data *data, char *new, char *old);
 
-/*-------------------------------builtin-----------------------------------*/
+/*-------------------------------builtin-----------------------------------*/ 
 
 void				is_builtin(t_cmd *command);
 int					exec_builtin(t_cmd *command, t_data *data);
