@@ -6,13 +6,13 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:48:26 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/17 16:26:51 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/17 17:13:35 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void	free_str(char *str)
+void	free_str(char *str)
 {
 	if (!str)
 		return ;
@@ -20,7 +20,7 @@ static void	free_str(char *str)
 	str = NULL;
 }
 
-static void	free_arr(char **arr)
+void	free_arr(char **arr)
 {
 	int	i;
 
@@ -39,7 +39,7 @@ static void	free_arr(char **arr)
 	arr = NULL;
 }
 
-static void	free_lst(t_lst *lst)
+void	free_lst(t_lst *lst)
 {
 	t_env	*tmp;
 	t_env	*node;
@@ -51,6 +51,8 @@ static void	free_lst(t_lst *lst)
 	{
 		tmp = node;
 		node = node->next;
+		// free_str(tmp->var);
+		// free_str(tmp->value);
 		free(tmp);
 		tmp = NULL;
 	}
