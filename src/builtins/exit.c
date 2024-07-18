@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:18:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/17 17:14:26 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/18 17:24:11 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static char **arr_dup(char **arr)
 {
 	int i;
+	int j;
 	int len;
 	char **dup;
 
@@ -25,6 +26,8 @@ static char **arr_dup(char **arr)
 	i = 0;
 	while (arr[i])
 	{
+		len = ft_strlen(arr[i]);
+		dup[i] = malloc(sizeof(char) * len + 1);
 		dup[i] = ft_strdup(arr[i]);
 		i++;
 	}
@@ -67,17 +70,20 @@ int	ft_exit(t_data *data, t_cmd *simple_cmd)
 {
 	char	**str;
 
-	printf("check exit\n");
 	ft_putendl_fd("exit", STDERR_FILENO);
 	if (simple_cmd->str[1] && simple_cmd->str[2])
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	str = arr_dup(simple_cmd->str);
-	printf("check 2 exit\n");
+	str = arr_dup(simple_cmd->str);;
 	// free_var("%dll %dll %cmd %lst %exp", data->lexer, data->expander, data->parser, data->env, data->env_expand);
+	// free_dll(data->lexer);
+	// free_dll(data->expander);
+	// free_cmd(data->parser);
+	// free_lst(data->env);
+	// free_exp(data->env_expand);
 	determine_exit_code(str);
-	printf("check 3 exit\n");
+	free_arr(str);
 	return (EXIT_SUCCESS);
 }

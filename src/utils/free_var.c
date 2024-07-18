@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:48:26 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/17 17:13:35 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/18 17:21:43 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	free_arr(char **arr)
 		arr[i] = NULL;
 		i++;
 	}
-	if (!arr)
-		return ;
+	// if (!arr)
+	// 	return ;
 	free(arr);
 	arr = NULL;
 }
