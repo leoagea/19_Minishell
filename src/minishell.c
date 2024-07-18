@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/17 18:23:05 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/18 15:45:29 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int main(int argc, char **argv, char **envp)
 	t_data	data;
 	// t_lst *export;
 	t_cmd *command;
-    t_env *node;
-	int sh_lvl;
 	
     (void) argc;
     (void) argv;
@@ -30,14 +28,8 @@ int main(int argc, char **argv, char **envp)
 	// print_env(env);
 	printf("Start\n");
 	// print_export(data.env);
-	node = get_node(data.env, "SHLVL");
-    sh_lvl = ft_atoi(node->value);
-	node->value = ft_itoa(++sh_lvl);
-	if (sh_lvl >= 999)
-		node->value = ft_strdup("");
-	else if (sh_lvl < 0)
-		node->value = ft_strdup("0");
-	//a verfier et envoyer dans execve une transfo de data.env en char **env
+	if (init_shlvl(&data))
+		return 1;
 	handle_signal();
 	while (1)
 	{

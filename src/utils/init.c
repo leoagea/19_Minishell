@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:16:16 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 17:29:50 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/18 15:44:57 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,30 @@ t_lst	*lst_init(void)
 	env->head = NULL;
 	env->tail = NULL;
 	return (env);
+}
+
+int init_shlvl(t_data *data)
+{
+	int sh_lvl;
+	t_env *new;
+	t_env *node;
+	
+	node = get_node(data->env, "SHLVL");
+	if (!node)
+	{
+		new = lst_new("SHLVL", ft_itoa(2), 1);
+		if (!new)
+			return 1;
+		lst_insert_tail(new, data->env);
+	}
+	else
+    {
+		sh_lvl = ft_atoi(node->value);
+		if (sh_lvl >= 999)
+			node->value = ft_strdup("");
+		else if (sh_lvl < 0)
+			node->value = ft_strdup("0");
+		node->value = ft_itoa(sh_lvl + 1);
+	}
+	return 0;
 }

@@ -34,13 +34,46 @@ void    absolute_path(t_cmd *command)
     node = command;
     while (node)
     {
-        if (access(node->str[0], F_OK) != 0)
+        if (access(node->str[0], F_OK) == -1)
         {
+            printf("check\n");
             if (path(node->str[0]) != NULL)
                 node->absolute_path = path(node->str[0]);
         }
+        else
+            node->absolute_path = node->str[0];
         node = node->next;
     }
+}
+
+char **put_env_in_arr(t_lst *env)
+{
+    int i;
+    int size;
+    t_env *node;
+    char **env_arr;
+
+    i = 0;
+    node = env->head;
+    size = lst_size(env);
+    env_arr = malloc(sizeof(char *) * size + 1);
+    while(node)
+    {
+        env_arr[i] = ft_strdup(node->var);
+        env_arr[i] = ft_strjoin(env_arr[i], "=");
+        if (!node->value)
+            env_arr[i] = ft_strjoin(env_arr[i], "");
+        else
+            env_arr[i] = ft_strjoin(env_arr[i], node->value);
+        // ft_putstr_fd("env [i] = '", 2);
+        // ft_putstr_fd(env_arr[i], 2);
+        // ft_putstr_fd("'\n", 2);
+        i++;
+        node = node->next;
+    }
+     ft_putstr_fd("\n\n", 2);
+    env_arr[i] = NULL;
+    return (env_arr);
 }
 
 void    exec_pipe(t_cmd *command, t_data *data)
@@ -51,6 +84,7 @@ void    exec_pipe(t_cmd *command, t_data *data)
     int     i;
     pid_t     pid;
     t_cmd   *node;
+    char **env;
 
     node = command;
     fd_in = STDIN_FILENO;
@@ -98,12 +132,10 @@ void    exec_pipe(t_cmd *command, t_data *data)
                 close(pipe_fd[1]);
                 close(pipe_fd[0]);
             }
-            if (ft_strncmp("./minishell", node->str[0], INT_MAX) == 0 && !node->str[1])
-                execve("./minishell", node->str, command->env);
-             //faire en sorte d augmenter le shell lv de 1
             if (exec_builtin(node, data) == -1)
             {
-                execve(node->absolute_path, node->str, command->env);
+                data->env_arr = put_env_in_arr(data->env);
+                execve(node->absolute_path, node->str, data->env_arr);
                 ft_putstr_fd("bash: ", 2);
                 write(2, node->str[0], ft_strlen(node->str[0]));
                 ft_putstr_fd(": command not found\n", 2);

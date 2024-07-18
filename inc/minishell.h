@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/17 17:04:35 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/18 15:44:19 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_env_expand
 typedef struct s_data
 {
 	char			*input;
+	char 			**env_arr;
 	t_lst			*env;
 	t_dll			*lexer;
 	t_dll			*expander;
@@ -177,6 +178,7 @@ t_dll				*dll_init(void);
 t_dll_cmd			*dll_cmd_init(void);
 t_env_expand		*env_var_init(void);
 t_lst				*lst_init(void);
+int				init_shlvl(t_data *data);
 
 /*------------------------------init_env---------------------------------*/
 
