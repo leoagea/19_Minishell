@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/18 15:44:19 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/18 18:12:23 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_data
 
 //// SIGNALS ////
 // CTRL C//
+void 				rl_clear_history (void);
 void				rl_replace_line(const char *text, int clear_undo);
 void				reset_ctrl_c(int sig);
 void				reset_ctrl_slash(int sig);
@@ -104,23 +105,27 @@ void				exec_pipe(t_cmd *command, t_data *data);
 /*==============================Minishell================================*/
 
 /*================================LEXER==================================*/
-/*-------------------------------Tokens----------------------------------*/
+/*-------------------------------tokens----------------------------------*/
 
 int					lexer(char *input, t_dll *tokens);
 
-/*--------------------------------Utils----------------------------------*/
+/*--------------------------------ttils----------------------------------*/
 
 int					check_whitespace(char *str, int i);
 int					check_special_char(char *str, int i);
 int					skip_whitespace(char *str, int i);
 
-/*--------------------------------Check----------------------------------*/
+/*--------------------------------check----------------------------------*/
 
 int					check_open_pipe(t_dll *tokens);
 bool				check_open_quote(const char *str);
 int					check_open_redirect(t_dll *tokens);
 int					check_wrong_token(t_dll *tokens);
 int					do_all_check(t_dll *tokens);
+
+/*-------------------------------check_2---------------------------------*/
+
+int check_inside_pipe(t_dll *tokens);
 
 /*===============================PARSER==================================*/
 /*--------------------------------Cmd------------------------------------*/
