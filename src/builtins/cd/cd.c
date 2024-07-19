@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:01:17 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 17:23:16 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/19 17:42:02 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,27 @@ static int	dispatch_cd(t_data *data, char **str)
 	char	*old_pwd;
 
 	new_pwd = NULL;
+	// printf("check 1\n");
 	old_pwd = get_pwd();
+	if (!old_pwd)
+		return (perror("getcwd"), 1);
+	// printf("check 2\n");
 	if (!str[1])
 	{
 		new_pwd = get_home(data);
-		printf("new pwd : %s\n", new_pwd);
+		// printf("new pwd : %s\n", new_pwd);
 		if (!new_pwd)
-		{
-			ft_printf("bash: cd: HOME not set\n");
-			return (1);
-		}
+			return (ft_printf("bash: cd: HOME not set\n"), 1);
 	}
 	else if (ft_strncmp("--", str[1], INT_MAX) == 0)
 		new_pwd = get_home(data);
 	else if (ft_strncmp("-", str[1], INT_MAX) == 0)
 		new_pwd = get_old_pwd(data);
+	// else if (ft_strncmp("..", str[1], 2) == 0)
+	// 	new_pwd = get_accessible_pwd(data);
 	else
 		new_pwd = str[1];
-	printf("old : %s\nnew : %s\n", old_pwd, new_pwd);
+	// printf("old : %s\nnew : %s\n", old_pwd, new_pwd);
 	change_directory(data, new_pwd, old_pwd);
 	return (0);
 }
