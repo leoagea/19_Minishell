@@ -36,7 +36,7 @@ void    absolute_path(t_cmd *command)
     {
         if (access(node->str[0], F_OK) == -1)
         {
-            printf("check\n");
+            // printf("check\n");
             if (path(node->str[0]) != NULL)
                 node->absolute_path = path(node->str[0]);
         }
