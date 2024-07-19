@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/19 13:23:12 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/19 17:51:55 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,18 @@ int main(int argc, char **argv, char **envp)
 				continue ;
 			}
 			printf("test \n");
-			// dll_print_forward(data.lexer);
+			dll_print_forward(data.lexer);
 			// printf("--------------------\n");
 			expander(&data);
-			printf("test 1\n");
+			dll_clear(data.lexer);
+			data.lexer->head = NULL;
+			data.lexer->tail = NULL;
 			// dll_print_forward(data.expander);
+			printf("test 1\n");
 			parser(&data);
+			// dll_clear(data.expander); 
+			data.expander->head = NULL;
+			data.expander->tail = NULL;
 
 			// dll_cmd_print_forward(data.parser);
 
@@ -70,37 +76,12 @@ int main(int argc, char **argv, char **envp)
 			command->env_list = data.env;
 			
 			// dll_print_forward(data.expander);
-			// printf("===============================================\n");
-			// if (ft_strncmp(data.parser->head->str[0], "export", INT_MAX) == 0)
-			// 	export(&data, data.parser->head);
-			// else if (ft_strncmp(data.parser->head->str[0], "unset", INT_MAX) == 0)
-			// 	unset(&data, data.parser->head);
-			// else if (ft_strncmp(data.parser->head->str[0], "env", INT_MAX) == 0)
-			// 	print_env(data.env);
-			// else if (ft_strncmp(data.parser->head->str[0], "cd", INT_MAX) == 0)
-			// 	cd(&data);
-			// else if ((ft_strncmp(data.parser->head->str[0], "pwd", INT_MAX) == 0))
-			// 	pwd();
-			// else if (ft_strncmp(command->str[0], "echo", INT_MAX) == 0)
-			// 	return echo(data.parser->head);
-		    // if (command->is_builtin == 0)
-				 // 	execute_builtin(command);   // TODO
 				 
 			exec_pipe(command, &data);
-
-			// char *test = get_pwd();
-			// printf("pwd : %s\n", test);
-			// pwd();
-			// printf("exit code : %d\n", g_exit_status); 
-			dll_clear(data.lexer);
-			dll_clear(data.expander);
+			
 			dll_cmd_clear(data.parser);
-			data.lexer->head = NULL;
-			data.lexer->tail = NULL;
 			data.parser->head = NULL;
 			data.parser->tail = NULL;
-			data.expander->head = NULL;
-			data.expander->tail = NULL;
 			// free_command(command); // TODO
 		}
 		// free_var("%str %dll %dll  ")
@@ -109,6 +90,5 @@ int main(int argc, char **argv, char **envp)
 	return (0);
 }
 
-//verifie si il y a des nodes parser avant de rentrer dans l exec
-
-//check pwd si dans le dir minishell
+//Gerer 
+//voir screen desktop
