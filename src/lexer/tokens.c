@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:56:36 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 16:06:04 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/19 13:25:19 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	lexer(char *input, t_dll *tokens)
 	char	*word;
 
 	i = 0;
+	word = NULL;
 	while (input[i])
 	{
 		i = skip_whitespace(input, i);
@@ -102,11 +103,12 @@ int	lexer(char *input, t_dll *tokens)
 		else
 			not_in_quote(input, &i, &start);
 		word = ft_substr(input, start, i - start);
+		if (!word)
+			return (1);
 		if (check_open_quote(word) == 1)
-			return (write(1, "Error: open quote\n", 18), 1);
+			return (free(word),write(1, "Error: open quote\n", 18), 1);
 		dll_insert_tail(word, tokens);
 		i = skip_whitespace(input, i);
 	}
-	assign_type(tokens);
-	return (do_all_check(tokens));
+	return (assign_type(tokens), do_all_check(tokens));
 }

@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/18 17:28:01 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/19 13:23:12 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,12 @@ int main(int argc, char **argv, char **envp)
 			if (data.input[0] != '\0')
 				add_history(line);
 			if (lexer(line, data.lexer))
+			{
+				dll_clear(data.lexer);
+				data.lexer->head = NULL;
+				data.lexer->tail = NULL;
 				continue ;
+			}
 			printf("test \n");
 			// dll_print_forward(data.lexer);
 			// printf("--------------------\n");
