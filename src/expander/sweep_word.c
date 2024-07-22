@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:49:08 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 17:07:49 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/22 15:30:57 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ static char	*dispatch_expand(t_data *data, char *cpy, char *str, int i)
 			{
 				cpy = join_char(cpy, str[i]);
 				break ;
+			}
+			if (str[i] == '$' && ft_isdigit((int) str[i + 1]))
+			{
+				i += 2;
+				continue;
 			}
 			cpy = expand_env_var(data, cpy, &i, str);
 		}

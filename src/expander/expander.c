@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:18:44 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 17:07:38 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/22 15:31:10 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void	other_token(t_data *data, t_node *current)
 static void	word(t_data *data, t_node *current, char *cpy, char *str)
 {
 	cpy = sweep_word(data, str);
+	if (!cpy || cpy[0] == '\0')
+		return ;
 	dll_insert_tail(cpy, data->expander);
 	data->expander->tail->type = current->type;
 }
