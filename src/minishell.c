@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/19 17:51:55 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/22 19:03:14 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,5 @@ int main(int argc, char **argv, char **envp)
 	return (0);
 }
 
-//Gerer 
-//voir screen desktop
+//touch nom_commande
+// ==> cmd not found
