@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:01:17 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/19 17:42:02 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/22 17:52:49 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,17 @@ static int	dispatch_cd(t_data *data, char **str)
 {
 	char	*new_pwd;
 	char	*old_pwd;
+	t_env	*env_pwd;
 
 	new_pwd = NULL;
 	// printf("check 1\n");
-	old_pwd = get_pwd();
-	if (!old_pwd)
-		return (perror("getcwd"), 1);
+	env_pwd = get_node(data->env, "PWD");
+	if (!env_pwd)
+		old_pwd = get_pwd();
+	else
+		old_pwd = env_pwd->value;
+	// if (!old_pwd)
+	// 	return (perror("getcwd"), 1);
 	// printf("check 2\n");
 	if (!str[1])
 	{
