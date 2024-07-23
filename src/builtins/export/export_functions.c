@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 21:02:16 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 17:26:11 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/23 13:47:54 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	export_var(t_data *data, char *str)
 	t_env	*check;
 	t_env	*node;
 
+	printf("check\n");
 	check = data->env->head;
 	while (check)
 	{
@@ -28,6 +29,7 @@ int	export_var(t_data *data, char *str)
 	if (!node)
 		return (1);
 	lst_insert_tail(node, data->env);
+	printf("check 1\n");
 	return (0);
 }
 
@@ -47,6 +49,12 @@ int	export_var_value(t_data *data, char *str)
 	while (str[i])
 		i++;
 	value = ft_substr(str, start, i - start);
+	node = get_node(data->env, var);
+	if (node)
+	{
+		node->value = value;
+		return 0;
+	}
 	node = lst_new(var, value, 1);
 	if (!node)
 		return (1);

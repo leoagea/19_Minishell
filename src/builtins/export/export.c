@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 00:40:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 17:19:54 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/23 13:40:01 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	print_export(t_lst *env)
 	while (arr[i])
 	{
 		node = env->head;
-		while (ft_strncmp(arr[i], node->var, INT_MAX) != 0)
+		while (arr[i] && node->var && ft_strncmp(arr[i], node->var, INT_MAX) != 0)
 			node = node->next;
 		ft_printf("declare -x %s", arr[i]);
 		if (node->value)
