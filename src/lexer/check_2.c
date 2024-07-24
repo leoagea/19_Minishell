@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   double_quotes.c                                    :+:      :+:    :+:   */
+/*   check_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/09 17:01:04 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 16:25:26 by lagea            ###   ########.fr       */
+/*   Created: 2024/07/18 17:35:53 by lagea             #+#    #+#             */
+/*   Updated: 2024/07/18 17:38:13 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	*expand_double_quotes(t_data *data, char *cpy, int *i, char *str)
+int check_inside_pipe(t_dll *tokens)
 {
-	int	start;
+	t_node *current;
 
-	*i += 1;
-	start = *i;
-	while (str[*i] && str[*i] != 34)
+	current = tokens->head;
+	while (current)
 	{
-		if (str[*i] == '$')
-			cpy = expand_env_var(data, cpy, i, str);
-		else
-		{
-			if (str[*i - 1] == '$' && str[*i - 1])
-				cpy = join_char(cpy, '$');
-			cpy = join_char(cpy, str[*i]);
-			*i += 1;
-		}
+		if (current->type == PIPE && current->next->type == PIPE)
+			return 1;
+		current = current->next;
 	}
-	*i += 1;
-	return (cpy);
+	return 0;
 }

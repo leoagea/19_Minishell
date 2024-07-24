@@ -22,10 +22,10 @@ char    *path(char *command)
             exit(1);
         free(temp);
         if (access(final_path, F_OK) == 0)
-            return (free_tab_char(dir_command), final_path);
+            return (free_var("arr", dir_command), final_path);
         free(final_path);
     }
-    return (free_tab_char(dir_command), NULL);
+    return (free_var("%arr", dir_command), NULL);
 }
 
 void    absolute_path(t_cmd *command)
@@ -46,7 +46,36 @@ void    absolute_path(t_cmd *command)
     }
 }
 
-void    exec_pipe(t_cmd *command)
+char **put_env_in_arr(t_lst *env)
+{
+    int i;
+    int size;
+    t_env *node;
+    char **env_arr;
+
+    i = 0;
+    node = env->head;
+    size = lst_size(env);
+    env_arr = malloc(sizeof(char *) * size + 1);
+    while(node)
+    {
+        env_arr[i] = ft_strdup(node->var);
+        env_arr[i] = ft_strjoin(env_arr[i], "=");
+        if (!node->value)
+            env_arr[i] = ft_strjoin(env_arr[i], "");
+        else
+            env_arr[i] = ft_strjoin(env_arr[i], node->value);
+        // ft_putstr_fd("env [i] = '", 2);
+        // ft_putstr_fd(env_arr[i], 2);
+        // ft_putstr_fd("'\n", 2);
+        i++;
+        node = node->next;
+    }
+    env_arr[i] = NULL;
+    return (env_arr);
+}
+
+void    exec_pipe(t_cmd *command, t_data *data)
 {
     int     pipe_fd[2];
     int     wstatus;
@@ -54,6 +83,7 @@ void    exec_pipe(t_cmd *command)
     int     i;
     pid_t     pid;
     t_cmd   *node;
+    char **env;
 
     node = command;
     fd_in = STDIN_FILENO;
@@ -61,6 +91,15 @@ void    exec_pipe(t_cmd *command)
     absolute_path(node);
     pid_t child_pids[2048]; // Si AU PLUS 2048 commandes dans la pipeline
     int child_count = 0;
+    is_builtin(node);
+    if (node->next == NULL && node->is_builtin)
+    {
+        printf("test builtin\n");
+        // redirections(node);
+        exec_builtin(node, data);
+        printf("test builtin 1\n");
+        return ;
+    }
     while (node)
     {
         if (node->next)  // si commande apres -> pipe
@@ -92,9 +131,10 @@ void    exec_pipe(t_cmd *command)
                 close(pipe_fd[1]);
                 close(pipe_fd[0]);
             }
-            if (/*execute_builtin(node)*/-1 == -1)
+            if (exec_builtin(node, data) == -1)
             {
-                execve(node->absolute_path, node->str, command->env);
+                data->env_arr = put_env_in_arr(data->env);
+                execve(node->absolute_path, node->str, data->env_arr);
                 ft_putstr_fd("bash: ", 2);
                 write(2, node->str[0], ft_strlen(node->str[0]));
                 ft_putstr_fd(": command not found\n", 2);

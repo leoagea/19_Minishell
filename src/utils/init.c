@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:16:16 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/09 15:40:59 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/18 15:44:57 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,73 +24,67 @@ t_dll	*dll_init(void)
 	return (stack);
 }
 
-t_dll_cmd *dll_cmd_init(void)
+t_dll_cmd	*dll_cmd_init(void)
 {
-    t_dll_cmd *dll;
+	t_dll_cmd	*dll;
 
-    dll = malloc(sizeof(t_dll_cmd));
-    if (!dll)
-        return NULL;
-    dll->head = NULL;
-    dll->tail = NULL;
-    return dll;
+	dll = malloc(sizeof(t_dll_cmd));
+	if (!dll)
+		return (NULL);
+	dll->head = NULL;
+	dll->tail = NULL;
+	return (dll);
 }
 
-t_env_expand *env_var_init(void)
+t_env_expand	*env_var_init(void)
 {
-	t_env_expand *env;
+	t_env_expand	*env;
 
 	env = malloc(sizeof(t_env_expand));
 	if (!env)
-		return NULL;
+		return (NULL);
 	env->end = 0;
 	env->sub = 0;
 	env->start = 0;
 	env->var_len = 0;
 	env->var = NULL;
-	return env;
-}
-
-int		count_nodes(t_list *list)
-{
-	int	i;
-	t_list	*node;
-
-	i = 0;
-	node = list;
-	while (node)
-	{
-		i++;
-		node = node->next;
-	}
-	return (i);
-}
-
-t_list	*init_env(char **envp)
-{
-	t_list	*env;
-	t_list	*new_node;
-	t_list	*node;
-	int		i;
-
-	i = 0;
-	env = NULL;
-	while (envp[i])
-	{
-		new_node = ft_lstnew(envp[i]);
-		if (!new_node)
-			return (NULL); // free elements liste chainee
-		ft_lstadd_back(&env, new_node);
-		i++;
-	}
-	node = ft_lstlast(env);
-	node->next = NULL;
-	node = env;
-	while (node != NULL)
-	{
-		node->flag = 0;
-		node = node->next;
-	}
-	env->count = count_nodes(env);
 	return (env);
+}
+
+t_lst	*lst_init(void)
+{
+	t_lst	*env;
+
+	env = malloc(sizeof(t_lst));
+	if (!env)
+		return (NULL);
+	env->head = NULL;
+	env->tail = NULL;
+	return (env);
+}
+
+int init_shlvl(t_data *data)
+{
+	int sh_lvl;
+	t_env *new;
+	t_env *node;
+	
+	node = get_node(data->env, "SHLVL");
+	if (!node)
+	{
+		new = lst_new("SHLVL", ft_itoa(2), 1);
+		if (!new)
+			return 1;
+		lst_insert_tail(new, data->env);
+	}
+	else
+    {
+		sh_lvl = ft_atoi(node->value);
+		if (sh_lvl >= 999)
+			node->value = ft_strdup("");
+		else if (sh_lvl < 0)
+			node->value = ft_strdup("0");
+		node->value = ft_itoa(sh_lvl + 1);
+	}
+	return 0;
 }
