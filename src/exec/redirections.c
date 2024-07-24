@@ -4,10 +4,14 @@ void    redirections(t_cmd *command)
 {
     int         fd;
     int         temp_fd;
+    char        *file;
+    char        *itoa;
     t_node       *node;
-    int         i = 0;
+    int i = 0;
 
     node = command->redirections->head;
+    itoa = ft_itoa(command->num_cmd);
+    file = ft_strjoin("/tmp/.tmp_heredoc", itoa);
     while (node != NULL)
     {
         if (node->type == INPUT)
@@ -44,15 +48,12 @@ void    redirections(t_cmd *command)
             close (fd);
         }
         if (node->type == HEREDOC)
-        {
             i = 1;
-            heredoc(node);
-        }    
         node = node->next;
     }
     if (i == 1)
     {
-        fd = open("/tmp/.tmp_heredoc", O_RDONLY);
+        fd = open(file, O_RDONLY);
         dup2(fd, STDIN_FILENO);
         close(fd);
     }

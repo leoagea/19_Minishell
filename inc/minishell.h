@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/15 19:30:15 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/24 18:13:07 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_cmd
    char                    *absolute_path;
    t_dll                   *redirections;
    t_list                  **env_list;
+   int                     num_cmd;
    struct s_cmd    *next;
    struct s_cmd    *prev;
 }                t_cmd;
@@ -115,7 +116,9 @@ void	handle_signal(void);
 void    redirections(t_cmd *command);
 
    // HEREDOC //
-void     heredoc(t_node *node);
+void     heredoc(t_node *node, int i);
+int		multi_heredoc(t_cmd *command);
+void	init_heredoc(t_cmd *command);
 
   // EXEC_PIPE //
 void    exec_pipe(t_cmd *command);

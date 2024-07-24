@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:29:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/11 14:52:54 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/24 18:10:26 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_cmd	*dll_cmd_new_node(void)
 	new->prev = NULL;
 	new->redirections = NULL;
 	new->num_redirections = 0;
+	new->num_cmd = 0;
 	return (new);
 }
 

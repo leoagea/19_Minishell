@@ -31,16 +31,17 @@ char    *path(char *command)
 void    absolute_path(t_cmd *command)
 {
     t_cmd   *node;
-    char    *final_path;
-    char    *temp;
     node = command;
     while (node)
     {
-        if (access(node->str[0], F_OK) != 0)
+        if (access(node->str[0], F_OK) == -1)
         {
+            // printf("check\n");
             if (path(node->str[0]) != NULL)
                 node->absolute_path = path(node->str[0]);
         }
+        else
+            node->absolute_path = node->str[0];
         node = node->next;
     }
 }
@@ -115,7 +116,7 @@ void    exec_pipe(t_cmd *command)
     }
     i = 0;
     while (i < child_count)
-    {
+    { 
         waitpid(child_pids[i], &wstatus, 0);
         if (WIFEXITED(wstatus))
             g_exit_status = WEXITSTATUS(wstatus);

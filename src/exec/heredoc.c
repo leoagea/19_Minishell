@@ -1,13 +1,41 @@
 #include "../../inc/minishell.h"
 
-void	heredoc(t_node *node)
+
+void	init_heredoc(t_cmd *command)
+{
+	t_node	*node;
+	t_cmd *temp;
+	int i;
+
+	i = 1;
+	temp = command;
+	while (temp)
+	{
+		node = temp->redirections->head;
+		while (node)
+		{
+			if (node->type == HEREDOC)
+        	{
+            	heredoc(node, i);
+        	}
+			node = node->next;
+		}
+		temp = temp->next;
+	}
+}
+
+void	heredoc(t_node *node, int i)
 {
 	int fd;
 	int stdin_fd;
 	char *line;
+	char *file;
+	char *itoa;
 
+	itoa = ft_itoa(i);
+	file = ft_strjoin("/tmp/.tmp_heredoc", itoa);
 	line = "";
-	fd = open("/tmp/.tmp_heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
 	{
 		perror("open");
