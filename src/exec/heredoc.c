@@ -20,6 +20,7 @@ void	init_heredoc(t_cmd *command)
         	}
 			node = node->next;
 		}
+		i++;
 		temp = temp->next;
 	}
 }
