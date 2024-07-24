@@ -6,54 +6,56 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:12:31 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/24 18:07:02 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/24 18:38:32 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static t_dll *isolate_single_cmd(t_data *data, t_node *start)
+static t_dll	*isolate_single_cmd(t_node *start)
 {
-	t_node *current;
-	t_node *currend_cmd;
-	t_dll *single_cmd;
-	
+	t_node	*current;
+	t_node	*currend_cmd;
+	t_dll	*single_cmd;
+
 	single_cmd = dll_init();
 	current = start;
 	while (current != NULL)
 	{
 		if (current->type == PIPE)
-			return single_cmd;
+			return (single_cmd);
 		dll_insert_tail(current->str, single_cmd);
 		currend_cmd = single_cmd->tail;
 		currend_cmd->type = current->type;
 		current = current->next;
 	}
-	return single_cmd;
+	return (single_cmd);
 }
 
-static int put_in_str(t_data *data, t_dll *cmd)
+static int	put_in_str(t_data *data, t_dll *cmd)
 {
-	int i;
-	int nb_tokens;
-	t_node *current;
+	int		i;
+	int		nb_tokens;
+	t_node	*current;
 
 	i = 0;
 	current = cmd->head;
 	nb_tokens = dll_size(cmd);
 	data->parser->tail->str = malloc(sizeof(char *) * nb_tokens + 1);
 	if (dll_size(cmd) == 0)
-		return 1;
+		return (1);
 	while (current != NULL)
 	{
-;		data->parser->tail->str[i] = current->str;
+		data->parser->tail->str[i] = current->str;
 		current = current->next;
 		i++;
-	}handle_signal();
+	}
+	handle_signal();
 	data->parser->tail->str[i] = NULL;
+	return (0);
 }
 
-int parser(t_data *data)
+int	parser(t_data *data)
 {
 	t_node *current;
 	t_dll *single_cmd;
@@ -63,10 +65,10 @@ int parser(t_data *data)
 	current = data->expander->head;
 	while (current != NULL)
 	{
-		single_cmd = isolate_single_cmd(data, current);
-		// dll_print_forward(single_cmd);
+		single_cmd = isolate_single_cmd(current);
 		handle_redirections(single_cmd, data);
-		while (current != NULL && current->type != PIPE){
+		while (current != NULL && current->type != PIPE)
+		{
 			current = current->next;
 		}
 		if (current != NULL && current->type == PIPE)
@@ -83,13 +85,5 @@ int parser(t_data *data)
 		// 	i++;
 		// }
 	}
-	// dll_cmd_print_forward(data->parser);
+	return (0);
 }
-// cat -e | ls -la |echo "test" | pwd | cat < Makefile > test.txt
-
-
-//////////////		TO DO
-
-//faire une funct qui assigne le tyupe PIPE a tous les tokens | 
-
-// faire une while pour isoler chaque cmd et envoyer a toutes les sub funct

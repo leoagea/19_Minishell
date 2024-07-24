@@ -1,35 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   double_quotes.c                                    :+:      :+:    :+:   */
+/*   export_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/09 17:01:04 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 16:25:26 by lagea            ###   ########.fr       */
+/*   Created: 2024/07/15 00:29:57 by lagea             #+#    #+#             */
+/*   Updated: 2024/07/16 17:20:00 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../../inc/minishell.h"
 
-char	*expand_double_quotes(t_data *data, char *cpy, int *i, char *str)
+static void	swap(char **a, char **b)
 {
-	int	start;
+	char	*temp;
 
-	*i += 1;
-	start = *i;
-	while (str[*i] && str[*i] != 34)
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+void	sort_export(char **arr, int size)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < size - 1)
 	{
-		if (str[*i] == '$')
-			cpy = expand_env_var(data, cpy, i, str);
-		else
+		j = 0;
+		while (j < size - i - 1)
 		{
-			if (str[*i - 1] == '$' && str[*i - 1])
-				cpy = join_char(cpy, '$');
-			cpy = join_char(cpy, str[*i]);
-			*i += 1;
+			if (ft_strncmp(arr[j], arr[j + 1], INT_MAX) > 0)
+				swap(&arr[j], &arr[j + 1]);
+			j++;
 		}
+		i++;
 	}
-	*i += 1;
-	return (cpy);
 }

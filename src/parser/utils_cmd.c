@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:29:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/24 18:10:26 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/24 18:43:16 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,6 @@ t_cmd	*dll_cmd_new_node(void)
 	new->num_redirections = 0;
 	new->num_cmd = 0;
 	return (new);
-}
-
-void	dll_cmd_clear(t_dll_cmd *dll)
-{
-	t_cmd	*temp;
-	t_cmd	*current;
-
-	if (!dll)
-		return ;
-	current = dll->head;
-	while (current != NULL)
-	{
-		temp = current;
-		current = current->next;
-		free(temp);
-	}
 }
 
 void	dll_cmd_insert_tail(t_dll_cmd *dll, t_cmd *new)
@@ -64,33 +48,41 @@ void	dll_cmd_insert_tail(t_dll_cmd *dll, t_cmd *new)
 	}
 }
 
-
 void	dll_cmd_print_forward(t_dll_cmd *dll)
 {
+	char	**str;
 	t_cmd	*current;
+	int		i;
+	t_node	*red;
 
 	current = dll->head;
 	while (current != NULL)
 	{
-		ft_printf("str : %s\n", current->str[0]);
-		ft_printf("redirections : %d\n", current->num_redirections);
+		str = current->str;
+		i = 0;
+		while (str[i])
+		{
+			ft_printf("str : %s\n", current->str[i]);
+			i++;
+		}
+		dll_print_forward(current->redirections);
 		current = current->next;
 	}
 }
 
-void dll_delete_node(t_node *delete)  
-{  
-    t_node *ptr;   
-	 
-    ptr = delete;  
-    delete->prev->next = ptr->next;  
-    ptr->next->prev = delete->prev;  
-	free(ptr);  
+void	dll_delete_node(t_node *delete)
+{
+	t_node	*ptr;
+
+	ptr = delete;
+	delete->prev->next = ptr->next;
+	ptr->next->prev = delete->prev;
+	free(ptr);
 }
 
 int	dll_cmd_size(t_dll_cmd *dll)
 {
-	int	dll_len;
+	int		dll_len;
 	t_cmd	*current;
 
 	dll_len = 0;
