@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:29:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/18 17:05:54 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/26 18:07:26 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,5 @@ void	free_exp(t_env_expand *env)
 		free(env->expand);
 		env->expand = NULL;
 	}
+	free(env);
 }
