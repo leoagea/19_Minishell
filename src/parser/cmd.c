@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:12:31 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 17:14:17 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/26 16:48:41 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ int	parser(t_data *data)
 {
 	t_node	*current;
 	t_dll	*single_cmd;
+	int i;
 
+	i = 1;
 	current = data->expander->head;
 	while (current != NULL)
 	{
@@ -72,6 +74,8 @@ int	parser(t_data *data)
 		if (current != NULL && current->type == PIPE)
 			current = current->next;
 		put_in_str(data, single_cmd);
+		data->parser->tail->num_cmd = i;
+		i++;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/18 18:12:23 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/26 16:54:20 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,17 @@ typedef struct s_lst
 
 typedef struct s_cmd
 {
-	char			**str;
-	bool			is_builtin;
-	int				num_redirections;
-	char			**env;
-	char			*absolute_path;
-	t_dll			*redirections;
-	t_lst			*env_list;
-	struct s_cmd	*next;
-	struct s_cmd	*prev;
-}					t_cmd;
+   char                    **str; //cmd, arg, flag
+   bool                    is_builtin;
+   int                     num_redirections;
+	char					      **env;
+   char                    *absolute_path;
+   t_dll                   *redirections;
+   t_list                  **env_list;
+   int                     num_cmd;
+   struct s_cmd    *next;
+   struct s_cmd    *prev;
+}                t_cmd;
 
 typedef struct s_dll_cmd
 {
@@ -101,6 +102,13 @@ void				redirections(t_cmd *command);
 // EXEC_PIPE //
 void				exec_pipe(t_cmd *command, t_data *data);
 
+   // HEREDOC //
+void     heredoc(t_node *node, int i);
+int		multi_heredoc(t_cmd *command);
+void	init_heredoc(t_cmd *command);
+
+  // EXEC_PIPE //
+void    exec_pipe(t_cmd *command, t_data *data);
 
 /*==============================Minishell================================*/
 
@@ -139,9 +147,9 @@ int					handle_redirections(t_dll *single_cmd, t_data *data);
 /*-----------------------------Utils_cmn---------------------------------*/
 
 t_cmd				*dll_cmd_new_node(void);
-void				dll_cmd_insert_tail(t_dll_cmd *dll, t_cmd *new);
+void				dll_cmd_insert_tail(t_dll_cmd *dll, t_cmd *_new);
 void				dll_cmd_print_forward(t_dll_cmd *dll);
-void				dll_delete_node(t_node *delete);
+void				dll_delete_node(t_node *_delete);
 int					dll_cmd_size(t_dll_cmd *dll);
 
 /*==============================EXPANDER=================================*/
@@ -192,7 +200,7 @@ t_lst				*init_env(char **envp);
 /*--------------------------------lst------------------------------------*/
 
 t_env				*lst_new(char *var, char *value, int flag);
-void				lst_insert_tail(t_env *new, t_lst *lst);
+void				lst_insert_tail(t_env *_new, t_lst *lst);
 int					lst_size(t_lst *lst);
 t_env				*get_node(t_lst *env, char *var);
 
@@ -217,7 +225,7 @@ int					echo(t_cmd *cmd);
 
 /*-------------------------------exit------------------------------------*/
 
-int					ft_exit(t_data *data, t_cmd *simple_cmd);
+int					__exit(t_data *data, t_cmd *simple_cmd);
 
 /*--------------------------------env------------------------------------*/
 
@@ -230,7 +238,7 @@ int					pwd(void);
 
 /*-------------------------------export-----------------------------------*/
 
-int					export(t_data *data, t_cmd *cmd);
+int					_export(t_data *data, t_cmd *cmd);
 
 /*--------------------------export_functions-------------------------------*/
 
@@ -252,7 +260,7 @@ int					cd(t_data *data);
 
 /*-----------------------------cd_functions--------------------------------*/
 
-int					change_directory(t_data *data, char *new, char *old);
+int					change_directory(t_data *data, char *_new, char *old);
 
 /*-------------------------------builtin-----------------------------------*/ 
 

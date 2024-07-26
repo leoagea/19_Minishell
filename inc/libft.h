@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 01:26:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 17:36:48 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/26 16:52:21 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 
 int					ft_lstsize(t_list *lst);
 
-void				ft_lstadd_front(t_list **lst, t_list *new);
-void				ft_lstadd_back(t_list **lst, t_list *new);
+void				ft_lstadd_front(t_list **lst, t_list *_new);
+void				ft_lstadd_back(t_list **lst, t_list *_new);
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstclear(t_list **lst, void (*del)(void *));

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/26 16:43:00 by lagea             #+#    #+#             */
+/*   Updated: 2024/07/26 17:01:09 by lagea            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 char    *path(char *command)
@@ -91,10 +103,10 @@ void    exec_pipe(t_cmd *command, t_data *data)
     is_builtin(node);
     if (node->next == NULL && node->is_builtin)
     {
-        printf("test builtin\n");
+        // printf("test builtin\n");
         // redirections(node);
         exec_builtin(node, data);
-        printf("test builtin 1\n");
+        // printf("test builtin 1\n");
         return ;
     }
     absolute_path(node);
@@ -125,7 +137,7 @@ void    exec_pipe(t_cmd *command, t_data *data)
                 close(fd_in);
             }
             redirections(node);   // ouvre fichier puis redirige entree ou sortie depuis ou vers le fd       
-            if (node->next)     // si commande apres -> j'ecris sur le pipe 
+            if (node->next)     // si commande apres ->  j'ecris sur le pipe 
             {
                 dup2(pipe_fd[1], STDOUT_FILENO);
                 close(pipe_fd[1]);
@@ -138,9 +150,8 @@ void    exec_pipe(t_cmd *command, t_data *data)
                 ft_putstr_fd("bash: ", 2);
                 write(2, node->str[0], ft_strlen(node->str[0]));
                 ft_putstr_fd(": command not found\n", 2);
-                exit (1);
+                exit (127);
             }
-            exit (0);
         }
         else 
         {
@@ -157,7 +168,7 @@ void    exec_pipe(t_cmd *command, t_data *data)
     }
     i = 0;
     while (i < child_count)
-    {
+    { 
         waitpid(child_pids[i], &wstatus, 0);
         if (WIFEXITED(wstatus))
             g_exit_status = WEXITSTATUS(wstatus);

@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:18:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/18 17:24:11 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/26 16:54:15 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	determine_exit_code(char **str)
 	exit(g_exit_status);
 }
 
-int	ft_exit(t_data *data, t_cmd *simple_cmd)
+int	__exit(t_data *data, t_cmd *simple_cmd)
 {
 	char	**str;
 

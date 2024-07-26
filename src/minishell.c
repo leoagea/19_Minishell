@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/26 13:32:41 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/26 17:01:16 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int main(int argc, char **argv, char **envp)
 	data.lexer = dll_init();
 	data.parser = dll_cmd_init();
 	// print_env(env);
-	printf("Start\n");
+	// printf("Start\n");
 	// print_export(data.env);
 	if (init_shlvl(&data))
 		return 1;
@@ -72,13 +72,10 @@ int main(int argc, char **argv, char **envp)
 			// dll_cmd_print_forward(data.parser);
 
 			command = data.parser->head;
-			command->env = envp;
-			command->env_list = data.env;
-			
-			// dll_print_forward(data.expander);
-				 
+			init_heredoc(command);
 			exec_pipe(command, &data);
-			
+			// printf("exit code : %d\n", g_exit_status); 
+			dll_clear(data.lexer);
 			dll_cmd_clear(data.parser);
 			data.parser->head = NULL;
 			data.parser->tail = NULL;

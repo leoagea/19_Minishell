@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:29:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 17:17:16 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/26 16:48:47 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_cmd	*dll_cmd_new_node(void)
 	new->prev = NULL;
 	new->redirections = NULL;
 	new->num_redirections = 0;
+	new->num_cmd = 0;
 	return (new);
 }
 

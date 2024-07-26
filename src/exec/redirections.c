@@ -3,9 +3,15 @@
 void    redirections(t_cmd *command)
 {
     int         fd;
+    int         temp_fd;
+    char        *file;
+    char        *itoa;
     t_node       *node;
+    int i = 0;
 
     node = command->redirections->head;
+    itoa = ft_itoa(command->num_cmd);
+    file = ft_strjoin("/tmp/.tmp_heredoc", itoa);
     while (node != NULL)
     {
         if (node->type == INPUT)
@@ -41,17 +47,15 @@ void    redirections(t_cmd *command)
             dup2(fd, STDOUT_FILENO);
             close (fd);
         }
+        if (node->type == HEREDOC)
+            i = 1;
         node = node->next;
     }
-    // if (node->type == HEREDOC)
-    //     heredoc(t_cmd *command);
-        // fd = open(command->redirections->head->str, O_WRONLY | O_CREAT, 777);
-        // if (fd == -1)
-        // {
-        //     perror("open");
-        //     exit (1);
-        // }
-        // dup2(fd, STDOUT_FILENO);
-        // close (fd);
+    if (i == 1)
+    {
+        fd = open(file, O_RDONLY);
+        dup2(fd, STDIN_FILENO);
+        close(fd);
+    }
 }
 
