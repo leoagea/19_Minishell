@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/22 19:03:14 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/26 13:32:41 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,17 @@ int main(int argc, char **argv, char **envp)
 				data.lexer->tail = NULL;
 				continue ;
 			}
-			printf("test \n");
-			dll_print_forward(data.lexer);
+			// printf("test \n");
+			// dll_print_forward(data.lexer);
 			// printf("--------------------\n");
 			expander(&data);
 			dll_clear(data.lexer);
 			data.lexer->head = NULL;
 			data.lexer->tail = NULL;
 			// dll_print_forward(data.expander);
-			printf("test 1\n");
+			// printf("test 1\n");
 			parser(&data);
-			// dll_clear(data.expander); 
+			dll_clear(data.expander);
 			data.expander->head = NULL;
 			data.expander->tail = NULL;
 
