@@ -71,7 +71,6 @@ char **put_env_in_arr(t_lst *env)
         i++;
         node = node->next;
     }
-     ft_putstr_fd("\n\n", 2);
     env_arr[i] = NULL;
     return (env_arr);
 }
@@ -89,9 +88,6 @@ void    exec_pipe(t_cmd *command, t_data *data)
     node = command;
     fd_in = STDIN_FILENO;
 
-    absolute_path(node);
-    pid_t child_pids[2048]; // Si AU PLUS 2048 commandes dans la pipeline
-    int child_count = 0;
     is_builtin(node);
     if (node->next == NULL && node->is_builtin)
     {
@@ -101,6 +97,9 @@ void    exec_pipe(t_cmd *command, t_data *data)
         printf("test builtin 1\n");
         return ;
     }
+    absolute_path(node);
+    pid_t child_pids[2048]; // Si AU PLUS 2048 commandes dans la pipeline
+    int child_count = 0;
     while (node)
     {
         if (node->next)  // si commande apres -> pipe

@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:16:16 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/18 15:44:57 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/26 13:02:54 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_env_expand	*env_var_init(void)
 	env->start = 0;
 	env->var_len = 0;
 	env->var = NULL;
+	env->expand = NULL;
 	return (env);
 }
 
