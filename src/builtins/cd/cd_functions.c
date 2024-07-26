@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:41:07 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/22 19:02:04 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/26 17:19:19 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	update_env(t_data *data, char *new, char *old)
 
 static int is_absolute(char *new)
 {
-	if (ft_strncmp("/Users/", new, 8) == 0)
+	if (ft_strncmp("/Users/", new, 7) == 0)
 		return 1;
 	return 0;
 }
@@ -77,7 +77,7 @@ int	change_directory(t_data *data, char *new, char *old)
 	// printf("check 3\n"); 
 	if (!new)
 		return (1);
-	printf("check 4\n");
+	// printf("check 4\n");
 	if (is_absolute(new))
 	{
 		if (access(new, F_OK) == -1 || access(new, X_OK) == -1)
@@ -97,7 +97,7 @@ int	change_directory(t_data *data, char *new, char *old)
 		if (chdir(new_join) == -1)
 			return (ft_printf("bash: cd: %s: No such file or directory", new), 1);
 	}
-	printf("check 6\n");
+	// printf("check 6\n");
 	return_value = update_env(data, getcwd(NULL, 0), old);
 	return (0);
 }
