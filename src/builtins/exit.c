@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:18:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/26 16:54:15 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/26 17:15:08 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	is_str_digit(char *str)
 	return (1);
 }
 
-void	determine_exit_code(char **str)
+static void	determine_exit_code(char **str, t_data *data)
 {
 	if (!str[1])
 		g_exit_status = 0;
@@ -62,7 +62,8 @@ void	determine_exit_code(char **str)
 		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 		g_exit_status = 255;
 	}
-	free_var("%arr", str);
+	free_var("%arr %dll %dll %cmd %lst", str, data->lexer, data->expander, data->parser, data->env);
+	system("leaks minishell");
 	exit(g_exit_status);
 }
 
@@ -83,7 +84,7 @@ int	__exit(t_data *data, t_cmd *simple_cmd)
 	// free_cmd(data->parser);
 	// free_lst(data->env);
 	// free_exp(data->env_expand);
-	determine_exit_code(str);
+	determine_exit_code(str, data);
 	free_arr(str);
 	return (EXIT_SUCCESS);
 }

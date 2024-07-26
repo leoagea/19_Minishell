@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/26 17:01:16 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/26 17:18:48 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int main(int argc, char **argv, char **envp)
 			// write(1, "\001\e[0;31m\002> minishell$ \001\e[0m\002exit\n", 33);
 			free_var("%dll %dll %cmd %lst %exp", data.lexer, data.expander, data.parser, data.env, data.env_expand);
 			write(1, "exit\n", 5);
+			system("leaks minishell");
 			exit (0);
 		}
 		line = ft_strdup(data.input);
@@ -75,7 +76,6 @@ int main(int argc, char **argv, char **envp)
 			init_heredoc(command);
 			exec_pipe(command, &data);
 			// printf("exit code : %d\n", g_exit_status); 
-			dll_clear(data.lexer);
 			dll_cmd_clear(data.parser);
 			data.parser->head = NULL;
 			data.parser->tail = NULL;

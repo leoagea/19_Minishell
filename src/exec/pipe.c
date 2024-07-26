@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:43:00 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/26 17:01:09 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/26 17:56:33 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ char    *path(char *command)
             exit(1);
         free(temp);
         if (access(final_path, F_OK) == 0)
-            return (free_var("arr", dir_command), final_path);
+            return (free_arr(dir_command), final_path);
         free(final_path);
     }
-    return (free_var("%arr", dir_command), NULL);
+    return (free_arr(dir_command), NULL);
 }
 
 void    absolute_path(t_cmd *command)
@@ -53,7 +53,7 @@ void    absolute_path(t_cmd *command)
                 node->absolute_path = path(node->str[0]);
         }
         else
-            node->absolute_path = node->str[0];
+            node->absolute_path = ft_strdup(node->str[0]);
         node = node->next;
     }
 }
@@ -147,6 +147,7 @@ void    exec_pipe(t_cmd *command, t_data *data)
             {
                 data->env_arr = put_env_in_arr(data->env);
                 execve(node->absolute_path, node->str, data->env_arr);
+                free_str(node->absolute_path);
                 ft_putstr_fd("bash: ", 2);
                 write(2, node->str[0], ft_strlen(node->str[0]));
                 ft_putstr_fd(": command not found\n", 2);
@@ -155,6 +156,7 @@ void    exec_pipe(t_cmd *command, t_data *data)
         }
         else 
         {
+            free_str(node->absolute_path);
             child_pids[child_count++] = pid;
             if (fd_in != STDIN_FILENO)
                 close(fd_in);

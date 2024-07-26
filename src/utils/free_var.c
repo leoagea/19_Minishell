@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:48:26 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/18 17:21:43 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/26 17:16:34 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	free_lst(t_lst *lst)
 	{
 		tmp = node;
 		node = node->next;
-		// free_str(tmp->var);
-		// free_str(tmp->value);
+		free_str(tmp->var);
+		free_str(tmp->value);
 		free(tmp);
 		tmp = NULL;
 	}
