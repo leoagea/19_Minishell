@@ -3,33 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/26 17:01:16 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 00:33:48 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+int 	g_exit_status = 1;
+
 int main(int argc, char **argv, char **envp)
 {
 	char *line;
 	t_data	data;
-	// t_lst *export;
 	t_cmd *command;
 	
     (void) argc;
     (void) argv;
-	g_exit_status = 1;
 	data.env = init_env(envp);
 	data.lexer = dll_init();
 	data.parser = dll_cmd_init();
-	// print_env(env);
-	// printf("Start\n");
-	// print_export(data.env);
 	if (init_shlvl(&data))
-		return 1;
+		return (1);
 	handle_signal();
 	while (1)
 	{
