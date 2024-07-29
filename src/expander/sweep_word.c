@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:49:08 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/22 15:30:57 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 12:59:03 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,10 @@ char	*join_char(char *str, char c)
 	if (!str)
 		return (NULL);
 	len_str = ft_strlen(str);
-	new = malloc(sizeof(char) * (len_str + 2));
-	if (!new)
-		return (NULL);
-	while (*str)
-		new[++i] = *str++;
-	new[++i] = c;
-	new[++i] = '\0';
-	return (new);
+	str = ft_realloc(str, len_str + 2);
+	str[len_str] = c;
+	str[len_str + 1] = '\0';
+	return (str);
 }
 
 static char	*dispatch_expand(t_data *data, char *cpy, char *str, int i)
