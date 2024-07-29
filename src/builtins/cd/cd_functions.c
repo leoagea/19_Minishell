@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:41:07 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/26 17:19:19 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 16:31:32 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ char *get_accessible_pwd(char *pwd)
 }
 
 int	change_directory(t_data *data, char *new, char *old)
-
 {
 	int	return_value;
 	char *new_join;
+	char *upd_pwd;
 	
 	// printf("check 3\n"); 
 	if (!new)
@@ -98,7 +98,8 @@ int	change_directory(t_data *data, char *new, char *old)
 			return (ft_printf("bash: cd: %s: No such file or directory", new), 1);
 	}
 	// printf("check 6\n");
-	return_value = update_env(data, getcwd(NULL, 0), old);
-	return (0);
+	upd_pwd = getcwd(NULL, 0);
+	return_value = update_env(data, upd_pwd, old);
+	return (free_str(upd_pwd), 0);
 }
 

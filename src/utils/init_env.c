@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 23:04:43 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 17:30:28 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 15:59:46 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ t_lst	*init_env(char **envp)
 	{
 		env_var = get_env_var(envp[i]);
 		new_node = lst_new(env_var->var, env_var->value, env_var->flag);
+		free(env_var);
+		env_var = NULL;
 		if (!new_node)
 			return (NULL);
 		lst_insert_tail(new_node, env);
