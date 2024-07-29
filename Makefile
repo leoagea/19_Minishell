@@ -99,11 +99,14 @@ debug : $(LIBFT) $(OBJD)
 clean :
 	@make clean -C libft
 	@$(RM) obj/**/*.o
+	@$(RM) obj_debug/**/*.o
 	@$(RM) obj/minishell.o
+	@$(RM) obj_debug/minishell.o
 
 fclean : clean
 	@make fclean -C libft
 	@$(RM) lib/
 	@$(RM) $(NAME)
+	@$(RM) $(DEBUG)
  
 re : fclean all
