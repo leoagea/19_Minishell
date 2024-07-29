@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 01:26:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/26 16:52:21 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 12:55:04 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int					ft_printf(const char *s, ...);
 void				ft_putunbr_fd(unsigned int n, int fd);
 long				ft_atol(const char *str);
 int					ft_atoi_base(char *str, char *base);
+char *ft_realloc(char *ptr, size_t new_size);
 
 /*-------------------------DOUBLE LIMKED LIST----------------------------*/
 
