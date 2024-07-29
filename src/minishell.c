@@ -6,13 +6,14 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/29 00:33:48 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/29 18:24:30 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 int 	g_exit_status = 1;
+int		g_sigint = 0;
 
 int main(int argc, char **argv, char **envp)
 {
@@ -76,6 +77,7 @@ int main(int argc, char **argv, char **envp)
 			dll_cmd_clear(data.parser);
 			data.parser->head = NULL;
 			data.parser->tail = NULL;
+			unlink_tmp();
 			// free_command(command); // TODO
 		}
 		// free_var("%str %dll %dll  ")

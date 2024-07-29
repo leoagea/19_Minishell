@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/29 00:21:08 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/29 18:57:07 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define BUFFER_SIZE 10000
 
 extern int	g_exit_status;
+extern int	g_sigint;
 
 typedef struct s_env
 {
@@ -94,7 +95,7 @@ void				rl_replace_line(const char *text, int clear_undo);
 void				reset_ctrl_c(int sig);
 void				reset_ctrl_slash(int sig);
 void				handle_signal(void);
-
+void				handle_signal_child(void);
 //// EXEC ////
 // REDIRECTIONS //
 void				redirections(t_cmd *command);
@@ -106,6 +107,7 @@ void				exec_pipe(t_cmd *command, t_data *data);
 void     heredoc(t_node *node, int i);
 int		multi_heredoc(t_cmd *command);
 void	init_heredoc(t_cmd *command);
+void	unlink_tmp(void);
 
   // EXEC_PIPE //
 void    exec_pipe(t_cmd *command, t_data *data);

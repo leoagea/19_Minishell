@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:43:00 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/26 17:01:09 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 19:04:09 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ char    *path(char *command)
     char    *temp;
     char    *final_path;
     int     i;
-
-    i = -1;
+    
     dir_command = ft_split("/Users/vdarras/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki", ':');
     if (!dir_command)
         exit(1);
@@ -131,6 +130,7 @@ void    exec_pipe(t_cmd *command, t_data *data)
         }
         if (pid == 0)
         {
+         	signal(SIGINT, SIG_DFL);
             if (fd_in != STDIN_FILENO)
             {
                 dup2(fd_in, STDIN_FILENO);
@@ -149,7 +149,7 @@ void    exec_pipe(t_cmd *command, t_data *data)
                 execve(node->absolute_path, node->str, data->env_arr);
                 ft_putstr_fd("bash: ", 2);
                 write(2, node->str[0], ft_strlen(node->str[0]));
-                ft_putstr_fd(": command not found\n", 2);
+                ft_putstr_fd(": no such file or directory\n", 2);
                 exit (127);
             }
         }
