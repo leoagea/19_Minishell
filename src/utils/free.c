@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:29:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/26 18:07:26 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 17:00:19 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	free_cmd(t_dll_cmd *cmd)
 		node = node->next;
 		// free_arr(tmp->str);
 		// free_arr(tmp->env);
-		// free_dll(tmp->redirections);
+		free_dll(tmp->redirections);
 		// free_lst(tmp->env_list);
 		free(tmp);
 		tmp = NULL;

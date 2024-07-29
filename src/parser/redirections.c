@@ -6,11 +6,12 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:40:47 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 17:14:45 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 17:32:07 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+#include <stdio.h>
 
 static void	delete_node(t_dll *cmd, t_node *delete)
 {
@@ -24,9 +25,10 @@ static void	delete_node(t_dll *cmd, t_node *delete)
 
 int	handle_redirections(t_dll *single_cmd, t_data *data)
 {
+	int nb_redir;
 	t_cmd	*cmd;
 	t_node	*current;
-
+	
 	current = single_cmd->head;
 	cmd = dll_cmd_new_node();
 	dll_cmd_insert_tail(data->parser, cmd);
@@ -37,7 +39,7 @@ int	handle_redirections(t_dll *single_cmd, t_data *data)
 			|| current->type == 4)
 		{
 			cmd->num_redirections++;
-			dll_insert_tail(current->next->str, cmd->redirections);
+			dll_insert_tail(ft_strdup(current->next->str), cmd->redirections);
 			cmd->redirections->tail->type = current->type;
 			delete_node(single_cmd, current);
 			current = current->next;

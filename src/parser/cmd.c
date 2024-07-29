@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:12:31 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/29 15:50:05 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 17:32:35 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	parser(t_data *data)
 		put_in_str(data, single_cmd);
 		data->parser->tail->num_cmd = i;
 		i++;
+		free_dll(single_cmd);
 	}
 	return (0);
 }
