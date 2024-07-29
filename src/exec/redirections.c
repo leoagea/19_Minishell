@@ -19,7 +19,7 @@ void    redirections(t_cmd *command)
             fd = open(node->str, O_RDONLY, 0777);
             if (fd == -1)
             {
-                perror("open");
+                perror("open infile");
                 exit (1);
             }
             dup2(fd, STDIN_FILENO);
@@ -30,7 +30,7 @@ void    redirections(t_cmd *command)
             fd = open(node->str, O_WRONLY | O_CREAT | O_TRUNC, 0777);
             if (fd == -1)
             {
-                perror("open");
+                perror("open outfile");
                 exit (1);
             }
             dup2(fd, STDOUT_FILENO);
@@ -41,7 +41,7 @@ void    redirections(t_cmd *command)
             fd = open(node->str, O_WRONLY | O_CREAT | O_APPEND, 0777);
             if (fd == -1)
             {
-                perror("open");
+                perror("open outfile append");
                 exit (1);
             }
             dup2(fd, STDOUT_FILENO);
