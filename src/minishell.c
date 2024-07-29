@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/29 17:04:12 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 19:06:37 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int main(int argc, char **argv, char **envp)
     (void) argv;
 	g_exit_status = 1;
 	data.env = init_env(envp);
-	data.lexer = dll_init();
-	data.parser = dll_cmd_init();
+	// data.lexer = dll_init();
+	// data.parser = dll_cmd_init();
 	// print_env(env);
 	// printf("Start\n");
 	// print_export(data.env);
@@ -49,6 +49,7 @@ int main(int argc, char **argv, char **envp)
 		{
 			if (data.input[0] != '\0')
 				add_history(line);
+			data.lexer = dll_init();			
 			if (lexer(line, data.lexer))
 			{
 				dll_clear(data.lexer);
@@ -61,12 +62,15 @@ int main(int argc, char **argv, char **envp)
 			// printf("--------------------\n");
 			expander(&data);
 			dll_clear(data.lexer);
+			// free(data.lexer);
 			data.lexer->head = NULL;
 			data.lexer->tail = NULL;
 			// dll_print_forward(data.expander);
 			// printf("test 1\n");
+			data.parser = dll_cmd_init();
 			parser(&data);
 			dll_clear(data.expander);
+			// free(data.expander);
 			data.expander->head = NULL;
 			data.expander->tail = NULL;
 
@@ -77,6 +81,7 @@ int main(int argc, char **argv, char **envp)
 			exec_pipe(command, &data);
 			// printf("exit code : %d\n", g_exit_status); 
 			dll_cmd_clear(data.parser);
+			// free(data.parser);
 			data.parser->head = NULL;
 			data.parser->tail = NULL;
 			// free_command(command); // TODO
@@ -87,5 +92,4 @@ int main(int argc, char **argv, char **envp)
 	return (0);
 }
 
-//touch nom_commande
-// ==> cmd not found
+//segfault when exit and ctrl D needed to be fixed

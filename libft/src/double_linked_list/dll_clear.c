@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:30:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/26 17:20:20 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 19:04:45 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,6 @@ void	dll_clear(t_dll *dll)
 		free(temp);
 		temp = NULL;
 	}
+	free(dll);
+	dll = NULL;
 }
