@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:42:48 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/26 16:42:49 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 13:03:16 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ void	heredoc(t_node *node, int i)
 			break ;
 		ft_putstr_fd(line, fd);
 	}
-	free(line);
+	free_str(line);
 	close(fd);
 }

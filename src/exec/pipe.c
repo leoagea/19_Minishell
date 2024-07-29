@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:43:00 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/26 17:56:33 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 14:37:30 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ char    *path(char *command)
         final_path = ft_strjoin(dir_command[i], temp);
         if(!final_path)
             exit(1);
-        free(temp);
+        free_str(temp);
         if (access(final_path, F_OK) == 0)
             return (free_arr(dir_command), final_path);
-        free(final_path);
+        free_str(final_path);
     }
     return (free_arr(dir_command), NULL);
 }
@@ -109,6 +109,8 @@ void    exec_pipe(t_cmd *command, t_data *data)
         // printf("test builtin 1\n");
         return ;
     }
+    if (!node->str[0])
+        return;
     absolute_path(node);
     pid_t child_pids[2048]; // Si AU PLUS 2048 commandes dans la pipeline
     int child_count = 0;

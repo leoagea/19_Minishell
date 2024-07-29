@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:21:37 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 17:22:45 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 13:03:05 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static void	lst_delete_node(t_env *prev, t_env *delete, t_lst *lst)
 	}
 	if (delete->value)
 	{
-		free(delete->value);
+		free_str(delete->value);
 		delete->value = NULL;
 	}
-	free(delete->var);
+	free_str(delete->var);
 	delete->var = NULL;
 	free(delete);
 }
