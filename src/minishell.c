@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/29 15:47:34 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 17:04:12 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int main(int argc, char **argv, char **envp)
 		{
 			// write(1, "\33[2K\r", 6);
 			// write(1, "\001\e[0;31m\002> minishell$ \001\e[0m\002exit\n", 33);
-			free_var("%dll %dll %cmd %lst", data.lexer, data.expander, data.parser, data.env, data.env_expand);
+			free_var("%dll %dll %cmd %lst", data.lexer, data.expander, data.parser, data.env);
 			write(1, "exit\n", 5);
-			system("leaks minishell");
+			// system("leaks minishell");
 			exit (0);
 		}
 		line = ft_strdup(data.input);

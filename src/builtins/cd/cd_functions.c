@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:41:07 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/29 16:31:32 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 18:50:04 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	change_directory(t_data *data, char *new, char *old)
 	}
 	// printf("check 6\n");
 	upd_pwd = getcwd(NULL, 0);
-	return_value = update_env(data, upd_pwd, old);
+	return_value = update_env(data, ft_strdup(upd_pwd), old);
 	return (free_str(upd_pwd), 0);
 }
 

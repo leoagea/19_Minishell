@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:18:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/26 17:15:08 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 18:17:52 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	determine_exit_code(char **str, t_data *data)
 		g_exit_status = 255;
 	}
 	free_var("%arr %dll %dll %cmd %lst", str, data->lexer, data->expander, data->parser, data->env);
-	system("leaks minishell");
+	// system("leaks minishell");
 	exit(g_exit_status);
 }
 

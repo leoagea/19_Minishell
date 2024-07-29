@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/26 16:54:20 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 18:18:34 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,8 @@ typedef struct s_cmd
    char                    **str; //cmd, arg, flag
    bool                    is_builtin;
    int                     num_redirections;
-	char					      **env;
    char                    *absolute_path;
    t_dll                   *redirections;
-   t_list                  **env_list;
    int                     num_cmd;
    struct s_cmd    *next;
    struct s_cmd    *prev;
