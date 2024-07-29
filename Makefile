@@ -17,6 +17,8 @@ LINK = -L$(READLIB) -I$(READINC) -lreadline
 
 NAME = minishell
 
+DEBUG = debug
+
 LIBFT = lib/libft.a
 
 CC = cc
@@ -27,6 +29,7 @@ RM = rm -rf
 
 SRCS_DIR = src/
 OBJS_DIR = obj/
+DEBUG_DIR = obj_debug/
 
 SRCS =	src/minishell.c \
 	src/builtins/env.c src/builtins/pwd.c src/builtins/unset.c src/builtins/builtin.c src/builtins/echo.c \
@@ -41,6 +44,8 @@ SRCS =	src/minishell.c \
 	
 
 OBJ = $(SRCS:$(SRCS_DIR)%.c=$(OBJS_DIR)%.o)
+
+OBJD = $(SRCS:$(SRCS_DIR)%.c=$(DEBUG_DIR)%.o)
 
 all : $(LIBFT) $(NAME)
 
@@ -70,9 +75,26 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)/utils
 	@$(CC)  -o $@ -c $<
 
+$(DEBUG_DIR)%.o : $(SRCS_DIR)%.c
+	@mkdir -p $(DEBUG_DIR)
+	@mkdir -p $(DEBUG_DIR)/builtins
+	@mkdir -p $(DEBUG_DIR)/builtins/export
+	@mkdir -p $(DEBUG_DIR)/builtins/cd
+	@mkdir -p $(DEBUG_DIR)/signals
+	@mkdir -p $(DEBUG_DIR)/lexer
+	@mkdir -p $(DEBUG_DIR)/exec
+	@mkdir -p $(DEBUG_DIR)/parser
+	@mkdir -p $(DEBUG_DIR)/expander
+	@mkdir -p $(DEBUG_DIR)/utils
+	@$(CC)  -o $@ -c $<
+
 $(LIBFT):
 	@echo "$(YELLOW)Compiling Libft...$(NC)"
 	@make -C libft/
+
+debug : $(LIBFT) $(OBJD)
+	@make -C libft
+	@$(CC) $(OBJD) $(CFLAGS) -fsanitize=address -g $(LIBFT) $(LINK) -o $(DEBUG)
 
 clean :
 	@make clean -C libft
@@ -83,5 +105,5 @@ fclean : clean
 	@make fclean -C libft
 	@$(RM) lib/
 	@$(RM) $(NAME)
-
+ 
 re : fclean all
