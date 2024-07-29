@@ -6,21 +6,34 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:43:00 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/29 14:37:30 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 16:28:38 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char    *path(char *command)
+static char *get_path(t_data *data)
+{
+    t_env *node;
+
+    node = get_node(data->env, "PATH");
+    if (!node)
+        return (NULL);
+    return (node->value);    
+}
+
+char    *path(t_data *data, char *command)
 {
     char    **dir_command;
     char    *temp;
     char    *final_path;
     int     i;
+    char *abs_path;
 
-    i = -1;
-    dir_command = ft_split("/Users/vdarras/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki", ':');
+    abs_path = get_path(data);
+    if (!abs_path)
+        return (NULL);
+    dir_command = ft_split(abs_path, ':');
     if (!dir_command)
         exit(1);
     i = -1;
@@ -40,7 +53,7 @@ char    *path(char *command)
     return (free_arr(dir_command), NULL);
 }
 
-void    absolute_path(t_cmd *command)
+void    absolute_path(t_data *data, t_cmd *command)
 {
     t_cmd   *node;
     node = command;
@@ -49,8 +62,8 @@ void    absolute_path(t_cmd *command)
         if (access(node->str[0], F_OK) == -1)
         {
             // printf("check\n");
-            if (path(node->str[0]) != NULL)
-                node->absolute_path = path(node->str[0]);
+            if (path(data, node->str[0]) != NULL)
+                node->absolute_path = path(data, node->str[0]);
         }
         else
             node->absolute_path = ft_strdup(node->str[0]);
@@ -111,7 +124,7 @@ void    exec_pipe(t_cmd *command, t_data *data)
     }
     if (!node->str[0])
         return;
-    absolute_path(node);
+    absolute_path(data, node);
     pid_t child_pids[2048]; // Si AU PLUS 2048 commandes dans la pipeline
     int child_count = 0;
     while (node)
