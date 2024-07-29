@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:21:10 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/26 16:54:26 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 15:51:21 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	is_builtin(t_cmd *command)
 	node = command;
 	while (node)
 	{
-		if (ft_strncmp(node->str[0], "cd", INT_MAX) == 0
+		if (!node->str[0])
+			node->is_builtin = false;
+		else if (ft_strncmp(node->str[0], "cd", INT_MAX) == 0
 			|| ft_strncmp(node->str[0], "echo", INT_MAX) == 0
 			|| ft_strncmp(node->str[0], "env", INT_MAX) == 0
 			|| ft_strncmp(node->str[0], "exit", INT_MAX) == 0
