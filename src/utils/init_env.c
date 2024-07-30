@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 23:04:43 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/29 15:59:46 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/30 14:52:11 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_env	*get_env_var(char *envp)
 	int		i;
 	int		start;
 	char	*str;
+	char *tmp;
 	t_env	*env;
 
 	env = lst_new(NULL, NULL, 1);
@@ -26,7 +27,9 @@ t_env	*get_env_var(char *envp)
 	i = 0;
 	while (str[i] != '=' && str[i])
 		i++;
-	env->var = ft_substr(str, 0, i);
+	tmp = ft_substr(str, 0, i);
+	env->var = ft_strdup(tmp);
+	free_str(tmp);
 	if (ft_strncmp(env->var, "OLDPWD", INT_MAX) == 0)
 	{
 		env->flag = 0;
@@ -35,7 +38,9 @@ t_env	*get_env_var(char *envp)
 	start = i + 1;
 	while (str[i++])
 		;
-	env->value = ft_substr(str, start, i - start);
+	tmp = ft_substr(str, start, i - start);
+	env->value = ft_strdup(tmp);
+	free_str(tmp);
 	return (env);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:18:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/29 18:17:52 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/30 13:00:22 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	determine_exit_code(char **str, t_data *data)
 		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 		g_exit_status = 255;
 	}
-	free_var("%arr %dll %dll %cmd %lst", str, data->lexer, data->expander, data->parser, data->env);
+	free_var("%arr %cmd %lst", str, data->parser, data->env);
 	// system("leaks minishell");
 	exit(g_exit_status);
 }

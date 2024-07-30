@@ -6,11 +6,31 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:29:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/29 19:05:18 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/30 14:48:23 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	free_redirect(t_dll *redirec)
+{
+	t_node *tmp;
+	t_node *node;
+
+	if (!redirec)
+		return ;
+	node = redirec->head;
+	while (node)
+	{
+		tmp = node;
+		node = node->next;
+		free_str(tmp->str);
+		free(tmp);
+		tmp = NULL;
+	}
+	free(redirec);
+	redirec = NULL;
+}
 
 void	dll_cmd_clear(t_dll_cmd *dll)
 {
@@ -25,6 +45,7 @@ void	dll_cmd_clear(t_dll_cmd *dll)
 		temp = current;
 		current = current->next;
 		free_arr(temp->str);
+		free_redirect(temp->redirections);
 		free(temp);
 		temp = NULL;
 	}
@@ -52,24 +73,24 @@ void	free_dll(t_dll *dll)
 	dll = NULL;
 }
 
-void	free_redirect(t_dll *redirec)
+void	free_lexer(t_dll *dll)
 {
-	t_node *tmp;
-	t_node *node;
+	t_node	*tmp;
+	t_node	*node;
 
-	if (!redirec)
+	if (!dll)
 		return ;
-	node = redirec->head;
+	node = dll->head;
 	while (node)
 	{
 		tmp = node;
 		node = node->next;
-		free_str(tmp->str);
+		// free_str(tmp->str);
 		free(tmp);
 		tmp = NULL;
 	}
-	free(redirec);
-	redirec = NULL;
+	free(dll);
+	dll = NULL;
 }
 
 void	free_cmd(t_dll_cmd *cmd)
@@ -84,7 +105,7 @@ void	free_cmd(t_dll_cmd *cmd)
 	{
 		tmp = node;
 		node = node->next;
-		// free_arr(tmp->str);
+		free_arr(tmp->str);
 		// free_arr(tmp->env);
 		free_redirect(tmp->redirections);
 		// free_lst(tmp->env_list);
