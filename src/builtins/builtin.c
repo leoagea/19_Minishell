@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:21:10 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/29 15:51:21 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/30 14:11:41 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ int	exec_builtin(t_cmd *command, t_data *data)
 		__exit(data, command);
 	else
 		return (-1);
+	g_exit_status = 0;
 	return (0);
 }
