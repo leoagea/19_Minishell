@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:18:44 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/30 14:53:00 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/30 15:03:17 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	expander(t_data *data)
 		current = current->next;
 	}
 	check_node_null(data);
-	// free_exp(data->env_expand);
+	free(data->env_expand);
+	data->env_expand = NULL;
 	return (0);
 }

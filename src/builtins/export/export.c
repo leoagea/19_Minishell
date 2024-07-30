@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 00:40:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/26 16:54:02 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/30 15:38:01 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,11 @@ static char	**put_int_arr(t_lst *env)
 	while (node)
 	{
 		len = ft_strlen(node->var);
-		arr[i] = malloc(sizeof(char) * len + 1);
-		arr[i] = node->var;
-		arr[i][len] = '\0';
+		arr[i] = ft_strdup(node->var);
 		i++;
 		node = node->next;
 	}
-	node = NULL;
+	arr[i] = NULL;
 	return (arr);
 }
 
@@ -57,6 +55,7 @@ static void	print_export(t_lst *env)
 			write(1, "\n", 1);
 		i++;
 	}
+	free_arr(arr);
 }
 
 static int	dispatch_export(t_data *data, char *str, int j)
