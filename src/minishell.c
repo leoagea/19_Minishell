@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/29 19:06:37 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/30 17:45:01 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,15 @@ int main(int argc, char **argv, char **envp)
 		{
 			// write(1, "\33[2K\r", 6);
 			// write(1, "\001\e[0;31m\002> minishell$ \001\e[0m\002exit\n", 33);
-			free_var("%dll %dll %cmd %lst", data.lexer, data.expander, data.parser, data.env);
+			// free_var("%dll %dll %cmd %lst", data.lexer, data.expander, data.parser, data.env);
+			free_var("%lst", data.env);
 			write(1, "exit\n", 5);
 			// system("leaks minishell");
 			exit (0);
 		}
 		line = ft_strdup(data.input);
 		free_str(data.input);
+		data.input = line;
 		if (data.input[0] != '\0')
 		{
 			if (data.input[0] != '\0')
@@ -61,7 +63,8 @@ int main(int argc, char **argv, char **envp)
 			// dll_print_forward(data.lexer);
 			// printf("--------------------\n");
 			expander(&data);
-			dll_clear(data.lexer);
+			// dll_clear(data.lexer);
+			free_lexer(data.lexer);
 			// free(data.lexer);
 			data.lexer->head = NULL;
 			data.lexer->tail = NULL;
@@ -69,7 +72,7 @@ int main(int argc, char **argv, char **envp)
 			// printf("test 1\n");
 			data.parser = dll_cmd_init();
 			parser(&data);
-			dll_clear(data.expander);
+			free_expander(data.expander);
 			// free(data.expander);
 			data.expander->head = NULL;
 			data.expander->tail = NULL;
@@ -87,7 +90,7 @@ int main(int argc, char **argv, char **envp)
 			// free_command(command); // TODO
 		}
 		// free_var("%str %dll %dll  ")
-		free_str(line);
+		free_str(data.input);
 	}
 	return (0);
 }

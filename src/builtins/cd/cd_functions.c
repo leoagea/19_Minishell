@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:41:07 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/30 13:27:14 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/30 16:39:32 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,14 @@ int	change_directory(t_data *data, char *new, char *old)
 		new_join = ft_strjoin(tmp, new);
 		free_str(tmp);
 		if (chdir(new) == -1)
-			ft_printf("bash: cd: %s: No such file or directory\n", new);
+			return (ft_printf("bash: cd: %s: No such file or directory\n", new), 1);
 		if (access(new_join, F_OK) == -1 || access(new_join, X_OK) == -1)
 			new_join = get_accessible_pwd(new_join);
 		// printf("check non abs\n");
 		// printf("chdir(%s)\n", new);
 		if (chdir(new_join) == -1)
 			return (free_str(new_join),ft_printf("bash: cd: %s: No such file or directory\n", new), 1);
+		free_str(new_join);
 	}
 	// printf("check 6\n");
 	// free_str(new_join);

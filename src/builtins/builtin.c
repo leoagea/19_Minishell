@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:21:10 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/30 14:11:41 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/30 15:46:36 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,19 @@ void	is_builtin(t_cmd *command)
 int	exec_builtin(t_cmd *command, t_data *data)
 {
 	if (ft_strncmp(command->str[0], "export", INT_MAX) == 0)
-		_export(data, command);
+		return (_export(data, command), 0);
 	else if (ft_strncmp(command->str[0], "unset", INT_MAX) == 0)
-		unset(data, command);
+		return (unset(data, command), 0);
 	else if (ft_strncmp(command->str[0], "echo", INT_MAX) == 0)
-		echo(command);
+		return (echo(command), 0);
 	else if (ft_strncmp(command->str[0], "env", INT_MAX) == 0)
-		print_env(data->env);
+		return (print_env(data->env), 0);
 	else if (ft_strncmp(command->str[0], "cd", INT_MAX) == 0)
-		cd(data);
+		return (cd(data), 0);
 	else if ((ft_strncmp(command->str[0], "pwd", INT_MAX) == 0))
-		pwd();
+		return (pwd(), 0);
 	else if ((ft_strncmp(command->str[0], "exit", INT_MAX) == 0))
-		__exit(data, command);
+		return (__exit(data, command), 0);
 	else
 		return (-1);
 	g_exit_status = 0;

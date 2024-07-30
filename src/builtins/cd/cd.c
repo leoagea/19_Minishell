@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:01:17 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/22 17:52:49 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/30 15:43:51 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	dispatch_cd(t_data *data, char **str)
 	else
 		new_pwd = str[1];
 	// printf("old : %s\nnew : %s\n", old_pwd, new_pwd);
-	change_directory(data, new_pwd, old_pwd);
+	g_exit_status = change_directory(data, new_pwd, old_pwd);
 	return (0);
 }
 

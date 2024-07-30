@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:18:44 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/30 15:03:17 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/30 18:54:36 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	word(t_data *data, t_node *current, char *cpy, char *str)
 	if (!cpy || cpy[0] == '\0')
 		return ;
 	dll_insert_tail(ft_strdup(cpy), data->expander);
+	// free_str(cpy);
 	data->expander->tail->type = current->type;
 }
 
@@ -63,6 +64,8 @@ int	expander(t_data *data)
 		current = current->next;
 	}
 	check_node_null(data);
+	// free_exp(data->env_expand);
+	// free_str(data->env_expand->var);
 	free(data->env_expand);
 	data->env_expand = NULL;
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/29 18:18:34 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/30 17:44:48 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,8 @@ int	free_var(const char *s, ...);
 
 void				dll_cmd_clear(t_dll_cmd *dll);
 void		free_dll(t_dll *dll);
+void	free_lexer(t_dll *dll);
+void	free_expander(t_dll *dll);
 void		free_cmd(t_dll_cmd *cmd);
 void		free_exp(t_env_expand *env);
 
@@ -227,7 +229,7 @@ int					__exit(t_data *data, t_cmd *simple_cmd);
 
 /*--------------------------------env------------------------------------*/
 
-void				print_env(t_lst *env);
+int					print_env(t_lst *env);
 
 /*--------------------------------pwd------------------------------------*/
 

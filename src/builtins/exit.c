@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:18:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/30 13:00:22 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/30 18:58:55 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,42 +49,48 @@ int	is_str_digit(char *str)
 	return (1);
 }
 
-static void	determine_exit_code(char **str, t_data *data)
+static void	determine_exit_code(char *str, t_data *data)
 {
-	if (!str[1])
+	if (!str)
 		g_exit_status = 0;
-	else if (is_str_digit(str[1]))
-		g_exit_status = ft_atoi(str[1]);
+	else if (is_str_digit(str))
+		g_exit_status = ft_atoi(str);
 	else
 	{
 		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
-		ft_putstr_fd(str[1], STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 		g_exit_status = 255;
 	}
-	free_var("%arr %cmd %lst", str, data->parser, data->env);
+	free_var("%cmd %lst", data->parser, data->env);
+	// free_arr(str);
+	free_str(str);
 	// system("leaks minishell");
 	exit(g_exit_status);
 }
 
 int	__exit(t_data *data, t_cmd *simple_cmd)
 {
-	char	**str;
-
+	char *tmp = NULL;
+	
 	ft_putendl_fd("exit", STDERR_FILENO);
 	if (simple_cmd->str[1] && simple_cmd->str[2])
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	str = arr_dup(simple_cmd->str);;
+	// str = arr_dup(simple_cmd->str);
+	if (simple_cmd->str[1])
+		tmp = ft_strdup(simple_cmd->str[1]);
 	// free_var("%dll %dll %cmd %lst %exp", data->lexer, data->expander, data->parser, data->env, data->env_expand);
 	// free_dll(data->lexer);
 	// free_dll(data->expander);
 	// free_cmd(data->parser);
 	// free_lst(data->env);
 	// free_exp(data->env_expand);
-	determine_exit_code(str, data);
-	free_arr(str);
+	free(simple_cmd->str);
+	simple_cmd->str = NULL;
+	free_str(data->input);
+	determine_exit_code(tmp, data);
 	return (EXIT_SUCCESS);
 }
