@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 16:24:12 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/31 18:47:43 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int main(int argc, char **argv, char **envp)
 			// write(1, "\001\e[0;31m\002> minishell$ \001\e[0m\002exit\n", 33);
 			// free_var("%dll %dll %cmd %lst", data.lexer, data.expander, data.parser, data.env);
 			free_var("%lst", data.env);
-			write(1, "exit\n", 5);
+			printf("\r\001\e[0;31m\002> minishell$ \001\e[0m\002exit\n");
 			// system("leaks minishell");
 			exit (0);
 		}
