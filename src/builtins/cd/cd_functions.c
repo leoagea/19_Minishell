@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:41:07 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/30 16:39:32 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/31 13:21:46 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,19 @@ int	update_env(t_data *data, char *new, char *old)
 	t_env	*new_node;
 
 	node_pwd = get_node(data->env, "PWD");
-	if (new)
+	if (!node_pwd)
+	{
+		new_node = lst_new("PWD", new, 1);
+		if (!new)
+			return (1);
+		lst_insert_tail(new_node, data->env);
+	}
+	else if (new && node_pwd)
+	{
 		node_pwd->value = new;
-	else
-		node_pwd->value = ft_strdup("");
+	}
 	node_old = get_node(data->env, "OLDPWD");
-	if (!node_old->value)
+	if (node_old)
 	{
 		node_old->value = old;
 		node_old->flag = 1;
@@ -106,7 +113,8 @@ int	change_directory(t_data *data, char *new, char *old)
 	// free_str(new_join);
 	upd_pwd = getcwd(NULL, 0);
 	tmp = ft_strdup(upd_pwd);
+	printf("new pwd : %s\nold pwd : %s\n", tmp, old);
 	return_value = update_env(data, tmp, old);
-	return (free_str(upd_pwd), free_str(tmp), 0);
+	return (free_str(upd_pwd), 0);
 }
 

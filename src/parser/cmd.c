@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:12:31 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/29 17:32:35 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/31 12:50:09 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static int	put_in_str(t_data *data, t_dll *cmd)
 	while (current != NULL)
 	{
 		data->parser->tail->str[i] = current->str;
+		data->parser->tail->str[i][ft_strlen(current->str)] = '\0';
 		current = current->next;
 		i++;
 	}

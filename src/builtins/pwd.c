@@ -6,19 +6,15 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:21:33 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/29 18:46:43 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/31 13:05:33 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-#include <unistd.h>
 
 char	*get_pwd(void)
 {
-	int		i;
-	int		len;
 	char	*pwd;
-	char	buffer[BUFFER_SIZE];
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
