@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:41:07 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 18:09:55 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/31 18:15:05 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ int	update_env(t_data *data, char *new, char *old)
 	node_old = get_node(data->env, "OLDPWD");
 	if (node_old)
 	{
-		node_old->value = old;
+		free_str(node_old->value);
+		node_old->value = ft_strdup(old);
 		node_old->flag = 1;
 	}
 	else if (!node_old)
 	{
-		new_node = lst_new("OLDPWD", old, 1);
+		new_node = lst_new("OLDPWD", ft_strdup(old), 1);
 		if (!new)
 			return (1);
 		lst_insert_tail(new_node, data->env);
@@ -114,6 +115,6 @@ int	change_directory(t_data *data, char *new, char *old)
 	tmp = ft_strdup(upd_pwd);
 	printf("new pwd : %s\nold pwd : %s\n", tmp, old);
 	return_value = update_env(data, tmp, old);
-	return (free_str(upd_pwd), free_str(old), 0);
+	return (free_str(upd_pwd), free_str(old), free_str(tmp), 0);
 }
 
