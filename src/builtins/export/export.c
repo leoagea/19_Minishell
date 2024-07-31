@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 00:40:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/30 15:38:01 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/31 15:11:31 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ static void	print_export(t_lst *env)
 	i = 0;
 	while (arr[i])
 	{
+		// printf("arr[%d] = %s\n", i, arr[i]);
+		if (ft_strncmp(arr[i], "_", INT_MAX) == 0)
+		{
+			// printf("check arr : %s\n", arr[i]);
+			i++;
+			continue;
+		} 
 		node = env->head;
 		while (arr[i] && node->var && ft_strncmp(arr[i], node->var, INT_MAX) != 0)
 			node = node->next;
