@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_functions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:41:07 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 16:22:25 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/31 18:09:55 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	update_env(t_data *data, char *new, char *old)
 	node_pwd = get_node(data->env, "PWD");
 	if (!node_pwd)
 	{
-		new_node = lst_new("PWD", new, 1);
+		new_node = lst_new("PWD", ft_strdup(new), 1);
 		if (!new)
 			return (1);
 		lst_insert_tail(new_node, data->env);
@@ -114,6 +114,6 @@ int	change_directory(t_data *data, char *new, char *old)
 	tmp = ft_strdup(upd_pwd);
 	printf("new pwd : %s\nold pwd : %s\n", tmp, old);
 	return_value = update_env(data, tmp, old);
-	return (free_str(upd_pwd), 0);
+	return (free_str(upd_pwd), free_str(old), 0);
 }
 
