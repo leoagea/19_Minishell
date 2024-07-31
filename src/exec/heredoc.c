@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:42:48 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 16:22:32 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/31 18:46:11 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,14 @@ void	heredoc(t_node *node, int i)
 			break ;
 		}
 		if(ft_strncmp(line, node->str, ft_strlen(line) - 1) == 0 && *line != '\n')
+		{
+			free_str(line);
 			break ;
+		}
 		ft_putstr_fd(line, fd);
+		free_str(line);
 	}
-	free_str(line);
+	free_str(file);
 	close(fd);
 }
 
@@ -80,12 +84,15 @@ void	unlink_tmp(void)
 	i = 1;
 	itoa = ft_itoa(i);
 	file = ft_strjoin("/tmp/.tmp_heredoc", itoa);
+	free_str(itoa);
 	while (unlink(file) == 0)
 	{
 		i++;
 		itoa = ft_itoa(i);
 		free(file);
 		file = ft_strjoin("/tmp/.tmp_heredoc", itoa);
+		free_str(itoa);
+		
 	}
-	free(file);
+	free_str(file);
 }

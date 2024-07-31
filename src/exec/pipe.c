@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:43:00 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 16:23:07 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/31 18:48:39 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void    exec_pipe(t_cmd *command, t_data *data)
                 data->env_arr = put_env_in_arr(data->env);
                 if (execve(node->absolute_path, node->str, data->env_arr) == -1)
                     error = strerror(errno);
-                free_str(node->absolute_path);
+                // free_str(node->absolute_path);
                 ft_putstr_fd("bash: ", 2);
                 write(2, node->str[0], ft_strlen(node->str[0]));
                 ft_putstr_fd(": ", 2);
@@ -178,7 +178,7 @@ void    exec_pipe(t_cmd *command, t_data *data)
         }
         else 
         {
-            free_str(node->absolute_path);
+            // free_str(node->absolute_path);
             child_pids[child_count++] = pid;
             if (fd_in != STDIN_FILENO)
                 close(fd_in);
