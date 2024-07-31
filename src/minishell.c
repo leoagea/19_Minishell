@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/30 17:45:01 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/31 16:18:42 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,3 @@ int main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
-
-//segfault when exit and ctrl D needed to be fixed
