@@ -84,4 +84,8 @@ fclean : clean
 	@$(RM) lib/
 	@$(RM) $(NAME)
 
-re : fclean all
+exec :
+	@rm -rf /Users/vdarras/homebrew/bin/minishell
+	@cp minishell /Users/vdarras/homebrew/bin
+
+re : fclean all exec

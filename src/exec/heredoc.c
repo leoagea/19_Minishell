@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:42:48 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/29 19:39:41 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/31 16:08:54 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ void	heredoc(t_node *node, int i)
 		ft_putstr_fd("> ", 1);
 		line = get_next_line(0);
 		if (line == NULL)
+		{
+			ft_putstr_fd(line, fd);
 			break ;
+		}
 		if(ft_strncmp(line, node->str, ft_strlen(line) - 1) == 0 && *line != '\n')
 			break ;
 		ft_putstr_fd(line, fd);

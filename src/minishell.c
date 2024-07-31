@@ -6,14 +6,13 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/29 18:24:30 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/30 18:14:10 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int 	g_exit_status = 1;
-int		g_sigint = 0;
+int 	g_exit_status = 0;
 
 int main(int argc, char **argv, char **envp)
 {
@@ -34,8 +33,6 @@ int main(int argc, char **argv, char **envp)
 		data.input = readline("\001\e[0;31m\002> minishell$ \001\e[0m\002");
 		if (data.input == NULL)
 		{
-			// write(1, "\33[2K\r", 6);
-			// write(1, "\001\e[0;31m\002> minishell$ \001\e[0m\002exit\n", 33);
 			free_var("%dll %dll %cmd %lst %exp", data.lexer, data.expander, data.parser, data.env, data.env_expand);
 			write(1, "exit\n", 5);
 			exit (0);
@@ -53,38 +50,26 @@ int main(int argc, char **argv, char **envp)
 				data.lexer->tail = NULL;
 				continue ;
 			}
-			// printf("test \n");
-			// dll_print_forward(data.lexer);
-			// printf("--------------------\n");
 			expander(&data);
 			dll_clear(data.lexer);
 			data.lexer->head = NULL;
 			data.lexer->tail = NULL;
-			// dll_print_forward(data.expander);
-			// printf("test 1\n");
+
 			parser(&data);
 			dll_clear(data.expander);
 			data.expander->head = NULL;
 			data.expander->tail = NULL;
 
-			// dll_cmd_print_forward(data.parser);
-
 			command = data.parser->head;
 			init_heredoc(command);
 			exec_pipe(command, &data);
-			// printf("exit code : %d\n", g_exit_status); 
 			dll_clear(data.lexer);
 			dll_cmd_clear(data.parser);
 			data.parser->head = NULL;
 			data.parser->tail = NULL;
 			unlink_tmp();
-			// free_command(command); // TODO
 		}
-		// free_var("%str %dll %dll  ")
 		free(line);
 	}
 	return (0);
 }
-
-//touch nom_commande
-// ==> cmd not found

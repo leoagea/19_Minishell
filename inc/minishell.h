@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/29 18:57:07 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/30 18:10:52 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@
 
 # define BUFFER_SIZE 10000
 
-extern int	g_exit_status;
-extern int	g_sigint;
+extern int		g_exit_status;
 
 typedef struct s_env
 {

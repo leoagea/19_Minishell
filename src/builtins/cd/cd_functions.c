@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_functions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:41:07 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/22 19:02:04 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/30 17:52:18 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	change_directory(t_data *data, char *new, char *old)
 	// printf("check 3\n"); 
 	if (!new)
 		return (1);
-	printf("check 4\n");
 	if (is_absolute(new))
 	{
 		if (access(new, F_OK) == -1 || access(new, X_OK) == -1)
@@ -97,7 +96,6 @@ int	change_directory(t_data *data, char *new, char *old)
 		if (chdir(new_join) == -1)
 			return (ft_printf("bash: cd: %s: No such file or directory", new), 1);
 	}
-	printf("check 6\n");
 	return_value = update_env(data, getcwd(NULL, 0), old);
 	return (0);
 }

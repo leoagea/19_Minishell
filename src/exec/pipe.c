@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:43:00 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/29 19:04:09 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/30 18:01:44 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void    exec_pipe(t_cmd *command, t_data *data)
     pid_t     pid;
     t_cmd   *node;
     char **env;
+    char *error;
+    int  fd_tmp;
 
     node = command;
     fd_in = STDIN_FILENO;
@@ -130,7 +132,6 @@ void    exec_pipe(t_cmd *command, t_data *data)
         }
         if (pid == 0)
         {
-         	signal(SIGINT, SIG_DFL);
             if (fd_in != STDIN_FILENO)
             {
                 dup2(fd_in, STDIN_FILENO);
@@ -146,12 +147,17 @@ void    exec_pipe(t_cmd *command, t_data *data)
             if (exec_builtin(node, data) == -1)
             {
                 data->env_arr = put_env_in_arr(data->env);
-                execve(node->absolute_path, node->str, data->env_arr);
+                if (execve(node->absolute_path, node->str, data->env_arr) == -1)
+                    error = strerror(errno);
                 ft_putstr_fd("bash: ", 2);
                 write(2, node->str[0], ft_strlen(node->str[0]));
-                ft_putstr_fd(": no such file or directory\n", 2);
+                ft_putstr_fd(": ", 2);
+                ft_putstr_fd(error, 2);
+                ft_putstr_fd("\n", 2);
                 exit (127);
             }
+            else
+                exit(0);
         }
         else 
         {
