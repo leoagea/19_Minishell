@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 23:04:43 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/30 14:52:11 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/31 15:13:39 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,15 @@ t_lst	*init_env_i(void)
 	pwd = get_pwd();
 	if (!pwd)
 		return (NULL);
-	node = lst_new("PWD", pwd, 1);
+	node = lst_new(ft_strdup("PWD"), pwd, 1);
 	if (!node)
 		return (NULL);
 	lst_insert_tail(node, env);
-	node = lst_new("SHLVL", "1", 1);
+	node = lst_new(ft_strdup("SHLVL"), ft_strdup("1"), 1);
 	if (!node)
 		return (NULL);
 	lst_insert_tail(node, env);
-	node = lst_new("_", ft_strjoin(pwd, "/./minishell"), 1);
+	node = lst_new(ft_strdup("_"), ft_strjoin(pwd, "/./minishell"), 1);
 	if (!node)
 		return (NULL);
 	lst_insert_tail(node, env);
