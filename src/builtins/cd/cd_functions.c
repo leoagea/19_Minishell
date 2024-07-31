@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:41:07 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/30 17:52:18 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/31 16:22:25 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,19 @@ int	update_env(t_data *data, char *new, char *old)
 	t_env	*new_node;
 
 	node_pwd = get_node(data->env, "PWD");
-	if (new)
+	if (!node_pwd)
+	{
+		new_node = lst_new("PWD", new, 1);
+		if (!new)
+			return (1);
+		lst_insert_tail(new_node, data->env);
+	}
+	else if (new && node_pwd)
+	{
 		node_pwd->value = new;
-	else
-		node_pwd->value = ft_strdup("");
+	}
 	node_old = get_node(data->env, "OLDPWD");
-	if (!node_old->value)
+	if (node_old)
 	{
 		node_old->value = old;
 		node_old->flag = 1;
@@ -41,7 +48,7 @@ int	update_env(t_data *data, char *new, char *old)
 
 static int is_absolute(char *new)
 {
-	if (ft_strncmp("/Users/", new, 8) == 0)
+	if (ft_strncmp("/Users/", new, 7) == 0)
 		return 1;
 	return 0;
 }
@@ -69,11 +76,11 @@ char *get_accessible_pwd(char *pwd)
 }
 
 int	change_directory(t_data *data, char *new, char *old)
-
 {
 	int	return_value;
 	char *new_join;
-	
+	char *upd_pwd;
+	char *tmp;
 	// printf("check 3\n"); 
 	if (!new)
 		return (1);
@@ -84,19 +91,29 @@ int	change_directory(t_data *data, char *new, char *old)
 		// printf("check abs\n");
 		// printf("chdir(%s)\n", new);
 		if (chdir(new) == -1)
-			return (ft_printf("bash: cd: %s: No such file or directory", new), 1);
+			return (ft_printf("bash: cd: %s: No such file or directory\n", new), 1);
 	}
 	else 
 	{
-		new_join = ft_strjoin(ft_strjoin(old, "/"), new);
+		tmp = ft_strjoin(old, "/");
+		new_join = ft_strjoin(tmp, new);
+		free_str(tmp);
+		if (chdir(new) == -1)
+			return (ft_printf("bash: cd: %s: No such file or directory\n", new), 1);
 		if (access(new_join, F_OK) == -1 || access(new_join, X_OK) == -1)
 			new_join = get_accessible_pwd(new_join);
 		// printf("check non abs\n");
 		// printf("chdir(%s)\n", new);
 		if (chdir(new_join) == -1)
-			return (ft_printf("bash: cd: %s: No such file or directory", new), 1);
+			return (free_str(new_join),ft_printf("bash: cd: %s: No such file or directory\n", new), 1);
+		free_str(new_join);
 	}
-	return_value = update_env(data, getcwd(NULL, 0), old);
-	return (0);
+	// printf("check 6\n");
+	// free_str(new_join);
+	upd_pwd = getcwd(NULL, 0);
+	tmp = ft_strdup(upd_pwd);
+	printf("new pwd : %s\nold pwd : %s\n", tmp, old);
+	return_value = update_env(data, tmp, old);
+	return (free_str(upd_pwd), 0);
 }
 

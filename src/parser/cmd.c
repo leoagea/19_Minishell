@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:12:31 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/26 16:48:41 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/31 12:50:09 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,17 @@ static int	put_in_str(t_data *data, t_dll *cmd)
 	nb_tokens = dll_size(cmd);
 	data->parser->tail->str = malloc(sizeof(char *) * nb_tokens + 1);
 	if (dll_size(cmd) == 0)
+	{
+		data->parser->tail->str[0] = NULL;
 		return (1);
+	}
 	while (current != NULL)
 	{
 		data->parser->tail->str[i] = current->str;
+		data->parser->tail->str[i][ft_strlen(current->str)] = '\0';
 		current = current->next;
 		i++;
 	}
-	handle_signal();
 	data->parser->tail->str[i] = NULL;
 	return (0);
 }
@@ -76,6 +79,7 @@ int	parser(t_data *data)
 		put_in_str(data, single_cmd);
 		data->parser->tail->num_cmd = i;
 		i++;
+		free_dll(single_cmd);
 	}
 	return (0);
 }

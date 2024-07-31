@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:56:36 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/19 13:25:19 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/30 18:19:48 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,9 @@ int	lexer(char *input, t_dll *tokens)
 			return (1);
 		if (check_open_quote(word) == 1)
 			return (free(word),write(1, "Error: open quote\n", 18), 1);
-		dll_insert_tail(word, tokens);
+		dll_insert_tail(ft_strdup(word), tokens);
 		i = skip_whitespace(input, i);
+		free_str(word);
 	}
 	return (assign_type(tokens), do_all_check(tokens));
 }

@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 21:02:16 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/23 13:47:54 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/31 15:04:15 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,17 @@ int	export_var(t_data *data, char *str)
 	t_env	*check;
 	t_env	*node;
 
-	printf("check\n");
 	check = data->env->head;
 	while (check)
 	{
 		if (ft_strncmp(check->var, str, INT_MAX) == 0)
-			return (1);
+			return (0);
 		check = check->next;
 	}
 	node = lst_new(str, NULL, 0);
 	if (!node)
 		return (1);
 	lst_insert_tail(node, data->env);
-	printf("check 1\n");
 	return (0);
 }
 
@@ -45,6 +43,8 @@ int	export_var_value(t_data *data, char *str)
 	while (str[++i] != '=')
 		;
 	var = ft_substr(str, 0, i);
+	if(ft_strncmp(var, "_", INT_MAX) == 0)
+		return (free_str(var), 0);
 	start = ++i;
 	while (str[i])
 		i++;
@@ -76,6 +76,8 @@ int	export_cat_value(t_data *data, char *str)
 	var = ft_substr(str, 0, i);
 	if (!var)
 		return (1);
+	if (ft_strncmp(var, "_", INT_MAX) == 0)
+		return (free_str(var), 0);
 	current = get_node(data->env, var);
 	start = i + 2;
 	while (str[++i])

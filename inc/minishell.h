@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/30 18:10:52 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/31 16:22:07 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,8 @@ typedef struct s_cmd
    char                    **str; //cmd, arg, flag
    bool                    is_builtin;
    int                     num_redirections;
-	char					      **env;
    char                    *absolute_path;
    t_dll                   *redirections;
-   t_list                  **env_list;
    int                     num_cmd;
    struct s_cmd    *next;
    struct s_cmd    *prev;
@@ -216,6 +214,8 @@ int	free_var(const char *s, ...);
 
 void				dll_cmd_clear(t_dll_cmd *dll);
 void		free_dll(t_dll *dll);
+void	free_lexer(t_dll *dll);
+void	free_expander(t_dll *dll);
 void		free_cmd(t_dll_cmd *cmd);
 void		free_exp(t_env_expand *env);
 
@@ -230,7 +230,7 @@ int					__exit(t_data *data, t_cmd *simple_cmd);
 
 /*--------------------------------env------------------------------------*/
 
-void				print_env(t_lst *env);
+int					print_env(t_lst *env);
 
 /*--------------------------------pwd------------------------------------*/
 

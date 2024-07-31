@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:21:33 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 17:21:34 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/31 13:05:33 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 char	*get_pwd(void)
 {
-	int		i;
-	int		len;
 	char	*pwd;
-	char	buffer[BUFFER_SIZE];
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
@@ -28,8 +25,9 @@ char	*get_pwd(void)
 int	pwd(void)
 {
 	char	*pwd;
-
-	if (!getcwd(pwd, BUFFER_SIZE))
+	
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
 	{
 		ft_putstr_fd("Error :", 2);
 		ft_putstr_fd(strerror(errno), 2);
@@ -38,5 +36,6 @@ int	pwd(void)
 	}
 	ft_putstr_fd(pwd, 1);
 	ft_putchar_fd('\n', 1);
+	free_str(pwd);
 	return (0);
 }

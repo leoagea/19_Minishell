@@ -6,20 +6,34 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:43:00 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/30 18:01:44 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/31 16:23:07 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char    *path(char *command)
+static char *get_path(t_data *data)
+{
+    t_env *node;
+
+    node = get_node(data->env, "PATH");
+    if (!node)
+        return (NULL);
+    return (node->value);    
+}
+
+char    *path(t_data *data, char *command)
 {
     char    **dir_command;
     char    *temp;
     char    *final_path;
     int     i;
-    
-    dir_command = ft_split("/Users/vdarras/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki", ':');
+    char *abs_path;
+
+    abs_path = get_path(data);
+    if (!abs_path)
+        return (NULL);
+    dir_command = ft_split(abs_path, ':');
     if (!dir_command)
         exit(1);
     i = -1;
@@ -31,15 +45,15 @@ char    *path(char *command)
         final_path = ft_strjoin(dir_command[i], temp);
         if(!final_path)
             exit(1);
-        free(temp);
+        free_str(temp);
         if (access(final_path, F_OK) == 0)
-            return (free_var("arr", dir_command), final_path);
-        free(final_path);
+            return (free_arr(dir_command), final_path);
+        free_str(final_path);
     }
-    return (free_var("%arr", dir_command), NULL);
+    return (free_arr(dir_command), NULL);
 }
 
-void    absolute_path(t_cmd *command)
+void    absolute_path(t_data *data, t_cmd *command)
 {
     t_cmd   *node;
     node = command;
@@ -48,11 +62,11 @@ void    absolute_path(t_cmd *command)
         if (access(node->str[0], F_OK) == -1)
         {
             // printf("check\n");
-            if (path(node->str[0]) != NULL)
-                node->absolute_path = path(node->str[0]);
+            if (path(data, node->str[0]) != NULL)
+                node->absolute_path = path(data, node->str[0]);
         }
         else
-            node->absolute_path = node->str[0];
+            node->absolute_path = ft_strdup(node->str[0]);
         node = node->next;
     }
 }
@@ -110,7 +124,9 @@ void    exec_pipe(t_cmd *command, t_data *data)
         // printf("test builtin 1\n");
         return ;
     }
-    absolute_path(node);
+    if (!node->str[0])
+        return;
+    absolute_path(data, node);
     pid_t child_pids[2048]; // Si AU PLUS 2048 commandes dans la pipeline
     int child_count = 0;
     while (node)
@@ -149,6 +165,7 @@ void    exec_pipe(t_cmd *command, t_data *data)
                 data->env_arr = put_env_in_arr(data->env);
                 if (execve(node->absolute_path, node->str, data->env_arr) == -1)
                     error = strerror(errno);
+                free_str(node->absolute_path);
                 ft_putstr_fd("bash: ", 2);
                 write(2, node->str[0], ft_strlen(node->str[0]));
                 ft_putstr_fd(": ", 2);
@@ -161,6 +178,7 @@ void    exec_pipe(t_cmd *command, t_data *data)
         }
         else 
         {
+            free_str(node->absolute_path);
             child_pids[child_count++] = pid;
             if (fd_in != STDIN_FILENO)
                 close(fd_in);

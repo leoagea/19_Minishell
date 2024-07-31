@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:42:48 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 16:08:54 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/31 16:22:32 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	heredoc(t_node *node, int i)
 			break ;
 		ft_putstr_fd(line, fd);
 	}
-	free(line);
+	free_str(line);
 	close(fd);
 }
 

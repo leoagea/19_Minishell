@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:51:28 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 16:24:37 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/31 13:43:57 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char	*handle_env_variables(t_data *data, char *str, int i)
 	check = get_env_var(data, env);
 	if (check == NULL)
 		return (NULL);
+	free_str(env->var);
 	return (env->expand);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:14:52 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/16 16:27:56 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/29 13:03:41 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*expand_single_quotes(char *cpy, int *i, char *str)
 		*i += 1;
 	expand = ft_substr(str, start, *i - start);
 	cpy = ft_strjoin(cpy, expand);
-	free(expand);
+	free_str(expand);
 	*i += 1;
 	return (cpy);
 }
