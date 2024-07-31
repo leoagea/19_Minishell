@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/31 18:48:03 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/31 20:07:38 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,15 @@ void     heredoc(t_node *node, int i);
 int		multi_heredoc(t_cmd *command);
 void	init_heredoc(t_cmd *command);
 void	unlink_tmp(void);
+void	heredoc_loop(int fd, char *line, t_node *node);
+void    open_trunc(t_node *node);
+void    open_append(t_node *node);
+void    open_input(t_node *node);
+void    open_hdc(char *file);
 
   // EXEC_PIPE //
 void    exec_pipe(t_cmd *command, t_data *data);
+void	wait_child(int child_count, pid_t *child_pids);
 
 /*==============================Minishell================================*/
 

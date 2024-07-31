@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:42:48 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 18:46:11 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/31 20:44:49 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-
 void	init_heredoc(t_cmd *command)
 {
 	t_node	*node;
-	t_cmd *temp;
-	int i;
+	t_cmd	*temp;
+	int		i;
 
 	i = 1;
 	temp = command;
@@ -27,9 +26,7 @@ void	init_heredoc(t_cmd *command)
 		while (node)
 		{
 			if (node->type == HEREDOC)
-        	{
-            	heredoc(node, i);
-        	}
+				heredoc(node, i);
 			node = node->next;
 		}
 		i++;
@@ -39,11 +36,10 @@ void	init_heredoc(t_cmd *command)
 
 void	heredoc(t_node *node, int i)
 {
-	int fd;
-	int stdin_fd;
-	char *line;
-	char *file;
-	char *itoa;
+	int		fd;
+	char	*line;
+	char	*file;
+	char	*itoa;
 
 	itoa = ft_itoa(i);
 	file = ft_strjoin("/tmp/.tmp_heredoc", itoa);
@@ -54,6 +50,14 @@ void	heredoc(t_node *node, int i)
 		perror("open");
 		exit (1);
 	}
+	heredoc_loop(fd, line, node);
+	free(itoa);
+	free_str(file);
+	close(fd);
+}
+
+void	heredoc_loop(int fd, char *line, t_node *node)
+{
 	while (1)
 	{
 		ft_putstr_fd("> ", 1);
@@ -63,7 +67,8 @@ void	heredoc(t_node *node, int i)
 			ft_putstr_fd(line, fd);
 			break ;
 		}
-		if(ft_strncmp(line, node->str, ft_strlen(line) - 1) == 0 && *line != '\n')
+		if (ft_strncmp(line, node->str, ft_strlen(line) - 1)
+			== 0 && *line != '\n')
 		{
 			free_str(line);
 			break ;
@@ -71,8 +76,6 @@ void	heredoc(t_node *node, int i)
 		ft_putstr_fd(line, fd);
 		free_str(line);
 	}
-	free_str(file);
-	close(fd);
 }
 
 void	unlink_tmp(void)
@@ -92,7 +95,6 @@ void	unlink_tmp(void)
 		free(file);
 		file = ft_strjoin("/tmp/.tmp_heredoc", itoa);
 		free_str(itoa);
-		
 	}
 	free_str(file);
 }

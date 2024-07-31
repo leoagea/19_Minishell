@@ -3,37 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:18:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/30 18:58:55 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/31 20:19:51 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static char **arr_dup(char **arr)
-{
-	int i;
-	int j;
-	int len;
-	char **dup;
+// static char **arr_dup(char **arr)
+// {
+// 	int i;
+// 	int len;
+// 	char **dup;
 
-	i = 0;
-	while (arr[i])
-		i++;
-	dup = malloc(sizeof(char *) * i + 1);
-	i = 0;
-	while (arr[i])
-	{
-		len = ft_strlen(arr[i]);
-		dup[i] = malloc(sizeof(char) * len + 1);
-		dup[i] = ft_strdup(arr[i]);
-		i++;
-	}
-	dup[i] = NULL;
-	return dup;
-}
+// 	i = 0;
+// 	while (arr[i])
+// 		i++;
+// 	dup = malloc(sizeof(char *) * i + 1);
+// 	i = 0;
+// 	while (arr[i])
+// 	{
+// 		len = ft_strlen(arr[i]);
+// 		dup[i] = malloc(sizeof(char) * len + 1);
+// 		dup[i] = ft_strdup(arr[i]);
+// 		i++;
+// 	}
+// 	dup[i] = NULL;
+// 	return (dup);
+// }
 
 int	is_str_digit(char *str)
 {

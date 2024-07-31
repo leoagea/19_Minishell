@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:40:47 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/29 17:32:07 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/31 20:21:24 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	delete_node(t_dll *cmd, t_node *delete)
 
 int	handle_redirections(t_dll *single_cmd, t_data *data)
 {
-	int nb_redir;
 	t_cmd	*cmd;
 	t_node	*current;
 	
