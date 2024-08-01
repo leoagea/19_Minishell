@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 00:40:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 15:11:31 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/01 15:15:27 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,23 @@ static void	print_export(t_lst *env)
 
 	arr = put_int_arr(env);
 	sort_export(arr, lst_size(env));
-	i = 0;
-	while (arr[i])
+	i = -1;
+	while (arr[++i])
 	{
-		// printf("arr[%d] = %s\n", i, arr[i]);
 		if (ft_strncmp(arr[i], "_", INT_MAX) == 0)
 		{
-			// printf("check arr : %s\n", arr[i]);
 			i++;
-			continue;
-		} 
+			continue ;
+		}
 		node = env->head;
-		while (arr[i] && node->var && ft_strncmp(arr[i], node->var, INT_MAX) != 0)
+		while (arr[i] && node->var && ft_strncmp(arr[i], node->var,
+				INT_MAX) != 0)
 			node = node->next;
 		ft_printf("declare -x %s", arr[i]);
 		if (node->value)
 			ft_printf("=\"%s\"\n", node->value);
 		else
 			write(1, "\n", 1);
-		i++;
 	}
 	free_arr(arr);
 }

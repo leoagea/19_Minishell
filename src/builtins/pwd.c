@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:21:33 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 13:05:33 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/01 12:44:13 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_pwd(void)
 int	pwd(void)
 {
 	char	*pwd;
-	
+
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 	{
