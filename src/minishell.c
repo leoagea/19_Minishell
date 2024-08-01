@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 21:26:57 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 00:19:00 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ int	main(int argc, char **argv, char **envp)
 }
 
 //env -i ./minishell probleme free abort
-//need to repaire expander dououble quote to make ls "$UDBHJSAHBDAHS" not do ls
+
+//verif cd 
