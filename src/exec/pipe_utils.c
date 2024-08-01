@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 17:21:18 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 17:27:49 by vdarras          ###   ########.fr       */
+/*   Created: 2024/07/31 20:02:24 by vdarras           #+#    #+#             */
+/*   Updated: 2024/08/01 13:21:51 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	print_env(t_lst *env)
+void	wait_child(int child_count, pid_t *child_pids)
 {
-	t_env	*node;
+	int	i;
+	int	wstatus;
 
-	if (!env)
-		return (1);
-	node = env->head;
-	while (node != NULL)
+	i = 0;
+	while (i < child_count)
 	{
-		if (node->flag == 1)
-		{
-			ft_printf("%s=", node->var);
-			if (node->value)
-				ft_printf("%s\n", node->value);
-		}
-		node = node->next;
+		waitpid(child_pids[i], &wstatus, 0);
+		if (WIFEXITED(wstatus))
+			g_exit_status = WEXITSTATUS(wstatus);
+		i++;
 	}
-	return (0);
 }
+
+// void	parent_process()

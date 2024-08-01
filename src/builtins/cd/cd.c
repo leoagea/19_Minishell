@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:01:17 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 14:39:30 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/01 17:27:47 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static char	*get_home(t_data *data)
 {
 	int		slash;
-	char	*pwd;
 	t_env	*node;
 
 	node = data->env->head;
@@ -46,7 +45,6 @@ static int	dispatch_cd(t_data *data, char **str)
 {
 	char	*new_pwd;
 	char	*old_pwd;
-	t_env	*env_pwd;
 
 	new_pwd = NULL;
 	old_pwd = get_pwd();

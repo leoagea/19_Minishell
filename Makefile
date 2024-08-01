@@ -23,7 +23,7 @@ LIBFT = lib/libft.a
 
 CC = cc
 
-CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra -fsanitize=address
 
 RM = rm -rf
 
@@ -36,7 +36,7 @@ SRCS =	src/minishell.c \
 	src/builtins/export/export.c src/builtins/export/export_functions.c src/builtins/export/export_sort.c \
 	src/builtins/cd/cd.c src/builtins/cd/cd_functions.c src/builtins/exit.c \
 	src/signals/signals.c \
-	src/exec/redirections.c src/exec/pipe.c src/exec/heredoc.c \
+	src/exec/redirections.c src/exec/pipe.c src/exec/heredoc.c src/exec/pipe_utils.c \
 	src/lexer/tokens.c src/lexer/utils.c src/lexer/check.c src/lexer/check_2.c \
 	src/parser/cmd.c src/parser/utils_cmd.c src/parser/redirections.c \
 	src/expander/expander.c src/expander/env_variable.c src/expander/double_quotes.c src/expander/single_quotes.c  src/expander/heredoc.c src/expander/check.c src/expander/sweep_word.c \
@@ -60,7 +60,7 @@ $(NAME) : $(OBJ)
 	@echo "\033[0;34m 	 ██║ ╚═╝ ██║ ██║ ██║ ╚████║ ██║ ███████║ ██║  ██║ ███████╗ ███████╗ ███████╗ "
 	@echo "\033[0;34m 	 ╚═╝     ╚═╝ ╚═╝ ╚═╝  ╚═══╝ ╚═╝ ╚══════╝ ╚═╝  ╚═╝ ╚══════╝ ╚══════╝ ╚══════╝ "
 	@echo "\033[0;34m                 																 "
-	@$(CC) $(OBJ) $(LIBFT) $(LINK) -o $(NAME)
+	@$(CC) $(OBJ) $(CFLAGS) $(LIBFT) $(LINK) -o $(NAME)
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)
@@ -73,7 +73,7 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)/parser
 	@mkdir -p $(OBJS_DIR)/expander
 	@mkdir -p $(OBJS_DIR)/utils
-	@$(CC)  -o $@ -c $<
+	@$(CC) -o $@ -c $<
 
 $(DEBUG_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(DEBUG_DIR)
@@ -86,7 +86,7 @@ $(DEBUG_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(DEBUG_DIR)/parser
 	@mkdir -p $(DEBUG_DIR)/expander
 	@mkdir -p $(DEBUG_DIR)/utils
-	@$(CC)  -o $@ -c $<
+	@$(CC) -o $@ -c $<
 
 $(LIBFT):
 	@echo "$(YELLOW)Compiling Libft...$(NC)"

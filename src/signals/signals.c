@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:31:33 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 18:49:36 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/31 20:57:38 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void    reset_ctrl_c(int sig)
+void	reset_ctrl_c(int sig)
 {
-    struct termios term;
+	struct termios term;
 
-    (void)sig;
-    write(1, "\n", 1);
-    rl_on_new_line();
-    rl_replace_line("", 0);
-    tcgetattr(0, &term);
-    term.c_lflag &= ~ECHOCTL;
-    tcsetattr(0, TCSANOW, &term);
-    rl_redisplay();
+	(void)sig;
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	tcgetattr(0, &term);
+	term.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, &term);
+	rl_redisplay();
 }
 
 void	reset_ctrl_slash(int sig)

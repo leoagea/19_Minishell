@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:29:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/26 16:48:47 by lagea            ###   ########.fr       */
+/*   Updated: 2024/07/31 20:21:14 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	dll_cmd_print_forward(t_dll_cmd *dll)
 	char	**str;
 	t_cmd	*current;
 	int		i;
-	t_node	*red;
 
 	current = dll->head;
 	while (current != NULL)

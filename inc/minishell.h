@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/08/01 16:40:49 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/01 17:27:38 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,15 @@ typedef struct s_env_expand
 	char			*expand;
 }					t_env_expand;
 
+typedef struct s_exec
+{
+	int				pipe_fd[2];
+	int				fd_in;
+	int				child_count;
+	pid_t			pid;
+	pid_t			child_pids[2048];
+}				t_exec;
+
 typedef struct s_data
 {
 	char			*input;
@@ -82,6 +91,7 @@ typedef struct s_data
 	t_dll_cmd		*parser;
 	t_env_expand	*env_expand;
 }					t_data;
+
 
 //// MAIN ////
 // MINISHELL//
@@ -106,9 +116,15 @@ void     heredoc(t_node *node, int i);
 int		multi_heredoc(t_cmd *command);
 void	init_heredoc(t_cmd *command);
 void	unlink_tmp(void);
+void	heredoc_loop(int fd, char *line, t_node *node);
+void    open_trunc(t_node *node);
+void    open_append(t_node *node);
+void    open_input(t_node *node);
+void    open_hdc(char *file);
 
   // EXEC_PIPE //
 void    exec_pipe(t_cmd *command, t_data *data);
+void	wait_child(int child_count, pid_t *child_pids);
 
 /*==============================Minishell================================*/
 
@@ -268,5 +284,7 @@ int					change_directory(t_data *data, char *_new, char *old);
 
 void				is_builtin(t_cmd *command);
 int					exec_builtin(t_cmd *command, t_data *data);
+void				exec_builtin_no_pipe(t_cmd *command, t_data *data);
+int					check_simple_builtin(t_cmd *node, t_data *data);
 
 #endif
