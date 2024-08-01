@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:43:00 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 20:50:37 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/01 16:33:08 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,7 @@ void	exec_pipe(t_cmd *command, t_data *data)
 	node = command;
 	fd_in = STDIN_FILENO;
 	is_builtin(node);
-	if (node->next == NULL && node->is_builtin)
-		return (exec_builtin(node, data), (void)0);
-	if (!node->str[0])
+	if (!node || !node->str[0] || check_simple_builtin(node, data) == 1)
 		return ;
 	child_count = 0;
 	while (node)

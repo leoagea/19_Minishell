@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:21:10 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 20:55:52 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/01 16:49:25 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	is_builtin(t_cmd *command)
 
 int	exec_builtin(t_cmd *command, t_data *data)
 {
+	g_exit_status = 0;
 	if (ft_strncmp(command->str[0], "export", INT_MAX) == 0)
 		return (_export(data, command), 0);
 	else if (ft_strncmp(command->str[0], "unset", INT_MAX) == 0)
@@ -53,6 +54,33 @@ int	exec_builtin(t_cmd *command, t_data *data)
 		return (__exit(data, command), 0);
 	else
 		return (-1);
-	g_exit_status = 0;
+}
+
+void	exec_builtin_no_pipe(t_cmd *command, t_data *data)
+{
+	pid_t pid;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		exit (1);
+	}
+	if (pid == 0)
+	{
+		redirections(command);
+		exec_builtin(command, data);
+		exit (0);
+	}
+	wait(NULL);
+}
+
+int		check_simple_builtin(t_cmd *node, t_data *data)
+{
+	if (node->next == NULL && node->is_builtin == true && ft_strncmp(command->str[0], "exit", INT_MAX) != 0)
+	{
+		exec_builtin_no_pipe(node, data);
+		return (1);
+	}
 	return (0);
 }

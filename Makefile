@@ -23,7 +23,7 @@ LIBFT = lib/libft.a
 
 CC = cc
 
-CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra -fsanitize=address
 
 RM = rm -rf
 
@@ -86,7 +86,7 @@ $(DEBUG_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(DEBUG_DIR)/parser
 	@mkdir -p $(DEBUG_DIR)/expander
 	@mkdir -p $(DEBUG_DIR)/utils
-	@$(CC)  -o $@ -c $<
+	@$(CC) -o $@ -c $<
 
 $(LIBFT):
 	@echo "$(YELLOW)Compiling Libft...$(NC)"

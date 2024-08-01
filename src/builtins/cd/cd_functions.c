@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_functions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:41:07 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 18:15:05 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/01 16:36:38 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int	change_directory(t_data *data, char *new, char *old)
 	// free_str(new_join);
 	upd_pwd = getcwd(NULL, 0);
 	tmp = ft_strdup(upd_pwd);
-	printf("new pwd : %s\nold pwd : %s\n", tmp, old);
 	return_value = update_env(data, tmp, old);
 	return (free_str(upd_pwd), free_str(old), free_str(tmp), 0);
 }

@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/31 20:07:38 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/01 15:27:08 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,15 @@ typedef struct s_env_expand
 	char			*expand;
 }					t_env_expand;
 
+typedef struct s_exec
+{
+	int				pipe_fd[2];
+	int				fd_in;
+	int				child_count;
+	pid_t			pid;
+	pid_t			child_pids[2048];
+}				t_exec;
+
 typedef struct s_data
 {
 	char			*input;
@@ -82,6 +91,7 @@ typedef struct s_data
 	t_dll_cmd		*parser;
 	t_env_expand	*env_expand;
 }					t_data;
+
 
 //// MAIN ////
 // MINISHELL//
@@ -274,5 +284,7 @@ int					change_directory(t_data *data, char *_new, char *old);
 
 void				is_builtin(t_cmd *command);
 int					exec_builtin(t_cmd *command, t_data *data);
+void				exec_builtin_no_pipe(t_cmd *command, t_data *data);
+int					check_simple_builtin(t_cmd *node, t_data *data);
 
 #endif
