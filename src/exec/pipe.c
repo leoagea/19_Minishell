@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:43:00 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 16:33:08 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/01 20:24:22 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ char	*path(t_data *data, char *command)
 		if (!temp)
 			exit(1);
 		final_path = ft_strjoin(dir_command[i], temp);
-		if (!final_path)
-			exit(1);
 		free_str(temp);
 		if (access(final_path, F_OK) == 0)
 			return (free_arr(dir_command), final_path);
@@ -101,76 +99,19 @@ char	**put_env_in_arr(t_lst *env)
 
 void	exec_pipe(t_cmd *command, t_data *data)
 {
-	int		pipe_fd[2];
-	int		fd_in;
-	pid_t	pid;
 	t_cmd	*node;
-	int		child_count;
-	pid_t	child_pids[2048];
+	t_exec	exec;
 
 	node = command;
-	fd_in = STDIN_FILENO;
+	exec.fd_in = STDIN_FILENO;
 	is_builtin(node);
 	if (!node || !node->str[0] || check_simple_builtin(node, data) == 1)
 		return ;
-	child_count = 0;
+	exec.child_count = 0;
 	while (node)
 	{
-		absolute_path(data, node);
-		if (node->next)
-		{
-			if (pipe(pipe_fd) == -1)
-			{
-				perror("pipe");
-				exit(1);
-			}
-		}
-		pid = fork();
-		if (pid == -1)
-		{
-			perror("fork");
-			exit (1);
-		}
-		if (pid == 0)
-		{
-			if (fd_in != STDIN_FILENO)
-			{
-				dup2(fd_in, STDIN_FILENO);
-				close(fd_in);
-			}
-			redirections(node);
-			if (node->next)
-			{
-				dup2(pipe_fd[1], STDOUT_FILENO);
-				close(pipe_fd[1]);
-				close(pipe_fd[0]);
-			}
-			if (exec_builtin(node, data) == -1)
-			{
-				data->env_arr = put_env_in_arr(data->env);
-				execve(node->absolute_path, node->str, data->env_arr);
-				ft_putstr_fd("bash: ", 2);
-				write(2, node->str[0], ft_strlen(node->str[0]));
-				ft_putstr_fd(": ", 2);
-				ft_putstr_fd(strerror(errno), 2);
-				ft_putstr_fd("\n", 2);
-				exit (127);
-			}
-			else
-				exit(0);
-		}
-		else
-		{
-			child_pids[child_count++] = pid;
-			if (fd_in != STDIN_FILENO)
-				close(fd_in);
-			if (node->next)
-			{
-				close(pipe_fd[1]);
-				fd_in = pipe_fd[0];
-			}
-		}
+		exec_loop(data, node, &exec);
 		node = node->next;
 	}
-	wait_child(child_count, child_pids);
+	wait_child(exec.child_count, exec.child_pids);
 }

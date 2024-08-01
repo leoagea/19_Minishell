@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/08/01 17:27:38 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/01 20:49:26 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,6 @@ void				handle_signal_child(void);
 // REDIRECTIONS //
 void				redirections(t_cmd *command);
 
-// EXEC_PIPE //
-void				exec_pipe(t_cmd *command, t_data *data);
-
    // HEREDOC //
 void     heredoc(t_node *node, int i);
 int		multi_heredoc(t_cmd *command);
@@ -125,6 +122,11 @@ void    open_hdc(char *file);
   // EXEC_PIPE //
 void    exec_pipe(t_cmd *command, t_data *data);
 void	wait_child(int child_count, pid_t *child_pids);
+void	exec_loop(t_data *data, t_cmd *node, t_exec *exec);
+void	absolute_path(t_data *data, t_cmd *command);
+char	**put_env_in_arr(t_lst *env);
+void	child_process(t_data *data, t_cmd *node, t_exec *exec);
+void	parent_process(t_cmd *node, t_exec *exec);
 
 /*==============================Minishell================================*/
 
@@ -287,4 +289,8 @@ int					exec_builtin(t_cmd *command, t_data *data);
 void				exec_builtin_no_pipe(t_cmd *command, t_data *data);
 int					check_simple_builtin(t_cmd *node, t_data *data);
 
+/*-----------------------Check arg and main splitted-----------------------*/
+void				check_arg(int argc, char **argv);
+int					input_loop(char *line, t_data *data, t_cmd *command);
+void				expand_exec(t_data *data, t_cmd *command);
 #endif

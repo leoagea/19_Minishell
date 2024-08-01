@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:18:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 17:28:00 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/01 20:54:43 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	is_str_digit(char *str)
 
 static void	determine_exit_code(char *str, t_data *data)
 {
-	int nb;
+	int	nb;
 	
 	if (!str)
 		g_exit_status = 0;

@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:31:33 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 20:57:38 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/01 20:27:02 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	reset_ctrl_c(int sig)
 {
-	struct termios term;
+	struct termios	term;
 
 	(void)sig;
 	write(1, "\n", 1);
