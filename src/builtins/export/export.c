@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 00:40:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 16:40:39 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/01 19:13:23 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,11 @@ static void	print_export(t_lst *env)
 		while (arr[i] && node->var && ft_strncmp(arr[i], node->var,
 				INT_MAX) != 0)
 			node = node->next;
-		ft_printf("declare -x %s", arr[i]);
-		if (node->value)
+		if (node->flag != 2)
+			ft_printf("declare -x %s", arr[i]);
+		if (node->value && (node->flag == 1 || node->flag == 0))
 			ft_printf("=\"%s\"\n", node->value);
-		else
+		if (!node->value)
 			write(1, "\n", 1);
 	}
 	free_arr(arr);
