@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 00:40:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 15:15:27 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/01 16:40:39 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	dispatch_export(t_data *data, char *str, int j)
 	return (return_value);
 }
 
-int	_export(t_data *data, t_cmd *cmd)
+void	_export(t_data *data, t_cmd *cmd)
 {
 	int		i;
 	int		j;
@@ -109,5 +109,5 @@ int	_export(t_data *data, t_cmd *cmd)
 		return_value = dispatch_export(data, str, j);
 		i++;
 	}
-	return (return_value);
+	g_exit_status = return_value;
 }

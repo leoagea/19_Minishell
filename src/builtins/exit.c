@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:18:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 15:13:25 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/01 17:03:40 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,20 @@ int	is_str_digit(char *str)
 
 static void	determine_exit_code(char *str, t_data *data)
 {
+	int nb;
+	
 	if (!str)
 		g_exit_status = 0;
 	else if (is_str_digit(str))
-		g_exit_status = ft_atoi(str);
+		g_exit_status = ft_atoi(str) % 255;
 	else
 	{
+		nb = ft_atoi(str);
+		if (nb < 0)
+		{
+			g_exit_status = (256 - (-nb)) % 256;
+			exit(g_exit_status);
+		}
 		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
@@ -76,6 +84,7 @@ int	__exit(t_data *data, t_cmd *simple_cmd)
 	if (simple_cmd->str[1] && simple_cmd->str[2])
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
+		g_exit_status = 1;
 		return (EXIT_FAILURE);
 	}
 	if (simple_cmd->str[1])
