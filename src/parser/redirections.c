@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:40:47 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 20:21:24 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/01 17:59:47 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	handle_redirections(t_dll *single_cmd, t_data *data)
 {
 	t_cmd	*cmd;
 	t_node	*current;
-	
+
 	current = single_cmd->head;
 	cmd = dll_cmd_new_node();
 	dll_cmd_insert_tail(data->parser, cmd);

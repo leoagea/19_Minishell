@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:29:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 20:55:04 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/01 18:30:30 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	free_redirect(t_dll *redirec)
 {
-	t_node *tmp;
-	t_node *node;
+	t_node	*tmp;
+	t_node	*node;
 
 	if (!redirec)
 		return ;
@@ -65,7 +65,6 @@ void	free_dll(t_dll *dll)
 	{
 		tmp = node;
 		node = node->next;
-		// free_str(tmp->str);
 		free(tmp);
 		tmp = NULL;
 	}
@@ -91,64 +90,4 @@ void	free_lexer(t_dll *dll)
 	}
 	free(dll);
 	dll = NULL;
-}
-
-void	free_expander(t_dll *dll)
-{
-	t_node	*tmp;
-	t_node	*node;
-
-	if (!dll)
-		return ;
-	node = dll->head;
-	while (node)
-	{
-		tmp = node;
-		node = node->next;
-		// free_str(tmp->str);
-		free(tmp);
-		tmp = NULL;
-	}
-	free(dll);
-	dll = NULL;
-}
-
-void	free_cmd(t_dll_cmd *cmd)
-{
-	t_cmd	*tmp;
-	t_cmd	*node;
-
-	if (!cmd)
-		return ;
-	node = cmd->head;
-	while (node)
-	{
-		tmp = node;
-		node = node->next;
-		free_arr(tmp->str);
-		// free_arr(tmp->env);
-		free_redirect(tmp->redirections);
-		// free_lst(tmp->env_list);
-		free(tmp);
-		tmp = NULL;
-	}
-	free(cmd);
-	cmd = NULL;
-}
-
-void	free_exp(t_env_expand *env)
-{
-	if (!env)
-		return ;
-	if (env->var)
-	{
-		free(env->var);
-		env->var = NULL;
-	}
-	if (env->expand)
-	{
-		free(env->expand);
-		env->expand = NULL;
-	}
-	free(env);
 }

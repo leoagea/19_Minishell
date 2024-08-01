@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:31:33 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 20:57:38 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/01 18:00:28 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	reset_ctrl_c(int sig)
 {
-	struct termios term;
+	struct termios	term;
 
 	(void)sig;
 	write(1, "\n", 1);

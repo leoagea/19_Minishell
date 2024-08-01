@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:21:10 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 17:30:03 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/01 18:50:32 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,26 +58,27 @@ int	exec_builtin(t_cmd *command, t_data *data)
 
 void	exec_builtin_no_pipe(t_cmd *command, t_data *data)
 {
-	pid_t pid;
+	pid_t	pid;
 
 	pid = fork();
 	if (pid == -1)
 	{
 		perror("fork");
-		exit (1);
+		exit(1);
 	}
 	if (pid == 0)
 	{
 		redirections(command);
 		exec_builtin(command, data);
-		exit (0);
+		exit(0);
 	}
 	wait(NULL);
 }
 
-int		check_simple_builtin(t_cmd *node, t_data *data)
+int	check_simple_builtin(t_cmd *node, t_data *data)
 {
-	if (node->next == NULL && node->is_builtin == true && ft_strncmp(node->str[0], "exit", INT_MAX) != 0)
+	if (node->next == NULL && node->is_builtin == true
+		&& ft_strncmp(node->str[0], "exit", INT_MAX) != 0)
 	{
 		exec_builtin_no_pipe(node, data);
 		return (1);

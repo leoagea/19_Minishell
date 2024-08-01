@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:12:31 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 12:50:09 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/01 17:59:35 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	parser(t_data *data)
 {
 	t_node	*current;
 	t_dll	*single_cmd;
-	int i;
+	int		i;
 
 	i = 1;
 	current = data->expander->head;
