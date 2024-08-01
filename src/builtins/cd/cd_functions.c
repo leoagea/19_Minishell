@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_functions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:41:07 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 17:27:44 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/01 21:45:02 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,13 @@ static int	relative_path(char *new, char *old)
 	new_join = ft_strjoin(tmp, new);
 	free_str(tmp);
 	if (chdir(new) == -1)
-		return (ft_printf("bash: cd: %s: No such file or directory\n", new), 1);
-	if (access(new_join, F_OK) == -1 || access(new_join, X_OK) == -1)
-		new_join = get_accessible_pwd(new_join);
-	if (chdir(new_join) == -1)
-		return (free_str(new_join), \
-		ft_printf("bash: cd: %s: No such file or directory\n", new), 1);
+	{		
+		if (access(new_join, F_OK) == -1 || access(new_join, X_OK) == -1)
+			new_join = get_accessible_pwd(new_join);
+		if (chdir(new_join) == -1)
+			return (free_str(new_join), \
+			ft_printf("check 1 bash: cd: %s: No such file or directory\n", new), 1);
+	}
 	free_str(new_join);
 	return (0);
 }
