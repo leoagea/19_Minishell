@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/08/01 17:27:38 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/01 18:29:40 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,14 +225,18 @@ t_env				*get_node(t_lst *env, char *var);
 void	free_str(char *str);
 void	free_arr(char **arr);
 void	free_lst(t_lst *lst);
-int	free_var(const char *s, ...);
+int		free_var(const char *s, ...);
 
 /*--------------------------------free-----------------------------------*/
 
-void				dll_cmd_clear(t_dll_cmd *dll);
+void		free_redirect(t_dll *redirec);
+void		dll_cmd_clear(t_dll_cmd *dll);
 void		free_dll(t_dll *dll);
-void	free_lexer(t_dll *dll);
-void	free_expander(t_dll *dll);
+void		free_lexer(t_dll *dll);
+
+/*--------------------------------free-----------------------------------*/
+
+void		free_expander(t_dll *dll);
 void		free_cmd(t_dll_cmd *cmd);
 void		free_exp(t_env_expand *env);
 
