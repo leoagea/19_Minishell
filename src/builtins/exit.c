@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:18:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 21:26:28 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 00:26:58 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ int	is_str_digit(char *str)
 	return (1);
 }
 
+static void error_message(char *str)
+{
+	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
+}
+
 static void	determine_exit_code(char *str, t_data *data)
 {
 	int	nb;
@@ -65,9 +72,12 @@ static void	determine_exit_code(char *str, t_data *data)
 			g_exit_status = (256 - (-nb)) % 256;
 			exit(g_exit_status);
 		}
-		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
+		else if (nb > 0)
+		{
+			g_exit_status = nb % 256;
+			exit(g_exit_status);
+		}
+		error_message(str);
 		g_exit_status = 255;
 	}
 	free_var("%cmd %lst", data->parser, data->env);
