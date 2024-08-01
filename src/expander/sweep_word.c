@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sweep_word.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:49:08 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 21:01:37 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/01 17:54:20 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,30 @@ char	*join_char(char *str, char c)
 	return (str);
 }
 
+static char	*dispatch_quote(t_data *data, char *cpy, char *str, int *i)
+{
+	if (str[*i] == 34)
+		cpy = expand_double_quotes(data, cpy, i, str);
+	else if (str[*i] == 39)
+		cpy = expand_single_quotes(cpy, i, str);
+	return (cpy);
+}
+
+static char	*other_case(char *cpy, char *str, int *i)
+{
+	if (str[*i - 1] == '$' && str[*i - 1])
+		cpy = join_char(cpy, '$');
+	cpy = join_char(cpy, str[*i]);
+	*i += 1;
+	return (cpy);
+}
+
 static char	*dispatch_expand(t_data *data, char *cpy, char *str, int i)
 {
 	while (str[i])
 	{
-		if (str[i] == 34)
-			cpy = expand_double_quotes(data, cpy, &i, str);
-		else if (str[i] == 39)
-			cpy = expand_single_quotes(cpy, &i, str);
+		if (str[i] == 34 || str[i] == 39)
+			cpy = dispatch_quote(data, cpy, str, &i);
 		else if (str[i] == '$')
 		{
 			if (str[i] == '$' && !str[i + 1])
@@ -43,20 +59,15 @@ static char	*dispatch_expand(t_data *data, char *cpy, char *str, int i)
 				cpy = join_char(cpy, str[i]);
 				break ;
 			}
-			if (str[i] == '$' && ft_isdigit((int) str[i + 1]))
+			if (str[i] == '$' && ft_isdigit((int)str[i + 1]))
 			{
 				i += 2;
-				continue;
+				continue ;
 			}
 			cpy = expand_env_var(data, cpy, &i, str);
 		}
 		else
-		{
-			if (str[i - 1] == '$' && str[i - 1])
-				cpy = join_char(cpy, '$');
-			cpy = join_char(cpy, str[i]);
-			i++;
-		}
+			cpy = other_case(cpy, str, &i);
 	}
 	return (cpy);
 }

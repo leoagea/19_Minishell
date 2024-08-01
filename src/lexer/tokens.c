@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:56:36 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 20:38:59 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/01 17:58:52 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int	lexer(char *input, t_dll *tokens)
 	char	*word;
 
 	i = 0;
-	word = NULL;
 	while (input[i])
 	{
 		i = skip_whitespace(input, i);
@@ -106,7 +105,7 @@ int	lexer(char *input, t_dll *tokens)
 		if (!word)
 			return (1);
 		if (check_open_quote(word) == 1)
-			return (free(word),write(1, "Error: open quote\n", 18), 1);
+			return (free(word), write(1, "Error: open quote\n", 18), 1);
 		dll_insert_tail(ft_strdup(word), tokens);
 		i = skip_whitespace(input, i);
 		free_str(word);

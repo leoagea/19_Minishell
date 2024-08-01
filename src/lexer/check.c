@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:53:07 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/18 17:58:29 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/01 17:54:57 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,16 @@ int	check_wrong_token(t_dll *tokens)
 int	do_all_check(t_dll *tokens)
 {
 	if (tokens->head->str[0] == '\0')
-		return 1;
+		return (1);
 	else if (check_open_pipe(tokens))
-		return (write(2, "bash: syntax error near unexpected token `|'\n", 45), 1);
+		return (write(2, "bash: syntax error near unexpected token `|'\n", 45),
+			1);
 	else if (check_open_redirect(tokens))
 		return (write(2, "bash: syntax error near unexpected token\n", 41), 1);
 	else if (check_wrong_token(tokens))
 		return (write(2, "bash: syntax error near unexpected token\n", 41), 1);
 	else if (check_inside_pipe(tokens))
-		return (write(2, "bash: syntax error near unexpected token `|'\n", 45), 1);
+		return (write(2, "bash: syntax error near unexpected token `|'\n", 45),
+			1);
 	return (0);
 }
