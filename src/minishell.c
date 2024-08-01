@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 20:54:09 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/01 19:15:54 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,3 +71,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
+
+//env -i ./minishell probleme free abort
+//need to repaire expander dououble quote to make ls "$UDBHJSAHBDAHS" not do ls
