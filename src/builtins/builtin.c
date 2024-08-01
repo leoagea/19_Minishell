@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:21:10 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 18:50:32 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/01 21:26:16 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,25 @@ void	exec_builtin_no_pipe(t_cmd *command, t_data *data)
 int	check_simple_builtin(t_cmd *node, t_data *data)
 {
 	if (node->next == NULL && node->is_builtin == true
-		&& ft_strncmp(node->str[0], "exit", INT_MAX) != 0)
+		&& ft_strncmp(node->str[0], "exit", INT_MAX) != 0
+		&& ft_strncmp(node->str[0], "export", INT_MAX) != 0
+		&& ft_strncmp(node->str[0], "unset", INT_MAX) != 0
+		&& ft_strncmp(node->str[0], "cd", INT_MAX) != 0)
 	{
 		exec_builtin_no_pipe(node, data);
 		return (1);
 	}
-	else if (ft_strncmp(node->str[0], "exit", INT_MAX) == 0)
+	else if (node->next == NULL && node->is_builtin == true
+		&& ft_strncmp(node->str[0], "exit", INT_MAX) == 0)
 		__exit(data, node);
+	else if (node->next == NULL && node->is_builtin == true
+		&& ft_strncmp(node->str[0], "export", INT_MAX) == 0)
+		_export(data, node);
+	else if (node->next == NULL && node->is_builtin == true
+		&& ft_strncmp(node->str[0], "unset", INT_MAX) == 0)
+		unset(data, node);
+	else if (node->next == NULL && node->is_builtin == true
+		&& ft_strncmp(node->str[0], "cd", INT_MAX) == 0)
+		cd(data);
 	return (0);
 }

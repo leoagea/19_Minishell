@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:18:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 18:31:41 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/01 21:26:28 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	is_str_digit(char *str)
 static void	determine_exit_code(char *str, t_data *data)
 {
 	int	nb;
-
+	
 	if (!str)
 		g_exit_status = 0;
 	else if (is_str_digit(str))

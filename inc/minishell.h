@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/08/01 18:29:40 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/01 21:28:47 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,6 @@ void				handle_signal_child(void);
 // REDIRECTIONS //
 void				redirections(t_cmd *command);
 
-// EXEC_PIPE //
-void				exec_pipe(t_cmd *command, t_data *data);
-
    // HEREDOC //
 void     heredoc(t_node *node, int i);
 int		multi_heredoc(t_cmd *command);
@@ -125,6 +122,11 @@ void    open_hdc(char *file);
   // EXEC_PIPE //
 void    exec_pipe(t_cmd *command, t_data *data);
 void	wait_child(int child_count, pid_t *child_pids);
+void	exec_loop(t_data *data, t_cmd *node, t_exec *exec);
+void	absolute_path(t_data *data, t_cmd *command);
+char	**put_env_in_arr(t_lst *env);
+void	child_process(t_data *data, t_cmd *node, t_exec *exec);
+void	parent_process(t_cmd *node, t_exec *exec);
 
 /*==============================Minishell================================*/
 
@@ -234,7 +236,7 @@ void		dll_cmd_clear(t_dll_cmd *dll);
 void		free_dll(t_dll *dll);
 void		free_lexer(t_dll *dll);
 
-/*--------------------------------free-----------------------------------*/
+/*-------------------------------free_2----------------------------------*/
 
 void		free_expander(t_dll *dll);
 void		free_cmd(t_dll_cmd *cmd);
@@ -291,4 +293,8 @@ int					exec_builtin(t_cmd *command, t_data *data);
 void				exec_builtin_no_pipe(t_cmd *command, t_data *data);
 int					check_simple_builtin(t_cmd *node, t_data *data);
 
+/*-----------------------Check arg and main splitted-----------------------*/
+void				check_arg(int argc, char **argv);
+int					input_loop(char *line, t_data *data, t_cmd *command);
+void				expand_exec(t_data *data, t_cmd *command);
 #endif

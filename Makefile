@@ -6,11 +6,11 @@ ORANGE=\033[38;2;255;165;0m
 NC=\033[0m
 
 ifeq ($(ARCH),arm64)
-READLIB = /opt/homebrew/opt/readline/lib
-READINC = /opt/homebrew/opt/readline/include
-else
 READLIB = /Users/$(shell whoami)/homebrew/opt/readline/lib
 READINC = /Users/$(shell whoami)/homebrew/opt/readline/include
+else
+READLIB = /opt/homebrew/opt/readline/lib
+READINC = /opt/homebrew/opt/readline/include
 endif
 
 LINK = -L$(READLIB) -I$(READINC) -lreadline
@@ -40,7 +40,7 @@ SRCS =	src/minishell.c \
 	src/lexer/tokens.c src/lexer/utils.c src/lexer/check.c src/lexer/check_2.c \
 	src/parser/cmd.c src/parser/utils_cmd.c src/parser/redirections.c \
 	src/expander/expander.c src/expander/env_variable.c src/expander/double_quotes.c src/expander/single_quotes.c  src/expander/heredoc.c src/expander/check.c src/expander/sweep_word.c \
-	src/utils/init.c src/utils/free.c src/utils/init_env.c src/utils/lst.c src/utils/free_var.c src/utils/free_2.c \
+	src/utils/init.c src/utils/free.c src/utils/init_env.c src/utils/lst.c src/utils/free_var.c src/utils/main_utils.c src/utils/free_2.c \
 	
 
 OBJ = $(SRCS:$(SRCS_DIR)%.c=$(OBJS_DIR)%.o)
