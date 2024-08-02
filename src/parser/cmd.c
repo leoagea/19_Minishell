@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:12:31 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/02 13:37:46 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 17:18:36 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,22 @@ static t_dll	*isolate_single_cmd(t_node *start)
 	return (single_cmd);
 }
 
+static int	check_return_cond(t_data *data, t_dll *cmd)
+{
+	if (dll_size(cmd) == 0)
+	{
+		data->parser->tail->str[0] = NULL;
+		return (1);
+	}
+	if (ft_strncmp(cmd->tail->str, cmd->head->str, INT_MAX) == 0
+		&& cmd->tail->str[0] == '\0')
+	{
+		data->parser->tail->str[0] = NULL;
+		return (1);
+	}
+	return (0);
+}
+
 static int	put_in_str(t_data *data, t_dll *cmd)
 {
 	int		i;
@@ -42,15 +58,14 @@ static int	put_in_str(t_data *data, t_dll *cmd)
 	current = cmd->head;
 	nb_tokens = dll_size(cmd);
 	data->parser->tail->str = malloc(sizeof(char *) * nb_tokens + 1);
-	if (dll_size(cmd) == 0)
-	{
-		data->parser->tail->str[0] = NULL;
-		return (1);
-	}
+	if (check_return_cond(data, cmd))
+		return (0);
+	while (current->str && current->str[0] == '\0')
+		current = current->next;
 	while (current != NULL)
 	{
-		while (current->str[0] == '\0')
-			current = current->next;
+		if (current == NULL)
+			break ;
 		data->parser->tail->str[i] = current->str;
 		data->parser->tail->str[i][ft_strlen(current->str)] = '\0';
 		current = current->next;

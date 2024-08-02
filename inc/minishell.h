@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/08/02 17:24:23 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/02 17:27:50 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define PATH "/Users/lagea/homebrew/bin:/usr/local/bin:/usr/bin:/bin:"
 # define PATH2 "/usr/sbin:/sbin:/usr/local/munki:/Users/lagea/homebrew/bin"
 
-int	g_exit_status;
+int					g_exit_status;
 
 typedef struct s_env
 {
@@ -49,7 +49,7 @@ typedef struct s_lst
 
 typedef struct s_cmd
 {
-	char			**str; // cmd, arg, flag
+	char			**str;
 	bool			is_builtin;
 	int				num_redirections;
 	char			*absolute_path;
@@ -112,11 +112,12 @@ void				prompt_backslash(int sig);
 void				redirections(t_cmd *command);
 
 // HEREDOC //
-void				heredoc(t_node *node, int i);
+void				heredoc(t_data *data, t_node *node, int i);
 int					multi_heredoc(t_cmd *command);
-void				init_heredoc(t_cmd *command);
+void				init_heredoc(t_data *data, t_cmd *command);
 void				unlink_tmp(void);
-void				heredoc_loop(int fd, char *line, t_node *node);
+void				heredoc_loop(t_data *data, int fd, char *line,
+						t_node *node);
 void				open_trunc(t_node *node);
 void				open_append(t_node *node);
 void				open_input(t_node *node);
@@ -133,6 +134,11 @@ void				parent_process(t_cmd *node, t_exec *exec);
 void				command_not_found(char *command);
 void				no_access(char *command);
 void				error_management(char *command);
+
+// EXPAND //
+
+char				*check_expand(t_data *data, char *str);
+
 /*==============================Minishell================================*/
 
 /*================================LEXER==================================*/
@@ -187,6 +193,8 @@ char				*expand_heredoc(char *str);
 
 /*---------------------------env_variables-------------------------------*/
 
+int					check_special(char c);
+char				*get_env(t_data *data, t_env_expand *env);
 char				*handle_env_variables(t_data *data, char *str, int i);
 char				*expand_env_var(t_data *data, char *cpy, int *i, char *str);
 
