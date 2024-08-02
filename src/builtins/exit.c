@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:18:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/02 00:26:58 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 12:57:24 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	is_str_digit(char *str)
 	return (1);
 }
 
-static void error_message(char *str)
+static void	error_message(char *str)
 {
 	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
@@ -59,7 +59,7 @@ static void error_message(char *str)
 static void	determine_exit_code(char *str, t_data *data)
 {
 	int	nb;
-	
+
 	if (!str)
 		g_exit_status = 0;
 	else if (is_str_digit(str))

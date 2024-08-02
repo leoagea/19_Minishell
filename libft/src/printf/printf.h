@@ -6,15 +6,15 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:55:10 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/18 15:15:41 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 13:05:19 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PRINTF_H
-#define PRINTF_H
+# define PRINTF_H
 
-#include <stdarg.h>
-#include <unistd.h>
+# include <stdarg.h>
+# include <unistd.h>
 
 /*---------------------------------PARSE---------------------------------*/
 

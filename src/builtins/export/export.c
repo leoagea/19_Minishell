@@ -6,13 +6,13 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 00:40:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 19:13:23 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 13:01:13 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/minishell.h"
 
-static char	**put_int_arr(t_lst *env)
+static const char	**put_int_arr(t_lst *env)
 {
 	const int	size = lst_size(env);
 	char		**arr;
@@ -31,17 +31,16 @@ static char	**put_int_arr(t_lst *env)
 		node = node->next;
 	}
 	arr[i] = NULL;
-	return (arr);
+	return ((const char **)arr);
 }
 
 static void	print_export(t_lst *env)
 {
-	int		i;
-	char	**arr;
-	t_env	*node;
+	const char	**arr = put_int_arr(env);
+	int			i;
+	t_env		*node;
 
-	arr = put_int_arr(env);
-	sort_export(arr, lst_size(env));
+	sort_export((char **)arr, lst_size(env));
 	i = -1;
 	while (arr[++i])
 	{
@@ -61,7 +60,7 @@ static void	print_export(t_lst *env)
 		if (!node->value)
 			write(1, "\n", 1);
 	}
-	free_arr(arr);
+	free_arr((char **)arr);
 }
 
 static int	dispatch_export(t_data *data, char *str, int j)

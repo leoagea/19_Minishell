@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:21:10 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 21:26:16 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 12:47:39 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,7 @@ int	check_simple_builtin(t_cmd *node, t_data *data)
 	else if (node->next == NULL && node->is_builtin == true
 		&& ft_strncmp(node->str[0], "cd", INT_MAX) == 0)
 		cd(data);
-	return (0);
+	else
+		return (0);
+	return (2);
 }

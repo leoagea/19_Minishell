@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 23:04:43 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 19:08:49 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 13:11:12 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	insert_node_env_i(t_lst *env, char *pwd)
 	if (!node)
 		return (1);
 	lst_insert_tail(node, env);
-	node = lst_new(ft_strdup("PATH"), "/Users/lagea/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Users/lagea/homebrew/bin", 2);
+	node = lst_new(ft_strdup("PATH"), ft_strjoin(PATH, PATH2), 2);
 	if (!node)
 		return (1);
 	lst_insert_tail(node, env);
