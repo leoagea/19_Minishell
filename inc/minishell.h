@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/08/02 14:10:29 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 17:24:23 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <termios.h>
 # include <unistd.h>
 
@@ -129,7 +130,9 @@ void				absolute_path(t_data *data, t_cmd *command);
 char				**put_env_in_arr(t_lst *env);
 void				child_process(t_data *data, t_cmd *node, t_exec *exec);
 void				parent_process(t_cmd *node, t_exec *exec);
-
+void				command_not_found(char *command);
+void				no_access(char *command);
+void				error_management(char *command);
 /*==============================Minishell================================*/
 
 /*================================LEXER==================================*/
