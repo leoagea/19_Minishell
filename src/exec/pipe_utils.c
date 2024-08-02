@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 20:02:24 by vdarras           #+#    #+#             */
-/*   Updated: 2024/08/02 14:02:49 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/02 14:19:19 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,15 @@ void	child_process(t_data *data, t_cmd *node, t_exec *exec)
 	if (exec_builtin(node, data) == -1)
 	{
 		data->env_arr = put_env_in_arr(data->env);
+		error_management();
 		execve(node->absolute_path, node->str, data->env_arr);
-		ft_putstr_fd("bash: ", 2);
-		write(2, node->str[0], ft_strlen(node->str[0]));
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd(strerror(errno), 2);
-		ft_putstr_fd("\n", 2);
-		exit (127);
+
+		// ft_putstr_fd("bash: ", 2);
+		// write(2, node->str[0], ft_strlen(node->str[0]));
+		// ft_putstr_fd(": ", 2);
+		// ft_putstr_fd(strerror(errno), 2);
+		// ft_putstr_fd("\n", 2);
+		// exit (127);
 	}
 	else
 		exit(0);
