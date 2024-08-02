@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/08/02 17:17:25 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 17:19:01 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_lst
 
 typedef struct s_cmd
 {
-	char 			**str;
+	char			**str;
 	bool			is_builtin;
 	int				num_redirections;
 	char			*absolute_path;
