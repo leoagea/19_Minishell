@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/08/02 13:10:01 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 13:40:46 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define BUFFER_SIZE 10000
 # define PATH "/Users/lagea/homebrew/bin:/usr/local/bin:/usr/bin:/bin:"
 # define PATH2 "/usr/sbin:/sbin:/usr/local/munki:/Users/lagea/homebrew/bin"
+
+int	g_exit_status;
 
 typedef struct s_env
 {

@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:18:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/02 12:57:24 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 13:39:37 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	determine_exit_code(char *str, t_data *data)
 	if (!str)
 		g_exit_status = 0;
 	else if (is_str_digit(str))
-		g_exit_status = ft_atoi(str) % 255;
+		g_exit_status = ft_atoi(str) % 256;
 	else
 	{
 		nb = ft_atoi(str);

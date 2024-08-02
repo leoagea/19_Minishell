@@ -6,13 +6,11 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/02 12:37:02 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 13:40:11 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	g_exit_status = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -20,6 +18,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 	t_cmd	*command;
 
+	g_exit_status = 0;
 	check_arg(argc, argv);
 	data.env = init_env(envp);
 	if (init_shlvl(&data))
