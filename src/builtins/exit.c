@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:18:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 20:54:43 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/02 13:39:37 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,21 @@ int	is_str_digit(char *str)
 	return (1);
 }
 
+static void	error_message(char *str)
+{
+	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
+}
+
 static void	determine_exit_code(char *str, t_data *data)
 {
 	int	nb;
-	
+
 	if (!str)
 		g_exit_status = 0;
 	else if (is_str_digit(str))
-		g_exit_status = ft_atoi(str) % 255;
+		g_exit_status = ft_atoi(str) % 256;
 	else
 	{
 		nb = ft_atoi(str);
@@ -65,9 +72,12 @@ static void	determine_exit_code(char *str, t_data *data)
 			g_exit_status = (256 - (-nb)) % 256;
 			exit(g_exit_status);
 		}
-		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
+		else if (nb > 0)
+		{
+			g_exit_status = nb % 256;
+			exit(g_exit_status);
+		}
+		error_message(str);
 		g_exit_status = 255;
 	}
 	free_var("%cmd %lst", data->parser, data->env);

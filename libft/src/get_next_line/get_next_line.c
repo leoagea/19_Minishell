@@ -6,13 +6,12 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 22:29:14 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 15:53:34 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 13:04:53 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/libft.h"
 #include "get_next_line.h"
-
 
 char	*ft_set_line(char *line_buffer)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:18:44 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 17:28:09 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/02 12:33:37 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	word(t_data *data, t_node *current, char *str)
 	char	*cpy;
 
 	cpy = sweep_word(data, str);
-	if (!cpy || cpy[0] == '\0')
+	if (!cpy)
 		return ;
 	dll_insert_tail(ft_strdup(cpy), data->expander);
 	free_str(cpy);

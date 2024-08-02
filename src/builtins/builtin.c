@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:21:10 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/02 12:48:47 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/02 14:11:03 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ void	exec_builtin_no_pipe(t_cmd *command, t_data *data)
 	if (pid == -1)
 	{
 		perror("fork");
-		exit (1);
+		exit(1);
 	}
 	if (pid == 0)
 	{
 		redirections(command);
 		exec_builtin(command, data);
-		exit (0);
+		exit(0);
 	}
 	wait(NULL);
 }

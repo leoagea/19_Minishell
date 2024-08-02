@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/08/02 13:43:26 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/02 14:10:29 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include <unistd.h>
 # include <termios.h>
+# include <unistd.h>
 
 # define BUFFER_SIZE 10000
+# define PATH "/Users/lagea/homebrew/bin:/usr/local/bin:/usr/bin:/bin:"
+# define PATH2 "/usr/sbin:/sbin:/usr/local/munki:/Users/lagea/homebrew/bin"
 
-extern int		g_exit_status;
+int	g_exit_status;
 
 typedef struct s_env
 {
@@ -46,15 +48,15 @@ typedef struct s_lst
 
 typedef struct s_cmd
 {
-   char                    **str; //cmd, arg, flag
-   bool                    is_builtin;
-   int                     num_redirections;
-   char                    *absolute_path;
-   t_dll                   *redirections;
-   int                     num_cmd;
-   struct s_cmd    *next;
-   struct s_cmd    *prev;
-}                t_cmd;
+	char			**str; // cmd, arg, flag
+	bool			is_builtin;
+	int				num_redirections;
+	char			*absolute_path;
+	t_dll			*redirections;
+	int				num_cmd;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
+}					t_cmd;
 
 typedef struct s_dll_cmd
 {
@@ -79,12 +81,12 @@ typedef struct s_exec
 	int				child_count;
 	pid_t			pid;
 	pid_t			child_pids[2048];
-}				t_exec;
+}					t_exec;
 
 typedef struct s_data
 {
 	char			*input;
-	char 			**env_arr;
+	char			**env_arr;
 	t_lst			*env;
 	t_dll			*lexer;
 	t_dll			*expander;
@@ -92,13 +94,12 @@ typedef struct s_data
 	t_env_expand	*env_expand;
 }					t_data;
 
-
 //// MAIN ////
 // MINISHELL//
 
 //// SIGNALS ////
 // CTRL C//
-void 				rl_clear_history (void);
+void				rl_clear_history(void);
 void				rl_replace_line(const char *text, int clear_undo);
 void				reset_ctrl_c(int sig);
 void				reset_ctrl_slash(int sig);
@@ -109,25 +110,25 @@ void				prompt_backslash(int sig);
 // REDIRECTIONS //
 void				redirections(t_cmd *command);
 
-   // HEREDOC //
-void     heredoc(t_node *node, int i);
-int		multi_heredoc(t_cmd *command);
-void	init_heredoc(t_cmd *command);
-void	unlink_tmp(void);
-void	heredoc_loop(int fd, char *line, t_node *node);
-void    open_trunc(t_node *node);
-void    open_append(t_node *node);
-void    open_input(t_node *node);
-void    open_hdc(char *file);
+// HEREDOC //
+void				heredoc(t_node *node, int i);
+int					multi_heredoc(t_cmd *command);
+void				init_heredoc(t_cmd *command);
+void				unlink_tmp(void);
+void				heredoc_loop(int fd, char *line, t_node *node);
+void				open_trunc(t_node *node);
+void				open_append(t_node *node);
+void				open_input(t_node *node);
+void				open_hdc(char *file);
 
-  // EXEC_PIPE //
-void    exec_pipe(t_cmd *command, t_data *data);
-void	wait_child(int child_count, pid_t *child_pids);
-void	exec_loop(t_data *data, t_cmd *node, t_exec *exec);
-void	absolute_path(t_data *data, t_cmd *command);
-char	**put_env_in_arr(t_lst *env);
-void	child_process(t_data *data, t_cmd *node, t_exec *exec);
-void	parent_process(t_cmd *node, t_exec *exec);
+// EXEC_PIPE //
+void				exec_pipe(t_cmd *command, t_data *data);
+void				wait_child(int child_count, pid_t *child_pids);
+void				exec_loop(t_data *data, t_cmd *node, t_exec *exec);
+void				absolute_path(t_data *data, t_cmd *command);
+char				**put_env_in_arr(t_lst *env);
+void				child_process(t_data *data, t_cmd *node, t_exec *exec);
+void				parent_process(t_cmd *node, t_exec *exec);
 
 /*==============================Minishell================================*/
 
@@ -152,7 +153,7 @@ int					do_all_check(t_dll *tokens);
 
 /*-------------------------------check_2---------------------------------*/
 
-int check_inside_pipe(t_dll *tokens);
+int					check_inside_pipe(t_dll *tokens);
 
 /*===============================PARSER==================================*/
 /*--------------------------------Cmd------------------------------------*/
@@ -210,7 +211,7 @@ t_dll				*dll_init(void);
 t_dll_cmd			*dll_cmd_init(void);
 t_env_expand		*env_var_init(void);
 t_lst				*lst_init(void);
-int				init_shlvl(t_data *data);
+int					init_shlvl(t_data *data);
 
 /*------------------------------init_env---------------------------------*/
 
@@ -225,19 +226,23 @@ t_env				*get_node(t_lst *env, char *var);
 
 /*-----------------------------free_var----------------------------------*/
 
-void	free_str(char *str);
-void	free_arr(char **arr);
-void	free_lst(t_lst *lst);
-int	free_var(const char *s, ...);
+void				free_str(char *str);
+void				free_arr(char **arr);
+void				free_lst(t_lst *lst);
+int					free_var(const char *s, ...);
 
 /*--------------------------------free-----------------------------------*/
 
+void				free_redirect(t_dll *redirec);
 void				dll_cmd_clear(t_dll_cmd *dll);
-void		free_dll(t_dll *dll);
-void	free_lexer(t_dll *dll);
-void	free_expander(t_dll *dll);
-void		free_cmd(t_dll_cmd *cmd);
-void		free_exp(t_env_expand *env);
+void				free_dll(t_dll *dll);
+void				free_lexer(t_dll *dll);
+
+/*-------------------------------free_2----------------------------------*/
+
+void				free_expander(t_dll *dll);
+void				free_cmd(t_dll_cmd *cmd);
+void				free_exp(t_env_expand *env);
 
 /*==============================BUILTINS=================================*/
 /*--------------------------------echo-----------------------------------*/
@@ -283,7 +288,7 @@ int					cd(t_data *data);
 
 int					change_directory(t_data *data, char *_new, char *old);
 
-/*-------------------------------builtin-----------------------------------*/ 
+/*-------------------------------builtin-----------------------------------*/
 
 void				is_builtin(t_cmd *command);
 int					exec_builtin(t_cmd *command, t_data *data);
@@ -294,4 +299,5 @@ int					check_simple_builtin(t_cmd *node, t_data *data);
 void				check_arg(int argc, char **argv);
 int					input_loop(char *line, t_data *data, t_cmd *command);
 void				expand_exec(t_data *data, t_cmd *command);
+
 #endif

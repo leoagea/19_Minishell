@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 22:29:25 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 15:53:34 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 13:05:04 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*my_strdup(char *s1)
 char	*substr(char *s, int start, int len)
 {
 	int		i;
-	int 	len_s;
+	int		len_s;
 	char	*str;
 
 	if (!s)

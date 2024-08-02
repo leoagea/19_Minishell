@@ -6,18 +6,34 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 23:04:43 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 15:13:39 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 13:11:12 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+static int	get_value(t_env *env, char *str, int i)
+{
+	int		start;
+	char	*tmp;
+
+	start = i + 1;
+	while (str[i])
+		i++;
+	tmp = ft_substr(str, start, i - start);
+	if (!tmp)
+		return (1);
+	env->value = ft_strdup(tmp);
+	free_str(tmp);
+	return (0);
+}
 
 t_env	*get_env_var(char *envp)
 {
 	int		i;
 	int		start;
 	char	*str;
-	char *tmp;
+	char	*tmp;
 	t_env	*env;
 
 	env = lst_new(NULL, NULL, 1);
@@ -35,19 +51,40 @@ t_env	*get_env_var(char *envp)
 		env->flag = 0;
 		return (env);
 	}
-	start = i + 1;
-	while (str[i++])
-		;
-	tmp = ft_substr(str, start, i - start);
-	env->value = ft_strdup(tmp);
-	free_str(tmp);
+	get_value(env, str, i);
 	return (env);
+}
+
+static int	insert_node_env_i(t_lst *env, char *pwd)
+{
+	t_env	*node;
+
+	node = lst_new(ft_strdup("PWD"), pwd, 1);
+	if (!node)
+		return (1);
+	lst_insert_tail(node, env);
+	node = lst_new(ft_strdup("SHLVL"), ft_strdup("1"), 1);
+	if (!node)
+		return (1);
+	lst_insert_tail(node, env);
+	node = lst_new(ft_strdup("_"), ft_strjoin(pwd, "/./minishell"), 1);
+	if (!node)
+		return (1);
+	lst_insert_tail(node, env);
+	node = lst_new(ft_strdup("OLDPWD"), NULL, 0);
+	if (!node)
+		return (1);
+	lst_insert_tail(node, env);
+	node = lst_new(ft_strdup("PATH"), ft_strjoin(PATH, PATH2), 2);
+	if (!node)
+		return (1);
+	lst_insert_tail(node, env);
+	return (0);
 }
 
 t_lst	*init_env_i(void)
 {
 	char	*pwd;
-	t_env	*node;
 	t_lst	*env;
 
 	env = lst_init();
@@ -56,18 +93,8 @@ t_lst	*init_env_i(void)
 	pwd = get_pwd();
 	if (!pwd)
 		return (NULL);
-	node = lst_new(ft_strdup("PWD"), pwd, 1);
-	if (!node)
+	if (insert_node_env_i(env, pwd))
 		return (NULL);
-	lst_insert_tail(node, env);
-	node = lst_new(ft_strdup("SHLVL"), ft_strdup("1"), 1);
-	if (!node)
-		return (NULL);
-	lst_insert_tail(node, env);
-	node = lst_new(ft_strdup("_"), ft_strjoin(pwd, "/./minishell"), 1);
-	if (!node)
-		return (NULL);
-	lst_insert_tail(node, env);
 	return (env);
 }
 
@@ -79,12 +106,9 @@ t_lst	*init_env(char **envp)
 	int		i;
 
 	i = 0;
-	env = lst_init();
 	if (!envp || !*envp)
-	{
-		env = init_env_i();
-		return (env);
-	}
+		return (init_env_i());
+	env = lst_init();
 	if (!env)
 		return (NULL);
 	while (envp[i])
