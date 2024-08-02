@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:42:48 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 20:44:49 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/02 17:16:55 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	init_heredoc(t_cmd *command)
+void	init_heredoc(t_data *data, t_cmd *command)
 {
 	t_node	*node;
 	t_cmd	*temp;
@@ -26,7 +26,7 @@ void	init_heredoc(t_cmd *command)
 		while (node)
 		{
 			if (node->type == HEREDOC)
-				heredoc(node, i);
+				heredoc(data, node, i);
 			node = node->next;
 		}
 		i++;
@@ -34,7 +34,7 @@ void	init_heredoc(t_cmd *command)
 	}
 }
 
-void	heredoc(t_node *node, int i)
+void	heredoc(t_data *data, t_node *node, int i)
 {
 	int		fd;
 	char	*line;
@@ -48,16 +48,18 @@ void	heredoc(t_node *node, int i)
 	if (fd == -1)
 	{
 		perror("open");
-		exit (1);
+		exit(1);
 	}
-	heredoc_loop(fd, line, node);
+	heredoc_loop(data, fd, line, node);
 	free(itoa);
 	free_str(file);
 	close(fd);
 }
 
-void	heredoc_loop(int fd, char *line, t_node *node)
+void	heredoc_loop(t_data *data, int fd, char *line, t_node *node)
 {
+	char	*tmp;
+
 	while (1)
 	{
 		ft_putstr_fd("> ", 1);
@@ -67,14 +69,18 @@ void	heredoc_loop(int fd, char *line, t_node *node)
 			ft_putstr_fd(line, fd);
 			break ;
 		}
-		if (ft_strncmp(line, node->str, ft_strlen(line) - 1)
-			== 0 && *line != '\n')
+		if (ft_strncmp(line, node->str, ft_strlen(line) - 1) == 0
+			&& *line != '\n')
 		{
 			free_str(line);
 			break ;
 		}
-		ft_putstr_fd(line, fd);
+		tmp = check_expand(data, line);
 		free_str(line);
+		if (tmp == NULL)
+			tmp = ft_strdup("\n");
+		ft_putstr_fd(tmp, fd);
+		free_str(tmp);
 	}
 }
 

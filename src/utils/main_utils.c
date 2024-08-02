@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 20:53:42 by vdarras           #+#    #+#             */
-/*   Updated: 2024/08/01 20:53:49 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/02 17:17:05 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	input_loop(char *line, t_data *data, t_cmd *command)
 	{
 		free_var("%lst", data->env);
 		printf("\r\001\e[0;31m\002> minishell$ \001\e[0m\002exit\n");
-		exit (0);
+		exit(0);
 	}
 	line = ft_strdup(data->input);
 	free_str(data->input);
@@ -70,7 +70,7 @@ void	expand_exec(t_data *data, t_cmd *command)
 	data->expander->head = NULL;
 	data->expander->tail = NULL;
 	command = data->parser->head;
-	init_heredoc(command);
+	init_heredoc(data, command);
 	exec_pipe(command, data);
 	dll_cmd_clear(data->parser);
 	data->parser->head = NULL;

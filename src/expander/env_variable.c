@@ -6,19 +6,19 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:51:28 by lagea             #+#    #+#             */
-/*   Updated: 2024/07/31 13:43:57 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 17:02:52 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static int	check_special(char c)
+int	check_special(char c)
 {
 	return ((c >= 33 && c <= 47) || (c >= 58 && c <= 64) || (c >= 91 && c <= 94)
 		|| c == 96 || (c >= 123 && c <= 126));
 }
 
-static char	*get_env_var(t_data *data, t_env_expand *env)
+char	*get_env(t_data *data, t_env_expand *env)
 {
 	int		i;
 	int		len;
@@ -58,7 +58,7 @@ char	*handle_env_variables(t_data *data, char *str, int i)
 		env->end++;
 	}
 	env->var = ft_substr(str, env->start, env->end - env->start);
-	check = get_env_var(data, env);
+	check = get_env(data, env);
 	if (check == NULL)
 		return (NULL);
 	free_str(env->var);
