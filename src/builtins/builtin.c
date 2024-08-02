@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:21:10 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/02 12:47:39 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 14:11:03 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,16 +88,16 @@ int	check_simple_builtin(t_cmd *node, t_data *data)
 	}
 	else if (node->next == NULL && node->is_builtin == true
 		&& ft_strncmp(node->str[0], "exit", INT_MAX) == 0)
-		__exit(data, node);
+		exec_builtin(node, data);
 	else if (node->next == NULL && node->is_builtin == true
 		&& ft_strncmp(node->str[0], "export", INT_MAX) == 0)
-		_export(data, node);
+		exec_builtin(node, data);
 	else if (node->next == NULL && node->is_builtin == true
 		&& ft_strncmp(node->str[0], "unset", INT_MAX) == 0)
-		unset(data, node);
+		exec_builtin(node, data);
 	else if (node->next == NULL && node->is_builtin == true
 		&& ft_strncmp(node->str[0], "cd", INT_MAX) == 0)
-		cd(data);
+		exec_builtin(node, data);
 	else
 		return (0);
 	return (2);

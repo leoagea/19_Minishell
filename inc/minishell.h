@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:10:37 by vdarras           #+#    #+#             */
-/*   Updated: 2024/08/02 13:40:46 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 14:10:29 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,9 @@ void				rl_clear_history(void);
 void				rl_replace_line(const char *text, int clear_undo);
 void				reset_ctrl_c(int sig);
 void				reset_ctrl_slash(int sig);
-void				handle_signal(void);
+void				handle_signal(int process);
 void				handle_signal_child(void);
+void				prompt_backslash(int sig);
 //// EXEC ////
 // REDIRECTIONS //
 void				redirections(t_cmd *command);
