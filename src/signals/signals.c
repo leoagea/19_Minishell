@@ -6,37 +6,51 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:31:33 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 20:27:02 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/02 14:03:43 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+void	prompt(int sig)
+{
+	g_exit_status = 1;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	(void)sig;
+}
+
 void	reset_ctrl_c(int sig)
 {
-	struct termios	term;
-
+	g_exit_status = 130;
 	(void)sig;
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	tcgetattr(0, &term);
-	term.c_lflag &= ~ECHOCTL;
-	tcsetattr(0, TCSANOW, &term);
-	rl_redisplay();
 }
 
 void	reset_ctrl_slash(int sig)
 {
+	g_exit_status = 131;
+	write(2, "Quit: 3\n", 8);
 	(void)sig;
-	ft_putstr_fd("Quit : 3\n", 2);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
 }
 
-void	handle_signal(void)
+void	handle_signal(int process)
 {
-	signal(SIGINT, &reset_ctrl_c);
-	signal(SIGQUIT, &reset_ctrl_slash);
+	struct termios	term;
+
+	if (process == 0)
+	{
+		signal(SIGINT, prompt);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	if (process == 1)
+	{
+		signal(SIGINT, reset_ctrl_c);
+		signal(SIGQUIT, reset_ctrl_slash);
+	}
+	tcgetattr(0, &term);
+	term.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, &term);
 }
+
