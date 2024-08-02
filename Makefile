@@ -6,11 +6,11 @@ ORANGE=\033[38;2;255;165;0m
 NC=\033[0m
 
 ifeq ($(ARCH),arm64)
-READLIB = /Users/$(shell whoami)/homebrew/opt/readline/lib
-READINC = /Users/$(shell whoami)/homebrew/opt/readline/include
-else
 READLIB = /opt/homebrew/opt/readline/lib
 READINC = /opt/homebrew/opt/readline/include
+else
+READLIB = /Users/$(shell whoami)/homebrew/opt/readline/lib
+READINC = /Users/$(shell whoami)/homebrew/opt/readline/include
 endif
 
 LINK = -L$(READLIB) -I$(READINC) -lreadline
