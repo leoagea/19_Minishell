@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 21:02:16 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/01 15:16:09 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/04 00:42:32 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int	insert_var_value(t_data *data, char *var, char *value)
 	if (node)
 	{
 		node->value = value;
+		node->flag = 1;
 		return (0);
 	}
 	node = lst_new(var, value, 1);
