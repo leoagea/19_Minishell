@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:51:42 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/18 15:02:25 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 13:04:59 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 /*-------------------------GET_NEXT_LINE_UTILS---------------------------*/
 
-int	my_strlen(const char *str);
+int		my_strlen(const char *str);
 char	*strchr_index(char *str);
 char	*strjoin(char *s1, char *s2);
 char	*my_strdup(char *s1);

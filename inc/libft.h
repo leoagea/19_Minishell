@@ -6,28 +6,25 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 01:26:11 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 13:00:59 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 13:08:16 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <errno.h> //errno
+# include <fcntl.h> //open
+# include <limits.h>
+# include <math.h>
 # include <stdarg.h>
 # include <stddef.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <limits.h>
 # include <stdio.h>
-# include <fcntl.h> //open
-# include <errno.h> //errno
+# include <stdlib.h>
 # include <string.h> //strerror
-# include <math.h>
+# include <unistd.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000000
-# endif
-
+# define BUFFER_SIZE 10000
 /*--------------------------------LIBFT----------------------------------*/
 /*Libc functions*/
 int					ft_isalpha(int c);
@@ -77,19 +74,23 @@ void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 
 typedef struct s_list
 {
-	void			*content;
+	void			*var;
+	void			*value;
+	int				flag;
+	int				count;
+	int				total;
 	struct s_list	*next;
 }					t_list;
 
-t_list				*ft_lstnew(void *content);
+t_list				*ft_lstnew(void *var, void *value, int flag);
 t_list				*ft_lstlast(t_list *lst);
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 
 int					ft_lstsize(t_list *lst);
 
-void				ft_lstadd_front(t_list **lst, t_list *new);
-void				ft_lstadd_back(t_list **lst, t_list *new);
+void				ft_lstadd_front(t_list **lst, t_list *_new);
+void				ft_lstadd_back(t_list **lst, t_list *_new);
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
@@ -102,33 +103,46 @@ int					ft_printf(const char *s, ...);
 
 void				ft_putunbr_fd(unsigned int n, int fd);
 long				ft_atol(const char *str);
-int	ft_atoi_base(char *str, char *base);
+int					ft_atoi_base(char *str, char *base);
+char				*ft_realloc(char *ptr, size_t new_size);
 
 /*-------------------------DOUBLE LIMKED LIST----------------------------*/
 
+typedef enum e_type
+{
+	INPUT = 1,
+	TRUNC,
+	HEREDOC,
+	APPEND,
+	PIPE,
+	CMD,
+	OPTION,
+	ARG
+}					t_type;
+
 typedef struct s_node
 {
-	int value;
-	struct s_node *next;
-	struct s_node *prev;
+	char			*str;
+	t_type			type;
+	struct s_node	*next;
+	struct s_node	*prev;
 }					t_node;
 
 typedef struct s_dll
 {
-	struct s_node *head;
-	struct s_node *tail;
+	struct s_node	*head;
+	struct s_node	*tail;
 }					t_dll;
 
-
-t_node	*dll_new_node(int data);
-int	dll_size(t_dll *dll);
-void	dll_insert_head(int data, t_dll *dll);
-void	dll_insert_tail(int data, t_dll *dll);
-void	dll_delete_head(t_dll *dll);
-void	dll_delete_tail(t_dll *dll);
-void	dll_print_backward(t_dll *dll);
-void	dll_print_forward(t_dll *dll);
-void	dll_clear(t_dll *dll);
+int					dll_size(t_dll *dll);
+void				dll_insert_head(char *data, t_dll *dll);
+void				dll_insert_tail(char *data, t_dll *dll);
+void				dll_delete_head(t_dll *dll);
+void				dll_delete_tail(t_dll *dll);
+void				dll_print_backward(t_dll *dll);
+void				dll_print_forward(t_dll *dll);
+void				dll_clear(t_dll *dll);
+t_node				*dll_new_node(char *input);
 
 /*-----------------------------GET NEXT LINE---------------------------------*/
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dll_insert_head.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:18:21 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 15:46:01 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/02 16:01:22 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/libft.h"
 
-void	dll_insert_head(int data, t_dll *dll)
+void	dll_insert_head(char *data, t_dll *dll)
 {
 	t_node	*new;
 

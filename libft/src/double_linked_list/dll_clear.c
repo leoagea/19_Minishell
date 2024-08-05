@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dll_clear.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:30:55 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 15:46:01 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/07/29 19:04:45 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	dll_clear(t_dll *dll)
 		temp = current;
 		current = current->next;
 		free(temp);
+		temp = NULL;
 	}
 	free(dll);
+	dll = NULL;
 }

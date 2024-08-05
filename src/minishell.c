@@ -3,17 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:09:13 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/24 16:20:42 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/02 14:29:19 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int main(int ac, char **av){
-	
-	printf("Test\n");
-	return 0;
+int	main(int argc, char **argv, char **envp)
+{
+	char	*line;
+	t_data	data;
+	t_cmd	*command;
+
+	g_exit_status = 0;
+	check_arg(argc, argv);
+	data.env = init_env(envp);
+	if (init_shlvl(&data))
+		return (1);
+	while (1)
+	{
+		handle_signal(0);
+		if (input_loop(line, &data, command) == 1)
+			continue ;
+	}
+	return (0);
 }
