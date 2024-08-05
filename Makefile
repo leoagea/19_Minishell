@@ -9,8 +9,8 @@ ifeq ($(ARCH),arm64)
 READLIB = /opt/homebrew/opt/readline/lib
 READINC = /opt/homebrew/opt/readline/include
 else
-READLIB = /Users/$(shell whoami)/homebrew/opt/readline/lib
-READINC = /Users/$(shell whoami)/homebrew/opt/readline/include
+READLIB = /Users/$(shell whoami)/.brew/opt/readline/lib
+READINC = /Users/$(shell whoami)/.brew/opt/readline/include
 endif
 
 LINK = -L$(READLIB) -I$(READINC) -lreadline
@@ -70,7 +70,7 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)/parser
 	@mkdir -p $(OBJS_DIR)/expander
 	@mkdir -p $(OBJS_DIR)/utils
-	@$(CC) -g -fsanitize=address -o $@ -c $<
+	@$(CC) -o $@ -c $<
 
 $(DEBUG_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(DEBUG_DIR)
