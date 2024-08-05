@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 20:02:24 by vdarras           #+#    #+#             */
-/*   Updated: 2024/08/02 17:24:36 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/05 16:11:31 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	wait_child(int child_count, pid_t *child_pids)
 
 void	exec_loop(t_data *data, t_cmd *node, t_exec *exec)
 {
+	int	error_pipe[2];
+
 	absolute_path(data, node);
 	if (node->next)
 	{
@@ -44,12 +46,12 @@ void	exec_loop(t_data *data, t_cmd *node, t_exec *exec)
 		perror("fork");
 		exit (1);
 	}
+	if (pipe(error_pipe) == -1)
+		exit (1);
 	if (exec->pid != 0)
 		handle_signal(1);
 	if (exec->pid == 0)
-	{
 		child_process(data, node, exec);
-	}
 	else
 		parent_process(node, exec);
 }

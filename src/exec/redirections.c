@@ -6,7 +6,7 @@
 /*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 20:02:06 by vdarras           #+#    #+#             */
-/*   Updated: 2024/07/31 20:46:21 by vdarras          ###   ########.fr       */
+/*   Updated: 2024/08/05 13:52:03 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	open_trunc(t_node *node)
 	fd = open(node->str, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
 	{
-		perror("open outfile");
+		ft_printf("bash: %s: ", node->str);
+		perror("");
 		exit (1);
 	}
 	dup2(fd, STDOUT_FILENO);
@@ -60,7 +61,8 @@ void	open_append(t_node *node)
 	fd = open(node->str, O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (fd == -1)
 	{
-		perror("open outfile");
+		ft_printf("bash: %s: ", node->str);
+		perror("");
 		exit (1);
 	}
 	dup2(fd, STDOUT_FILENO);
@@ -74,7 +76,8 @@ void	open_input(t_node *node)
 	fd = open(node->str, O_RDONLY, 0777);
 	if (fd == -1)
 	{
-		perror("open infile");
+		ft_printf("bash: %s: ", node->str);
+		perror("");
 		exit (1);
 	}
 	dup2(fd, STDIN_FILENO);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
+/*   By: vdarras <vdarras@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:21:10 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/02 14:11:03 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/05 13:57:00 by vdarras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	exec_builtin(t_cmd *command, t_data *data)
 void	exec_builtin_no_pipe(t_cmd *command, t_data *data)
 {
 	pid_t	pid;
+	int		wstatus;
 
 	pid = fork();
 	if (pid == -1)
@@ -72,7 +73,9 @@ void	exec_builtin_no_pipe(t_cmd *command, t_data *data)
 		exec_builtin(command, data);
 		exit(0);
 	}
-	wait(NULL);
+	wait(&wstatus);
+	if (WEXITSTATUS(wstatus))
+		g_exit_status = WEXITSTATUS(wstatus);
 }
 
 int	check_simple_builtin(t_cmd *node, t_data *data)
